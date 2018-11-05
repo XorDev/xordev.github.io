@@ -26,62 +26,69 @@ a:hover{
     color:var(--main);
 }
 
-.background-image{
-    position: fixed;
-    z-index:-1000;
-    opacity: .1;
-    min-width:100%;
+.header-buttons{
+    list-style-type: none;
 }
 
-.top-info{
-    display:flex;
-    padding:2rem 16rem;
+.header-buttons li{
+    display:inline;
+    font-size: 1.4rem;
+    padding: .4rem .6rem;
+}
+
+.header-buttons .current{
+    color:var(--main);
+}
+
+#showcase {
+    width: 80%;
+    margin: 0 5%;
+    padding: 2rem 5%;
+    background-color:var(--bg);
+    box-shadow: 0 2px 16px rgba(0,0,0,.3);
+}
+
+#showcase .grid {
+    position:relative;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 14rem);
+    grid-gap: 2rem;
     justify-content: space-between;
 }
 
-.top-info .title{
-    font-size: 2rem;
-    color:var(--main);
-}
-
-.top-info .date{
-    font-size: 2rem;
-    color:var(--txt);
-}
-
-.article{
-    font-size: 1.2rem;
-    padding: 2rem 5rem;
-    margin: 0 16rem;
-    margin-bottom:2rem;
-    background-color:var(--bg);
-    box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
-    border-radius:6px;
+#showcase .grid .item {
     position:relative;
 }
 
-.article .image{
-    align-self: center;
-    position: relative;
+#showcase .grid .item img {
+    width:100%;
+    opacity:1;
+    transition: .22s all;
 }
 
-.article .image img{
-    max-width:100%;
-    /* This is a pretty hacky solution
-    for centering images. Fix later */
-    margin-left:50%;
-    transform:translateX(-50%);
-}
-
-.article h1, .article h2, .article h3, .article .title{
+#showcase .grid .item span {
+    position:absolute;
+    width:75%;
+    top:50%;
+    left:50%;
+    text-align:center;
+    transform:translateX(-50%) translateY(-50%);
+    font-weight:bold;
     color:var(--main);
-    font-weight: lighter;
+    opacity:0;
+    transition: .22s all;
 }
 
-code.hljs{
-    background-color: var(--blue);
-    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
-    border-radius:6px;
-    box-shadow: 0 2px 17px -3px rgba(0,0,0,.1);
-    padding: 12px 18px;
+#showcase .grid .item:hover {
+    cursor:pointer;
+}
+
+#showcase .grid .item:hover img {
+    opacity:.33;
+}
+
+#showcase .grid .item:hover span {
+    opacity:.33;
+    opacity:1;
 }

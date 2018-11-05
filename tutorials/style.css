@@ -1,0 +1,87 @@
+
+body{
+    --bg:#16171c;
+    --blue:#1c1e24;
+    --txt:#8b909b;
+    --link:#abb2bf;
+    --main:#e0ba23;
+
+    background-color:var(--blue);
+    color:var(--txt);
+
+    font: 1rem/1.5 Arial, Helvetica, sans-serif;
+}
+
+html, body{
+    margin:0;
+    padding:0;
+}
+
+a{
+    color:var(--link);
+    text-decoration: none;
+}
+
+a:hover{
+    color:var(--main);
+}
+
+.background-image{
+    position: fixed;
+    z-index:-1000;
+    opacity: .1;
+    min-width:100%;
+}
+
+.top-info{
+    display:flex;
+    padding:2rem 16rem;
+    justify-content: space-between;
+}
+
+.top-info .title{
+    font-size: 2rem;
+    color:var(--main);
+}
+
+.top-info .date{
+    font-size: 2rem;
+    color:var(--txt);
+}
+
+.article{
+    font-size: 1.2rem;
+    padding: 2rem 5rem;
+    margin: 0 16rem;
+    margin-bottom:2rem;
+    background-color:var(--bg);
+    box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
+    border-radius:6px;
+    position:relative;
+}
+
+.article .image{
+    align-self: center;
+    position: relative;
+}
+
+.article .image img{
+    max-width:100%;
+    /* This is a pretty hacky solution
+    for centering images. Fix later */
+    margin-left:50%;
+    transform:translateX(-50%);
+}
+
+.article h1, .article h2, .article h3, .article .title{
+    color:var(--main);
+    font-weight: lighter;
+}
+
+code.hljs{
+    background-color: var(--blue);
+    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
+    border-radius:6px;
+    box-shadow: 0 2px 17px -3px rgba(0,0,0,.1);
+    padding: 12px 18px;
+}
