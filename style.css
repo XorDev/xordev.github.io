@@ -26,14 +26,23 @@ a:hover{
     color:var(--main);
 }
 
+header {
+    display:flex;
+    width:100%;
+    border-bottom: 1px solid var(--bg);
+}
+
 .header-buttons{
     list-style-type: none;
+    margin:0;
+    padding: 2rem 0;
 }
 
 .header-buttons li{
     display:inline;
     font-size: 1.4rem;
-    padding: .4rem .6rem;
+    padding: 2rem 1rem;
+    margin:0;
 }
 
 .header-buttons .current{
@@ -41,54 +50,67 @@ a:hover{
 }
 
 #showcase {
-    width: 80%;
-    margin: 0 5%;
-    padding: 2rem 5%;
-    background-color:var(--bg);
-    box-shadow: 0 2px 16px rgba(0,0,0,.3);
+    width: 70%;
+    margin: 2rem auto;
 }
 
-#showcase .grid {
+#tutorials {
+    width: 80%;
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 2rem 2.4rem;
+    background-color:var(--bg);
+    box-shadow: inset 0 2px 16px rgba(0,0,0,.3);
+    border-radius: 7px;
+}
+
+#tutorials .grid {
     position:relative;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, 14rem);
-    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, 12rem);
+    grid-gap: .6rem;
     justify-content: space-between;
 }
 
-#showcase .grid .item {
+#tutorials .grid .item {
     position:relative;
 }
 
-#showcase .grid .item img {
+#tutorials .grid .item img {
     width:100%;
     opacity:1;
+    box-shadow: 0 2px 16px rgba(0,0,0,.5);
+    transform:scale(1);
     transition: .22s all;
+    background-color:var(--blue);
 }
 
-#showcase .grid .item span {
+#tutorials .grid .item span {
     position:absolute;
-    width:75%;
+    width:80%;
     top:50%;
     left:50%;
     text-align:center;
     transform:translateX(-50%) translateY(-50%);
     font-weight:bold;
     color:var(--main);
+    font-size:1.3rem;
     opacity:0;
     transition: .22s all;
 }
 
-#showcase .grid .item:hover {
+#tutorials .grid .item:hover {
     cursor:pointer;
 }
 
-#showcase .grid .item:hover img {
-    opacity:.33;
+#tutorials .grid .item:hover img {
+    opacity:.28;
+    box-shadow: 0 3px 17px rgba(0,0,0,.7);
+    transform:scale(1.07);
+    filter:blur(2px);
 }
 
-#showcase .grid .item:hover span {
-    opacity:.33;
+#tutorials .grid .item:hover span {
     opacity:1;
 }
