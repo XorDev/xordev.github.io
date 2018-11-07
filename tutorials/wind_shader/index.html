@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wind Shader</title>
+        <link rel="stylesheet" href="../style.css">
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="../../highlightjs/styles/atom-one-dark.css">
+        <script src="../../highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+        <header>
+            <div class="header-buttons">
+                <a href="./../../">
+                    <div class="title">XorShaders</div>
+                    <img src="./../../xor_logo.png" class="logo">
+                </a>
+                <a class="current" href="./../../#tutorials"><div>Tutorials</div></a>
+                <a class="" href="./../../about"><div>About</div></a>
+                <a class="" href="./../../contact"><div>Contact</div></a>
+            </div>
+        </header>
+        <div class="pagecontent">
+            <div class="top-info">
+                <a href="./#title"><div id="title">Wind Shader</div></a>
+                <div class="date">04 Sep 2018</div>
+            </div>
+            <div class="article"><div class="wrapper">
+                <h2> Ripple effect </h2>
+                <p>
+                    To make our wind, we need a simple ripple effect. We will create a vec2 and call it "Coord". This will be used for the wind distortion. We will set it to "v_vTexcoord". Now you need to change the texture2D coordinates to our Coord vector. It should look like this:
+                </p>
+<pre><code>vec2 Coord = v_vTexcoord;
+gl_FragColor = v_vColour * texture2D(gm_BaseTexture, Coord);</code></pre>
+                <p>
+                    This​ is a pass-through shader. If you run the shader applied to a sprite, it shouldn't change anything. To make a ripple we will use a cosine wave. We could do it like this:
+    ​            </p>
+                <pre><code>vec2 Coord = v_vTexcoord + vec2(cos(v_vTexcoord.y * 30.0) / 30.0, 0);</code></pre>
+                <p>
+                    If you run this you will see this (before and after):
+                </p>
+                <div class="image"><img src="./before_and_after.png"></img></div>
+                <p>
+                    This is closer to what we want, but we need it to be animated. This works by shifting the X coordinates in a cosine wave shape. This makes a nice ripple. You can adjust the frequency by changing the first 30.0 and adjust the amplitude by changing the second 30.0. We'll come back to this at the end of the tutorial
+                </p>
+                <h2> Animating </h2>
+                <p>
+                    We need to add a uniform float and we'll call it "Time" and we'll add it in the cosine like this:
+                </p>
+                <pre><code>vec2 Coord = v_vTexcoord + vec2(cos(v_vTexcoord.y * 30.0 + Time * 6.2831) / 30.0, 0);</code></pre>
+                <p>
+                    t is multiplied by 6.2831 (pi times two) because cosine uses angles in <a href="https://en.wikipedia.org/wiki/Radian" target="_blank">radians</a> so that it does a full cycle every second.
+                    <br> We'll set the time uniform in GameMaker like this in the draw event:
+                </p>
+<pre><code>var uTime = shader_get_uniform(shdr_wind, "Time");
+
+shader_set(shdr_wind);
+shader_set_uniform_f(uTime, current_time / 1000);
+draw_self();
+shader_reset();</code></pre>
+                <p>
+                    This will set "Time" to the number of seconds since the game started.
+                    If you run this it will be animated. You may notice a problem where the base of the grass moves​
+                    just as much as the top.
+                </p>
+                <h2>Fixing and perfecting</h2>
+                <p>
+                    So to fix the problem I just mentioned we will multiply cosine by the" (1.0-v_vTexcoord.y)". This will make the distortion decrease as it approaches the bottom of the sprite. Here is what I did:
+                </p>
+                <pre><code>vec2 Coord = v_vTexcoord + vec2(cos(v_vTexcoord.y * 30.0 + Time * 6.2831) / 30.0, 0) * (1.0 - v_vTexcoord.y);</pre></code>
+                <p>
+                    It looks much better now. This shader is currently proportion to the sprite size. If it's long it will stretch the waves, but if it's short it will shrink the waves. That is because the waves are based off of the v_vTexcoord which is between 0 and 1. To fix this we can use the position attribute from the vertex shader because it uses the vertex coordinates rather than the texture coordinates.
+                    <br> We need to add a varying vec2 called "v_vPosition" in the vertex and fragment shaders by the other varying vectors. Set it in the vertex shader like this:
+                </p>
+                <pre><code>v_vPosition = in_Position.xy;</pre></code>
+                <p>
+                    And back to the fragment shader use this for the coordinates:
+                </p>
+<pre><code>vec2 Size = vec2(256, 128);
+vec2 Wave = vec2(48, 5);
+
+vec2 Coord = v_vTexcoord + vec2(cos((v_vPosition.y / Wave.x + Time) * 6.2831) * Wave.y, 0) / Size * (1.0 - v_vTexcoord.y)​;</pre></code>
+                <p>
+                    "Size" should be the size of the texture. Use a uniform if necessary. "Wave" is for adjusting the wave shape. The first number is the height of the wave and the second number is the amplitude.
+                    This works by making a cosine wave of the chosen size with time added (multiplied by 6.2831 because of radians) and then multiplied by the amplitude; then divided by "Size" to get it between 0 and 1 and finally multiplied by the code I mentioned above to fix the bottom.
+                </p>
+                <p>
+                    Thanks for reading. <br>
+                    <a target="_blank" href="https://www.dropbox.com/s/67z7xfp98cvf4ck/Tutorial_8_Wind.gmz?dl=1">DOWNLOAD EXAMPLE</a>
+                </p><p>
+                    Basic tutorials used:<br>
+                    <a target="_blank" href="http://xorshaders.weebly.com/tutorials/vertex-shader-4">#4 Vertex Shader<br>
+                    <a target="_blank" href="http://xorshaders.weebly.com/tutorials/black-and-white-shader">#2 Black and White Shader<br>
+                    <a target="_blank" href="http://xorshaders.weebly.com/tutorials/shader-basics1">#1 Shader Basics​​​​
+                </p>
+            </div></div>
+        </div>
+    </body>
+</html>

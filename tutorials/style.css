@@ -3,13 +3,14 @@ body{
     --bg:#16171c;
     --blue:#1c1e24;
     --txt:#8b909b;
-    --link:#abb2bf;
+    --link:#cbd0db;
     --main:#e0ba23;
 
     background-color:var(--blue);
     color:var(--txt);
 
     font: 1rem/1.5 Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
 }
 
 html, body{
@@ -23,6 +24,43 @@ a{
 }
 
 a:hover{
+    color:#ffffff;
+}
+
+header {
+    display:flex;
+    padding:0 8%;
+    width:100%;
+    border-bottom: 1px solid var(--bg);
+}
+
+header div.title{
+    font-size:1.4rem;
+    padding-right:4rem;
+}
+
+header .logo{
+    width: 4rem;
+    height:4rem;
+    position:absolute;
+    top:.5rem;
+    transform:translateX(-100%);
+}
+
+.header-buttons{
+    list-style-type: none;
+    margin:0;
+    padding: 1.4rem 0;
+}
+
+.header-buttons div{
+    display:inline;
+    font-size: 1.4rem;
+    padding: 2rem 1rem;
+    margin:0;
+}
+
+.header-buttons .current{
     color:var(--main);
 }
 
@@ -35,11 +73,14 @@ a:hover{
 
 .top-info{
     display:flex;
-    padding:2rem 16rem;
+    padding:2rem 0;
+    width:75%;
+    margin: 0 auto;
+    max-width: 50rem;
     justify-content: space-between;
 }
 
-.top-info .title{
+.top-info #title{
     font-size: 2rem;
     color:var(--main);
 }
@@ -51,13 +92,20 @@ a:hover{
 
 .article{
     font-size: 1.2rem;
-    padding: 2rem 5rem;
-    margin: 0 16rem;
-    margin-bottom:2rem;
+    width: 53rem;
+    margin: 0 auto;
+    max-width:100%;
+    padding:1rem 0;
     background-color:var(--bg);
     box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
     border-radius:6px;
     position:relative;
+}
+
+.article .wrapper{
+    width:calc(100% - 4rem);
+    height:100%;
+    margin:auto;
 }
 
 .article .image{

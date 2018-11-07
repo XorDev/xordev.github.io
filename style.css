@@ -3,7 +3,7 @@ body{
     --bg:#16171c;
     --blue:#1c1e24;
     --txt:#8b909b;
-    --link:#abb2bf;
+    --link:#cbd0db;
     --main:#e0ba23;
 
     background-color:var(--blue);
@@ -20,25 +20,40 @@ html, body{
 a{
     color:var(--link);
     text-decoration: none;
+    transition:.14s all;
 }
 
 a:hover{
-    color:var(--main);
+    color:#ffffff;
 }
 
 header {
     display:flex;
-    width:100%;
+    padding:0 8%;
+    width:84%;
     border-bottom: 1px solid var(--bg);
+}
+
+header div.title{
+    font-size:1.4rem;
+    padding-right:4rem;
+}
+
+header .logo{
+    width: 4rem;
+    height:4rem;
+    position:absolute;
+    top:.5rem;
+    transform:translateX(-100%);
 }
 
 .header-buttons{
     list-style-type: none;
     margin:0;
-    padding: 2rem 0;
+    padding: 1.4rem 0;
 }
 
-.header-buttons li{
+.header-buttons div{
     display:inline;
     font-size: 1.4rem;
     padding: 2rem 1rem;
@@ -50,8 +65,33 @@ header {
 }
 
 #showcase {
-    width: 70%;
     margin: 2rem auto;
+    display:flex;
+    justify-content: space-around;
+}
+
+#showcase .colon{
+    font-size:1.6rem;
+    width:33%;
+    text-align:right;
+    padding-right:1rem;
+}
+
+#showcase .content{
+    max-width:60%;
+    display:flex;
+    padding: 0 1rem;
+    border-left:  1px solid var(--bg);
+    border-right: 1px solid var(--bg);
+}
+
+#showcase .content .title{
+    font-size:1.6rem;
+}
+
+#showcase .date{
+    padding: .5rem 1rem;
+    width:33%;
 }
 
 #tutorials {
@@ -60,7 +100,7 @@ header {
     margin: 0 auto;
     padding: 2rem 2.4rem;
     background-color:var(--bg);
-    box-shadow: inset 0 2px 16px rgba(0,0,0,.3);
+    box-shadow: 0 2px 13px rgba(0,0,0,.2);
     border-radius: 7px;
 }
 
