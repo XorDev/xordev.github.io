@@ -1,11 +1,27 @@
 
 if (document.cookie.match('theme-white=true')) {
     const link = document.createElement('link');
-        link.setAttribute('href', `./white.css`);
+        link.setAttribute('href', root + `white.css`);
         link.setAttribute('rel', `stylesheet`);
         link.setAttribute('class', `theme`);
     document.head.append(link);
 }
+
+window.addEventListener('focus', () => {
+    const loadedTheme = document.querySelector('link.theme');
+    let checked = !!document.cookie.match('theme-white=true');
+
+    if (checked && !loadedTheme) {
+        const link = document.createElement('link');
+            link.setAttribute('href', `${root}white.css`);
+            link.setAttribute('rel', `stylesheet`);
+            link.setAttribute('class', `theme`);
+        document.head.append(link);
+
+    } else if (!checked && loadedTheme) {
+        loadedTheme.parentElement.removeChild(loadedTheme);
+    }
+});
 
 function initialize() {
     const tab = document.getElementById('tutorials-tab');
@@ -36,8 +52,7 @@ function initialize() {
                         </label>
                     </div>
                     <div class="option message"></div>`;
-                console.log(rect.right);
-                menu.style=`top:calc(${rect.bottom}px - 2.3rem);right:calc(${window.innerWidth - rect.right}px - 1rem)`;
+                menu.style=`top:calc(${rect.bottom}px - 2.3rem);right:calc(${window.innerWidth - rect.right}px - 2rem)`;
 
             options.append(menu);
 
@@ -82,7 +97,7 @@ function changeTheme(elm, theme) {
 
     if (checked && !loadedTheme) {
         const link = document.createElement('link');
-            link.setAttribute('href', `./${theme}.css`);
+            link.setAttribute('href', `${root + theme}.css`);
             link.setAttribute('rel', `stylesheet`);
             link.setAttribute('class', `theme`);
         document.head.append(link);
