@@ -6,17 +6,23 @@
         <link rel="stylesheet" href="./style.css">
         <script src="./load_meta.js"></script>
         <script src="./index.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     </head>
     <body>
         <header>
             <div class="header-buttons">
-                <a class="current" href="./">
-                    <div class="title">XorShaders</div>
-                    <img src="./xor_logo.png" class="logo">
-                </a>
-                <a href="./#tutorials" id="tutorials-tab"><div>Tutorials</div></a>
-                <a href="./about"><div>About</div></a>
-                <a href="./contact"><div>Contact</div></a>
+                <div class="left">
+                    <a class="current" href="./">
+                        <div class="title elm">XorShaders</div>
+                        <img src="./xor_logo.png" class="logo">
+                    </a>
+                    <a href="./#tutorials" id="tutorials-tab"><div class="elm">Tutorials</div></a>
+                    <a href="./about"><div class="elm">About</div></a>
+                    <a href="./contact"><div class="elm">Contact</div></a>
+                </div>
+                <div class="right">
+                    <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
+                </div>
             </div>
         </header>
         <div id="showcase" class="latest">
