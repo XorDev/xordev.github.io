@@ -4,7 +4,6 @@ function getTutorial(tutorials, index) {
     for (let elm in tut) {
         if (typeof tut[elm] === 'string') {
             tut[elm] = tut[elm].replace(/\*(\w.*?)\*/g, '<i>$1</i>');
-            console.log(tut[elm]);
         } else if (elm === "date") {
             let date = new Date(tut[elm] * 1000);
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -21,7 +20,6 @@ req.onreadystatechange = res => {
         if (document.readyState === 'complete') appendContent(tuts);
         else document.onreadystatechange = () => {
             if (document.readyState === 'complete') appendContent(tuts);
-            console.log("did the else");
         };
     }
 }

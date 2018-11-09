@@ -5,17 +5,18 @@
         <title>Xor Shader Tutorials</title>
         <link rel="stylesheet" href="./style.css">
         <script src="./load_meta.js"></script>
+        <script src="./index.js"></script>
     </head>
     <body>
         <header>
             <div class="header-buttons">
-                <a href="./../../">
+                <a class="current" href="./">
                     <div class="title">XorShaders</div>
-                    <img src="../../xor_logo.png" class="logo">
+                    <img src="./xor_logo.png" class="logo">
                 </a>
-                <a class="current" href="./../../#tutorials"><div>Tutorials</div></a>
-                <a class="" href="./../../about"><div>About</div></a>
-                <a class="" href="./../../contact"><div>Contact</div></a>
+                <a href="./#tutorials" id="tutorials-tab"><div>Tutorials</div></a>
+                <a href="./about"><div>About</div></a>
+                <a href="./contact"><div>Contact</div></a>
             </div>
         </header>
         <div id="showcase" class="latest">
@@ -27,5 +28,6 @@
             <div class="inspector">
             </div>
         </div>
+        <script>initialize();</script>
     </body>
 </html>
