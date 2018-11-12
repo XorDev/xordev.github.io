@@ -1,4 +1,6 @@
 
+/* update, please */
+
 body{
     --bg:#16171c;
     --blue:#1c1e24;
@@ -19,6 +21,8 @@ html, body{
     margin:0;
     padding:0;
 }
+
+/* github notice this addition */
 
 .background-image{
     position: fixed;
