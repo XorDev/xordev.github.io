@@ -10,6 +10,10 @@ body{
     min-width:100%;
 }
 
+.hidden{
+    display:none;
+}
+
 .top-info{
     display:flex;
     padding:2rem 0;
@@ -31,10 +35,10 @@ body{
 
 .article{
     font-size: 1.2rem;
-    width: 53rem;
-    margin: 0 auto;
+    width: 54rem;
     max-width:100%;
-    padding:1rem 0;
+    padding:1rem;
+    margin: 0 auto;
     background-color:var(--bg);
     box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
     border-radius:6px;

@@ -24,14 +24,7 @@ window.addEventListener('focus', () => {
 });
 
 function initialize() {
-    const tab = document.getElementById('tutorials-tab');
     const options = document.getElementById('options');
-
-    tab.addEventListener('click', () => {
-        document.getElementsByClassName('current')[0]
-            .classList.remove('current');
-        tab.classList.add('current');
-    });
 
     options.addEventListener('click', () => {
         const existingMenu = document.getElementById('options-menu');
@@ -39,20 +32,37 @@ function initialize() {
         if (!existingMenu) {
             const rect = options.getBoundingClientRect();
             const loadedTheme = document.querySelector('link.theme');
+            let menuHTML = `
+                <div class="title">Options</div>
+                <div class="option" onclick="changeTheme(this, 'white')">
+                    White theme
+                    <label class="switch">
+                        <input type="checkbox"${loadedTheme ? 'checked' : ''}>
+                        <span class="slider"></span>
+                    </label>
+                </div>`;
+
+            let bgimg = document.getElementsByClassName('background-image');
+            if (bgimg && bgimg.length) {
+                let toggled = bgimg[0].classList.contains('hidden');
+                menuHTML += `
+                    <div class="option" onclick="toggelBG(this)">
+                        Background image
+                        <label class="switch">
+                            <input type="checkbox"${toggled ? '' : 'checked'}>
+                            <span class="slider"></span>
+                        </label>
+                    </div>`;
+            }
+
+            menuHTML += '<div class="option message"></div>';
+
             const menu = document.createElement('div');
                 menu.classList.add('floating-menu');
                 menu.setAttribute('id', 'options-menu');
-                menu.innerHTML = `
-                    <div class="title">Options</div>
-                    <div class="option" onclick="changeTheme(this, 'white')">
-                        White theme
-                        <label class="switch">
-                            <input type="checkbox"${loadedTheme ? 'checked' : ''}>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="option message"></div>`;
+                menu.innerHTML = menuHTML;
                 menu.style=`top:calc(${rect.bottom}px - 2.3rem);right:calc(${window.innerWidth - rect.right}px - 2rem)`;
+
 
             options.append(menu);
 
@@ -76,6 +86,12 @@ function initialize() {
             }, 60)
         }
     });
+}
+
+function toggelBG(elm) {
+    const toggle = elm.querySelector('input');
+    let bgimg = document.getElementsByClassName('background-image');
+    toggle.checked ? bgimg[0].classList.remove('hidden') : bgimg[0].classList.add('hidden');
 }
 
 function changeTheme(elm, theme) {
