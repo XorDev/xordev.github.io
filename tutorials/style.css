@@ -3,17 +3,6 @@ body{
     overflow-x:hidden;
 }
 
-.background-image{
-    position: fixed;
-    z-index:-1000;
-    opacity: .1;
-    min-width:100%;
-}
-
-.hidden{
-    display:none;
-}
-
 .top-info{
     display:flex;
     padding:2rem 0;

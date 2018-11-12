@@ -20,6 +20,17 @@ html, body{
     padding:0;
 }
 
+.background-image{
+    position: fixed;
+    z-index:-1000;
+    opacity: .1;
+    min-width:100%;
+}
+
+.hidden{
+    display:none;
+}
+
 a, .link{
     color:var(--link);
     text-decoration: none;

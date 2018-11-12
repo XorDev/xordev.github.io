@@ -47,7 +47,7 @@ function initialize() {
                 let toggled = bgimg[0].classList.contains('hidden');
                 menuHTML += `
                     <div class="option" onclick="toggelBG(this)">
-                        Background image
+                        Background
                         <label class="switch">
                             <input type="checkbox"${toggled ? '' : 'checked'}>
                             <span class="slider"></span>
