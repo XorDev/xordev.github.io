@@ -13,7 +13,7 @@ window.addEventListener('focus', () => {
 
     if (checked && !loadedTheme) {
         const link = document.createElement('link');
-            link.setAttribute('href', `${root}white.css`);
+            link.setAttribute('href', `${root}shared/css/white.css`);
             link.setAttribute('rel', `stylesheet`);
             link.setAttribute('class', `theme`);
         document.head.append(link);
@@ -92,6 +92,8 @@ function toggelBG(elm) {
     const toggle = elm.querySelector('input');
     let bgimg = document.getElementsByClassName('background-image');
     toggle.checked ? bgimg[0].classList.remove('hidden') : bgimg[0].classList.add('hidden');
+
+    setCookie('show-background', toggle.checked);
 }
 
 function changeTheme(elm, theme) {
@@ -99,17 +101,7 @@ function changeTheme(elm, theme) {
     const checked = toggle.checked;
     const loadedTheme = document.querySelector('link.theme');
 
-    let date = new Date();
-        date.setFullYear(date.getFullYear() + 1);
-
-    if (!document.cookie.match('accepted-cookies')) {
-        const output = document.querySelector('#options-menu .message');
-            output.innerText = 'This feature requires cookies to work. If you do not agree to our use of cookies, you can turn them off in your browser settings';
-
-        document.cookie = `accepted-cookies=true; expires=${date}; path=/`;
-    }
-
-    document.cookie = `theme-white=${checked}; expires=${date}; path=/`;
+    setCookie('theme-white', checked);
 
     if (checked && !loadedTheme) {
         const link = document.createElement('link');
@@ -121,4 +113,18 @@ function changeTheme(elm, theme) {
     } else if (!checked && loadedTheme) {
         loadedTheme.parentElement.removeChild(loadedTheme);
     }
+}
+
+function setCookie(name, checked) {
+    let date = new Date();
+        date.setFullYear(date.getFullYear() + 1);
+
+    if (!document.cookie.match('accepted-cookies')) {
+        const output = document.querySelector('#options-menu .message');
+            output.innerText = 'This feature requires cookies to work. If you do not want this site to store cookies on your machine, you can turn them off in your browser settings';
+
+        document.cookie = `accepted-cookies=true; expires=${date}; path=/`;
+    }
+
+    document.cookie = `${name}=${checked}; expires=${date}; path=/`;
 }
