@@ -1,7 +1,7 @@
 
 if (document.cookie.match('theme-white=true')) {
     const link = document.createElement('link');
-        link.setAttribute('href', root + `white.css`);
+        link.setAttribute('href', root + `shared/css/white.css`);
         link.setAttribute('rel', `stylesheet`);
         link.setAttribute('class', `theme`);
     document.head.append(link);
@@ -13,7 +13,7 @@ window.addEventListener('focus', () => {
 
     if (checked && !loadedTheme) {
         const link = document.createElement('link');
-            link.setAttribute('href', `${root}shared/css/white.css`);
+            link.setAttribute('href', root + `shared/css/white.css`);
             link.setAttribute('rel', `stylesheet`);
             link.setAttribute('class', `theme`);
         document.head.append(link);
@@ -105,7 +105,7 @@ function changeTheme(elm, theme) {
 
     if (checked && !loadedTheme) {
         const link = document.createElement('link');
-            link.setAttribute('href', `${root + theme}.css`);
+            link.setAttribute('href', `${root}shared/css/${theme}.css`);
             link.setAttribute('rel', `stylesheet`);
             link.setAttribute('class', `theme`);
         document.head.append(link);
