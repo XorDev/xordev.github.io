@@ -2,6 +2,7 @@
 body{
     --bg:#16171c;
     --blue:#1c1e24;
+    --scroll:#3b282f;
     --txt:#8b909b;
     --link:#cbd0db;
     --white:#ffffff;
@@ -18,6 +19,22 @@ body{
 html, body{
     margin:0;
     padding:0;
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 9px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scroll);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    /* background: linear-gradient(to bottom, var(--gray) 0%, var(--bg) 60%, var(--gray) 100%); */
+    background: transparent;
 }
 
 .background-image{
@@ -135,7 +152,8 @@ a:hover, .link:hover{
 header {
     padding:0 8%;
     width:84%;
-    border-bottom: 1px solid var(--bg);
+    background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0));
+    box-shadow: inset 0 -2px 9px 3px var(--bg);
 }
 
 header .elm.title{
@@ -282,4 +300,73 @@ header .logo{
 
 #tutorials .grid .item:hover span {
     opacity:1;
+}
+
+#about{
+    width: 85%;
+    margin: 0 auto;
+    text-align:center;
+    font-size: 1.2rem;
+}
+
+#about .center {
+    width:40%;
+    max-width:26rem;
+    margin: 0 auto;
+    margin-top: 6rem;
+}
+
+#about .split{
+    display:flex;
+    justify-content: space-around;
+    margin-top:4rem;
+    padding-top:4rem;
+    border-top: 1px solid var(--main);
+}
+
+#about .split>div{
+    width:40%;
+    max-width:26rem;
+}
+
+#about .hlt{
+    filter:brightness(1.3);
+}
+
+
+
+#contact .title{
+    text-align:center;
+    margin-top:2rem;
+}
+
+#contact .question{
+    text-align:center;
+    margin-top:6rem;
+}
+
+#contact .button-container{
+    font-size:4rem;
+    width: 70%;
+    margin: 0 auto;
+    margin-top:2rem;
+    text-align:center;
+}
+
+#contact .button-container>a{
+    margin: 0 .5rem;
+    color:var(--main);
+}
+
+#contact .button-container>a i{
+    transition: .2s all;
+    padding:8px;
+}
+
+#contact .button-container>a:hover i{
+    transform:scale(1.4);
+}
+
+#contact .fa-discord{
+    transform:translateY(3px);
 }

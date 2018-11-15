@@ -1,10 +1,6 @@
 
 if (document.cookie.match('theme-white=true')) {
-    const link = document.createElement('link');
-        link.setAttribute('href', root + `shared/css/white.css`);
-        link.setAttribute('rel', `stylesheet`);
-        link.setAttribute('class', `theme`);
-    document.head.append(link);
+    loadTheme('white');
 }
 
 window.addEventListener('focus', () => {
@@ -12,11 +8,7 @@ window.addEventListener('focus', () => {
     let checked = !!document.cookie.match('theme-white=true');
 
     if (checked && !loadedTheme) {
-        const link = document.createElement('link');
-            link.setAttribute('href', root + `shared/css/white.css`);
-            link.setAttribute('rel', `stylesheet`);
-            link.setAttribute('class', `theme`);
-        document.head.append(link);
+        loadTheme('white');
 
     } else if (!checked && loadedTheme) {
         loadedTheme.parentElement.removeChild(loadedTheme);
@@ -24,6 +16,11 @@ window.addEventListener('focus', () => {
 });
 
 function initialize() {
+    if (document.cookie.match('show-background=true')) {
+        let bgimg = document.getElementsByClassName('background-image');
+        bgimg[0].classList.remove('hidden');
+    }
+
     const options = document.getElementById('options');
 
     options.addEventListener('click', () => {
@@ -104,15 +101,19 @@ function changeTheme(elm, theme) {
     setCookie('theme-white', checked);
 
     if (checked && !loadedTheme) {
-        const link = document.createElement('link');
-            link.setAttribute('href', `${root}shared/css/${theme}.css`);
-            link.setAttribute('rel', `stylesheet`);
-            link.setAttribute('class', `theme`);
-        document.head.append(link);
+        loadTheme('white');
 
     } else if (!checked && loadedTheme) {
         loadedTheme.parentElement.removeChild(loadedTheme);
     }
+}
+
+function loadTheme(theme) {
+    const link = document.createElement('link');
+        link.setAttribute('href', root + `shared/css/${theme}.css`);
+        link.setAttribute('rel', `stylesheet`);
+        link.setAttribute('class', `theme`);
+    document.head.append(link);
 }
 
 function setCookie(name, checked) {
