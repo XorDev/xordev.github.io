@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>GMshaders Contact</title>
+        <title>GMshaders Gloassary</title>
         <meta name="description" content="GMshaders offers a set of comprehensive shader tutorials for gamemaker">
         <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
         <meta name="copyright" content="Copyright 2018 GMshaders">
@@ -25,9 +25,10 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <script>const root="../";</script>
         <script src="../shared/js/options.js"></script>
+        <script src="../shared/js/glossary.js"></script>
     </head>
     <body>
-        <img class="background-image hidden" src="../shared/images/background.jpg">
+        <div class="background-image hidden repeat"></div>
         <header>
             <div class="header-buttons">
                 <div class="left">
@@ -36,25 +37,16 @@
                         <!-- img src="../shared/images/xor_logo.png" class="logo" -->
                     </a>
                     <a href="../about"><div class="elm">About</div></a>
-                    <a href="../contact"><div class="elm current">Contact</div></a>
-                    <a href="../glossary"><div class="elm">Glossary</div></a>
+                    <a href="../contact"><div class="elm">Contact</div></a>
+                    <a href="../glossary"><div class="elm current">Glossary</div></a>
                 </div>
                 <div class="right">
                     <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
                 </div>
             </div>
         </header>
-        <div id="contact">
-            <div class="question">Have ideas for a new tutorial? <br> Want to suggest changes or point out errors?</div>
-            <h1 class="title">Get in touch via social media!</h1>
-            <div class="button-container">
-                <a href="https://twitter.com/XorDev" class="a" target="_blank"><i class="fab fa-twitter-square"></i></a>
-                <a href="https://www.facebook.com/XorDev-2086826291367446" class="b" target="_blank"><i class="fab fa-facebook-square"></i></a>
-                <a href="https://discordapp.com/invite/RAC79Ud" github.com/Xor5  class="c" target="_blank"><i class="fab fa-discord"></i></a>
-                <a href="https://github.com/Xor5" class="d" target="_blank"><i class="fab fa-github-square"></i></a>
-            </div>
-            <div class="question"><a href="mailto:xorshaders@gmail.com" target="_blank">Or send me an email&nbsp;&nbsp;<i class="far fa-envelope"></i></a></div>
+        <div>
         </div>
-        <script>initialize(root);</script>
+        <script>initialize();</script>
     </body>
 </html>

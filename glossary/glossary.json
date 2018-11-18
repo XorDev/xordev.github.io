@@ -1,0 +1,33 @@
+{
+    "functions": [{
+        "key": "vec4",
+        "syntax": "vec4(r, g, b, a)",
+        "returns": "vec4 object",
+        "arguemnts_min": 1,
+        "arguments": [{
+            "key": "r",
+            "description": "The red component of a color vector"
+        },{
+            "key": "g",
+            "description": "The green component of a color vector"
+        },{
+            "key": "b",
+            "description": "The blue component of a color vector"
+        },{
+            "key": "a",
+            "description": "The alpha (opacity) component of a color vector"
+        }],
+        "description": "`vec4()` will create a vec4 object containing four values. Its values can be accessed with `.r`, `.a`, `.rgba`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec4 object will be applied to each component of the vec4 object. `vec4(1. - vec4(.4, .2, .2, .3))` will create a vec4 object with .6 red, .8 green, .8 blue and .7 alpha. `vec4()` does not demand all arguments be satisfied. `vec4(.8)` will create a vec4 object and fill each channel with .8. It is equivalent to doing `vec4(.8, .8, .8, .8)`"
+    }],
+    "accessors": [{
+        "key": "r",
+        "syntax": "vector.r",
+        "returns": "Red component of vector",
+        "description": "Writing descriptions isn't my job. I already probably fucked up a lot in the vec4() description, and I bet this isn't even called an accessor."
+    }],
+    "variables": [{
+        "key": "v_vTexcoord",
+        "value": "Contains the current texel coordinates being drawn at.",
+        "description": "This is commonly used to get the correct pixel color value with `texture2D(gm_BaseTexture, v_vTexcoord)`, but can also be used to determine adjacent texels, and other smart stuff"
+    }]
+}
