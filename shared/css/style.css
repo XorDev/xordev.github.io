@@ -54,8 +54,6 @@ html, body{
     background-repeat: repeat;
 }
 
-/* background-image:url(./grid.png) */
-
 .hidden{
     display:none;
 }

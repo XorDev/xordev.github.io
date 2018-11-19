@@ -1,0 +1,37 @@
+
+#docs {
+    max-width: 80%;
+    margin: 2rem auto;
+}
+
+#docs .key {
+    font-size: 1.5rem;
+}
+
+#docs .inline-hljs pre,
+#docs .inline-hljs code {
+    display:inline;
+    width: auto;
+
+    padding: 0;
+    border-radius: 3px;
+    margin:0;
+    background-color:#262831;
+    box-shadow: 0 0px 4px var(--bg);
+}
+
+#docs .inline-hljs code{
+    padding: 2px 5px;
+}
+
+#docs .doc{
+    margin-bottom:2rem;
+    background-color:var(--bg);
+    border-radius: .6rem;
+    padding: 1.4rem 2rem;
+    box-shadow: 0 2px 14px 1px var(--bg);
+}
+
+#docs .doc>div:not(:last-child){
+    margin-bottom:1rem;
+}
