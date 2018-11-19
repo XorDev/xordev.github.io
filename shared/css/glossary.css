@@ -1,6 +1,7 @@
 
 body{
     --bbg: #1b1f24;
+    --dbtxt: #424452;
 }
 
 #docs {
@@ -54,11 +55,33 @@ body{
     display:block;
 }
 
+#docs .type-title{
+    font-size: 2.2rem;
+    padding:2rem 0;
+    text-align:center;
+    position: relative;
+}
+
+#docs .type-title span{
+    background-color:var(--blue);
+    padding: 0 1rem;
+    box-shadow: 0 0 2px 2px var(--blue);
+}
+
+#docs .type-title::before{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    top:50%;
+    border-top: 4px solid var(--dbtxt);
+    z-index: -50;
+}
 
 #docs .doc .examples ul li{
     padding-left:1rem;
 }
-
 
 #docs .doc .examples ul,
 #docs .doc .arguments ul{
@@ -81,7 +104,7 @@ body{
     padding-right:1rem;
 }
 
-#docs .doc .arguments ul li:nth-child(even){
+#docs .doc .arguments ul li:nth-child(odd){
     background-color:var(--bbg);
 }
 

@@ -5,7 +5,7 @@ req.onreadystatechange = res => {
         let glossary = JSON.parse(res.target.responseText.replace(
             /(\W)`([^`]+)`(\W)/g,
             '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
-        ));
+        ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
         if (document.readyState === 'complete') appendContent(glossary);
         else document.onreadystatechange = () => {
             if (document.readyState === 'complete') appendContent(glossary);
@@ -19,26 +19,45 @@ req.send();
 const html = (a, ...keys) => a.reduce((acc, val) => acc + keys.shift() + val);
 
 function appendContent(glossary) {
-    console.log(glossary);
-
     const docs = document.getElementById('docs');
 
     const functions = glossary.functions;
     const variables = glossary.variables;
     const accessors = glossary.accessors;
 
+    const temp = document.createElement('template');
     for (const type in glossary) {
+        temp.innerHTML += html`<div id="${type}" class="type-title"><span>${type}</span></div>`;
         for (const elm of glossary[type]) {
-
             let properties = glsParse(elm);
 
-            const temp = document.createElement('template');
-            temp.innerHTML = html`
+            temp.innerHTML += html`
                 <div class="${type} doc" id="${elm.key}">
                     ${properties}
                 </div>
             `.trim();
-            docs.append(temp.content.firstChild);
+        }
+    }
+    docs.append(temp.content);
+
+    // Apply code specs
+    const hljsElms = document.querySelectorAll('pre>code');
+    for (let elm of hljsElms) {
+        let meta = elm.innerText.match(/^{\w+:.+?}/);
+        if (meta) {
+            elm.innerText = elm.innerText.slice(meta[0].length);
+            let keys = meta[0].match(/\w+:/g);
+            let vals = meta[0].match(/:[^,}]+/g);
+            let spec = {};
+
+            for (let i = 0; i < keys.length; i++) {
+                spec[keys[i].slice(0, -1)] = vals[i].slice(1);
+            }
+
+            if (spec.hasOwnProperty('lang')) {
+                console.log(spec.lang);
+                elm.classList.add(spec.lang);
+            }
         }
     }
 
@@ -98,7 +117,6 @@ function glsParse(elm, used = []) {
             case 'object':
                 if (Array.isArray(elm[prop])) {
                     if (!elm[prop].length) break;
-                    console.log(`array prop: ${prop}, val: ${elm[prop].length}`)
                     properties += html`
                         <div class="${prop} ${addClass}">
                             <div class="title">${addTitle}</div>
@@ -108,7 +126,6 @@ function glsParse(elm, used = []) {
                         </div>
                     `.trim();
                 } else {
-                    console.log(`object: ${prop}`);
                     properties += glsParse(elm[prop]);
                 }
                 break;

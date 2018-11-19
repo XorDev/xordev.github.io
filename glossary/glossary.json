@@ -20,14 +20,39 @@
         "returns": "vec4 object",
         "desc": "`vec4()` will create a vec4 object containing four values. Its values can be accessed with `.r`, `.a`, `.rgba`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec4 object will be applied to each component of the vec4 object. `vec4(1. - vec4(.4, .2, .2, .3))` will create a vec4 object with .6 red, .8 green, .8 blue and .7 alpha. `vec4()` does not demand all arguments be satisfied. `vec4(.8)` will create a vec4 object and fill each channel with .8. It is equivalent to doing `vec4(.8, .8, .8, .8)`",
         "examples":[]
+    },{
+        "key": "vec3",
+        "def": "vec3(r, [g, b])",
+        "syntax": "vec4(r, [g, b])",
+        "arguemnts_min": 1,
+        "arguments": [{
+            "key": "r",
+            "desc": "The red component of a color vector"
+        },{
+            "key": "g",
+            "desc": "The green component of a color vector"
+        },{
+            "key": "b",
+            "desc": "The blue component of a color vector"
+        }],
+        "returns": "vec3 object",
+        "desc": "`vec3()` will create a vec3 object containing three values. Its values can be accessed with `.r`, `.b`, `.rgb`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec3 object will be applied to each component of the vec3 object. `vec3(1. - vec3(.4, .2, .3))` will create a vec3 object with .6 red, .8 green and .7 blue. `vec3()` does not demand all arguments be satisfied. `vec3(.8)` will create a vec3 object and fill each channel with .8. It is equivalent to doing `vec3(.8, .8, .8)`",
+        "examples":[]
     }],
     "accessors": [{
         "key": "r",
         "def": ".r",
         "syntax": "vector.r",
         "returns": "Red component of vector",
-        "desc": "Writing descs isn't my job. I already probably fucked up a lot in the vec4() desc, and I bet this isn't even called an accessor.",
-        "examples":["vec4 newColor = vec4(color.r, vec3(1.));\nfloat redComponent = newColor.r;"]
+        "desc": "This will *access* the red channel of vector, thus the name \"accessor\" for its category. I've no clue if this is actually called an accessor, so this description ends here before I make a bigger fool of myself.",
+        "examples":["vec3 newColor = vec3(color.r, vec2(1.));\nfloat redComponent = newColor.r;"]
+    },{
+        "key": "x",
+        "def": ".x",
+        "syntax": "{lang:glsl}vector.x",
+        "returns": "x coordinate component of vector",
+        "desc": "This will *access* the x coordinate component of vector, thus the name \"accessor\" for its category. I've no clue if this is actually called an accessor, so this description ends here before I make a bigger fool of myself.",
+        "examples":["{lang:glsl}vec3 newCoord = vec3(v_vTexcoord.x, .6);\nfloat x = newCoord.x;"]
     }],
     "variables": [{
         "key": "v_vTexcoord",
