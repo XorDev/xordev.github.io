@@ -30,19 +30,12 @@ function appendContent(glossary) {
     for (const type in glossary) {
         for (const elm of glossary[type]) {
 
-            const name = elm.hasOwnProperty('def') ? elm.def : elm.key;
-
-            //let used = ['key', 'desc', 'def'];
-            let properties = glossParse(elm);
-
-            // TODO: Prevent redundant info, and special treamtment for some info
+            let properties = glsParse(elm);
 
             const temp = document.createElement('template');
             temp.innerHTML = html`
                 <div class="${type} doc" id="${elm.key}">
-                    <div class="name">${name}</div>
                     ${properties}
-                    <div class="desc"><div class="title">Description:</div>${elm.desc}</div>
                 </div>
             `.trim();
             docs.append(temp.content.firstChild);
@@ -52,14 +45,52 @@ function appendContent(glossary) {
     hljs.initHighlightingOnLoad();
 }
 
-function glossParse(elm) {
+function glsParse(elm, used = []) {
+
+    const special = {
+        syntax: (elm, prop) => ({
+            skip: elm[prop] === (elm.hasOwnProperty('def') ? elm.def : elm.key),
+            val: html`<span class="inline-hljs"><pre><code>${elm[prop]}</code></pre></span>`
+        }),
+        key: (elm, prop) => ({
+            html: html`<div class="name">${elm.hasOwnProperty('def') ? elm.def : elm.key}</div>`,
+            skip: true
+        }),
+        def: (elm, prop) => ({ skip: true }),
+        desc: (elm, props) => ({ title: `Description:`, class: 'block' }),
+        examples: (elm, props) => ({
+            title: elm[props].length < 2 && 'Example:',
+            val: elm[props].map(s => html`<pre><code>${s}</pre></code>`)
+        })
+    };
+
     let properties = '';
     for (const prop in elm) {
+        if (!!~used.indexOf(prop)) continue;
+        used.push(prop);
+
+        let addTitle = '';
+        let addClass = '';
+
+        if (special.hasOwnProperty(prop)) {
+            const test = special[prop](elm, prop);
+            const testIs = prop => test.hasOwnProperty(prop) && test[prop];
+            const testHas = prop => test.hasOwnProperty(prop);
+
+            if (testHas('val')) elm[prop] = test.val;
+            if (testHas('html')) properties += test.html;
+            if (testHas('title')) addTitle = test.title;
+            if (testHas('class')) addClass = test.class;
+            if (testIs('skip')) continue;
+        }
+
+        if (!addTitle) addTitle = prop.slice(0, 1).toUpperCase() + prop.slice(1) + ':'
+
         switch (typeof elm[prop]) {
             case 'string':
                 properties += html`
-                    <div class="${prop}">
-                        <div class="title">${prop.slice(0, 1).toUpperCase() + prop.slice(1)}:</div>
+                    <div class="${prop} ${addClass}">
+                        <div class="title">${addTitle}</div>
                         ${elm[prop]}
                     </div>
                 `.trim();
@@ -67,19 +98,21 @@ function glossParse(elm) {
             case 'object':
                 if (Array.isArray(elm[prop])) {
                     if (!elm[prop].length) break;
+                    console.log(`array prop: ${prop}, val: ${elm[prop].length}`)
                     properties += html`
-                        <div class="${prop}">
-                            <div class="title">${prop.slice(0, 1).toUpperCase() + prop.slice(1)}:</div>
-                            <ul><li>${elm[prop].reduce((acc, val) =>
-                                acc + `</li><li>${glossParse(val)}`
+                        <div class="${prop} ${addClass}">
+                            <div class="title">${addTitle}</div>
+                            <ul><li>${elm[prop].map(val => typeof val == 'object' ? glsParse(val) : val ).reduce((acc, val) =>
+                                acc + `</li><li>${val}`
                             )}</li></ul>
                         </div>
                     `.trim();
                 } else {
-                    properties += glossParse(elm[prop]);
+                    console.log(`object: ${prop}`);
+                    properties += glsParse(elm[prop]);
                 }
                 break;
         }
     }
-    return properties;
+    return properties.trim();
 }

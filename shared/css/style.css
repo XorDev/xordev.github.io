@@ -1,7 +1,7 @@
 
 body{
-    --bg:#16171c;
-    --blue:#22232a;
+    --bg:#181a1f;
+    --blue:#24252d;
     --scroll:#3b282f;
     --txt:#8b909b;
     --link:#cbd0db;
@@ -32,12 +32,11 @@ code.hljs{
 .inline-hljs pre,
 .inline-hljs code {
     display:inline;
-    width: auto;
 
     padding: 0;
     border-radius: 3px;
     margin:0;
-    background-color:#262831;
+    background-color:var(--blue);
     box-shadow: 0 0px 4px var(--bg);
 }
 
@@ -72,7 +71,7 @@ code.hljs{
 .background-image.repeat{
     position: fixed;
     z-index:-1000;
-    opacity: .6;
+    opacity: .33;
     height:100%;
     min-width:100%;
     background-image:url(/glossary/grid.png);

@@ -1,6 +1,11 @@
 
+body{
+    --bbg: #1b1f24;
+}
+
 #docs {
-    max-width: 80%;
+    width: 80%;
+    max-width:60rem;
     margin: 2rem auto;
 }
 
@@ -15,6 +20,24 @@
     border-radius: .6rem;
     padding: 1.4rem 2rem;
     box-shadow: 0 2px 14px 1px var(--bg);
+    position: relative;
+}
+
+#docs .doc .name{
+    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
+}
+
+#docs .doc>.name{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    background-color:var(--bbg);
+    padding:1rem 2rem;
+}
+
+#docs .doc>:nth-child(2){
+    margin-top: 4rem;
 }
 
 #docs .doc>div/*:not(:last-child)*/{
@@ -24,4 +47,44 @@
 #docs .doc .title{
     font-size: 1.3rem;
     margin-bottom: .3rem;
+    display:inline;
+}
+
+#docs .doc>.block>.title{
+    display:block;
+}
+
+
+#docs .doc .examples ul li{
+    padding-left:1rem;
+}
+
+
+#docs .doc .examples ul,
+#docs .doc .arguments ul{
+    list-style-type: none;
+    border-left: 3px solid var(--blue);
+    margin-top:0;
+    padding:.5rem 0;
+}
+
+#docs .doc .arguments ul .title{
+    display:none;
+}
+
+#docs .doc .arguments ul li{
+    padding-bottom:.3rem;
+    padding-left:3rem;
+}
+
+#docs .doc .arguments ul li .name{
+    padding-right:1rem;
+}
+
+#docs .doc .arguments ul li:nth-child(even){
+    background-color:var(--bbg);
+}
+
+#docs .doc .arguments ul li>div{
+    display:inline;
 }
