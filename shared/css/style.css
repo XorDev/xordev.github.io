@@ -75,6 +75,7 @@ code.hljs{
     height:100%;
     min-width:100%;
     background-image:url(/glossary/grid.png);
+    background-image:url(/xorshaders/glossary/grid.png);
     background-repeat: repeat;
 }
 
@@ -103,6 +104,7 @@ a:hover, .link:hover{
     border-radius: 5px;
     box-shadow:0 2px 16px rgba(0,0,0,.2);
     background-color:var(--bg);
+    z-index: 2000;
 }
 
 .floating-menu .title {
