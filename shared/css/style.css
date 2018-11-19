@@ -21,6 +21,31 @@ html, body{
     padding:0;
 }
 
+code.hljs{
+    background-color: var(--blue);
+    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
+    border-radius:6px;
+    box-shadow: 0 2px 17px -3px rgba(0,0,0,.1);
+    padding: 12px 18px;
+}
+
+.inline-hljs pre,
+.inline-hljs code {
+    display:inline;
+    width: auto;
+
+    padding: 0;
+    border-radius: 3px;
+    margin:0;
+    background-color:#262831;
+    box-shadow: 0 0px 4px var(--bg);
+}
+
+.inline-hljs code{
+    padding: 2px 5px;
+    font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
+}
+
 ::-webkit-scrollbar {
     background: transparent;
     width: 9px;

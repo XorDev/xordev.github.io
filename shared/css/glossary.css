@@ -8,22 +8,6 @@
     font-size: 1.5rem;
 }
 
-#docs .inline-hljs pre,
-#docs .inline-hljs code {
-    display:inline;
-    width: auto;
-
-    padding: 0;
-    border-radius: 3px;
-    margin:0;
-    background-color:#262831;
-    box-shadow: 0 0px 4px var(--bg);
-}
-
-#docs .inline-hljs code{
-    padding: 2px 5px;
-}
-
 #docs .doc{
     margin-bottom:2rem;
     background-color:var(--bg);
