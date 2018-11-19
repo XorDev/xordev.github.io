@@ -15,41 +15,71 @@ req.onreadystatechange = res => {
 req.open('GET', '../glossary/glossary.json', true);
 req.send();
 
+// This is not supported in all browsers, can safely be removed.
+const html = (a, ...keys) => a.reduce((acc, val) => acc + keys.shift() + val);
 
 function appendContent(glossary) {
     console.log(glossary);
 
     const docs = document.getElementById('docs');
 
-    // Sorry about this, it's just for syntax highlighting,
-    // this WILL break in multiple browsers. Fix before release
-    const html = a => String(a);
-
-    const template = html`
-        <div class="$TYPE doc" id="$NAME">
-            <div class="key">$NAME</div>
-            <div class="desc">$DESC</div>
-        </div>
-    `;
-
     const functions = glossary.functions;
     const variables = glossary.variables;
     const accessors = glossary.accessors;
 
     for (const type in glossary) {
-        const tdoc = template.replace(/\$TYPE/g, type);
         for (const elm of glossary[type]) {
-            let doc = tdoc.replace(/\$NAME/g, elm.hasOwnProperty('def') ? elm.def : elm.key);
-            doc = doc.replace(/\$DESC/g, elm.desc);
 
-            let used = ['key', 'desc', 'def'];
+            const name = elm.hasOwnProperty('def') ? elm.def : elm.key;
+
+            //let used = ['key', 'desc', 'def'];
+            let properties = glossParse(elm);
+
+            // TODO: Prevent redundant info, and special treamtment for some info
 
             const temp = document.createElement('template');
-            temp.innerHTML = doc.trim();
-            console.log(doc);
+            temp.innerHTML = html`
+                <div class="${type} doc" id="${elm.key}">
+                    <div class="name">${name}</div>
+                    ${properties}
+                    <div class="desc"><div class="title">Description:</div>${elm.desc}</div>
+                </div>
+            `.trim();
             docs.append(temp.content.firstChild);
         }
     }
 
     hljs.initHighlightingOnLoad();
+}
+
+function glossParse(elm) {
+    let properties = '';
+    for (const prop in elm) {
+        switch (typeof elm[prop]) {
+            case 'string':
+                properties += html`
+                    <div class="${prop}">
+                        <div class="title">${prop.slice(0, 1).toUpperCase() + prop.slice(1)}:</div>
+                        ${elm[prop]}
+                    </div>
+                `.trim();
+                break;
+            case 'object':
+                if (Array.isArray(elm[prop])) {
+                    if (!elm[prop].length) break;
+                    properties += html`
+                        <div class="${prop}">
+                            <div class="title">${prop.slice(0, 1).toUpperCase() + prop.slice(1)}:</div>
+                            <ul><li>${elm[prop].reduce((acc, val) =>
+                                acc + `</li><li>${glossParse(val)}`
+                            )}</li></ul>
+                        </div>
+                    `.trim();
+                } else {
+                    properties += glossParse(elm[prop]);
+                }
+                break;
+        }
+    }
+    return properties;
 }

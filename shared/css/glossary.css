@@ -4,8 +4,9 @@
     margin: 2rem auto;
 }
 
-#docs .key {
+#docs .name {
     font-size: 1.5rem;
+    color: var(--button);
 }
 
 #docs .doc{
@@ -16,6 +17,11 @@
     box-shadow: 0 2px 14px 1px var(--bg);
 }
 
-#docs .doc>div:not(:last-child){
+#docs .doc>div/*:not(:last-child)*/{
     margin-bottom:1rem;
+}
+
+#docs .doc .title{
+    font-size: 1.3rem;
+    margin-bottom: .3rem;
 }
