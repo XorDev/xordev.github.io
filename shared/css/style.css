@@ -4,6 +4,8 @@ body{
     --blue:#24252d;
     --scroll:#3b282f;
     --txt:#8b909b;
+    --bbg: #1b1f24;
+    --dbtxt: #424452;
     --link:#cbd0db;
     --white:#ffffff;
     --main:#e0ba23;
@@ -19,6 +21,28 @@ body{
 html, body{
     margin:0;
     padding:0;
+
+    min-height:100%;
+}
+
+footer{
+    position:absolute;
+    display:flex;
+    justify-content: space-around;
+    bottom:0;
+    width: 100%;
+    padding: 1rem 0;
+    background-color: var(--bg);
+    color:var(--dbtxt);
+    border-top: 1px solid var(--blue);
+}
+
+footer>div{
+    margin: 0 1rem;
+}
+
+footer a{
+    color:var(--txt);
 }
 
 code.hljs{
@@ -236,6 +260,10 @@ header .logo{
     display:inline;
     font-size: 1.4rem;
     margin: 2rem 1rem;
+}
+
+.header-buttons a[href*="glossary"]{
+    display:none;
 }
 
 .header-buttons .current{
