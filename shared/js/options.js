@@ -37,8 +37,8 @@ async function searchbarUpdate(searchbar, evt) {
 
             let outputbox = searchbar.parentElement.getElementsByClassName('results')[0];
 
-            results[0] = `<div>${results[0]}</div>`;
-            outputbox.innerHTML = results.reduce((acc, val) => acc + `<div>${val}</div>`);
+            results[0] = `<a href="./?load=${results[0]}"><div class="result">${results[0]}</div></a>`;
+            outputbox.innerHTML = results.reduce((acc, val) => acc + `<a href="./?load=${val}"><div class="result">${val}</div></a>`);
         }, 20);
     } else console.log('glossary is not defined');
 }

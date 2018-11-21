@@ -479,22 +479,21 @@ header .logo{
     border-bottom-right-radius:8px;
 }
 
-.searchbar .results>:nth-child(even){
+.searchbar .results>:nth-child(even)>.result{
     background-color: var(--bg);
 }
 
-.searchbar .results>:last-child{
-    background-color: var(--bg);
+.searchbar .results>:last-child>.result{
     border-bottom-left-radius:8px;
     border-bottom-right-radius:8px;
 }
 
-.searchbar .results>div{
+.searchbar .results .result{
     padding:.1rem .6rem;
     color:var(--txt);
 }
 
-.searchbar .results>div:hover{
+.searchbar .results .result:hover{
     padding-left:.8rem;
     cursor:pointer;
     color:var(--main);

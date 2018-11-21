@@ -24,21 +24,30 @@ const html = (a, ...keys) => a.reduce((acc, val) => acc + keys.shift() + val);
 function appendContent(glossary) {
     const docs = document.getElementById('docs');
 
-    const functions = glossary.functions;
-    const variables = glossary.variables;
-    const accessors = glossary.accessors;
+    let filter = '';
+    const matchFilter = window.location.href.match(/[&?]load=([\w\d]+)([;&]|$)/);
+    if (matchFilter) {
+        console.log(matchFilter[1]);
+        filter = matchFilter[1];
+    }
 
     const temp = document.createElement('template');
     for (const type in glossary) {
-        temp.innerHTML += `<div id="${type}" class="type-title"><span>${type}</span></div>`;
+        let elms = [];
         for (const elm of glossary[type]) {
+            if (filter && filter !== elm.key) continue;
+    
             let properties = glsParse(elm);
 
-            temp.innerHTML += `
+            elms.push(`
                 <div class="${type} doc" id="${elm.key}">
                     ${properties}
                 </div>
-            `.trim();
+            `.trim());
+        }
+        if (elms.length) {
+            temp.innerHTML += `<div id="${type}" class="type-title"><span>${type}</span></div>` +
+                elms.join('');
         }
     }
     docs.append(temp.content);
@@ -57,10 +66,7 @@ function appendContent(glossary) {
                 spec[keys[i].slice(0, -1)] = vals[i].slice(1);
             }
 
-            if (spec.hasOwnProperty('lang')) {
-                console.log(spec.lang);
-                elm.classList.add(spec.lang);
-            }
+            if (spec.hasOwnProperty('lang')) elm.classList.add(spec.lang);
         }
     }
 
