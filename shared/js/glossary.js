@@ -45,7 +45,10 @@ function appendContent(glossary) {
 
             elms.push(`
                 <div class="${type} doc" id="${elm.key}">
-                    ${properties}
+                    <div class="link" onclick="creacopURL(this, '${elm.key}')">Create link</div>
+                    <div class="content">
+                        ${properties}
+                    </div>
                 </div>
             `.trim());
         }
@@ -75,6 +78,12 @@ function appendContent(glossary) {
     }
 
     hljs.initHighlightingOnLoad();
+}
+
+function creacopURL(elm, key) {
+    console.log(elm);
+    elm.innerText = `${window.location.href.match(/(.+?)(?:\?|$)/)[1]}?load=${key}`;
+
 }
 
 function glsParse(elm, used = []) {

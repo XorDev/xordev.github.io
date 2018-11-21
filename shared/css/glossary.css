@@ -23,7 +23,7 @@
     font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
 }
 
-#docs .doc>.name{
+#docs .doc .content>.name{
     position:absolute;
     top:0;
     left:0;
@@ -32,7 +32,13 @@
     padding:1rem 2rem;
 }
 
-#docs .doc>:nth-child(2){
+#docs .doc>.link{
+    z-index:2;
+    position: absolute;
+    right:2rem;
+}
+
+#docs .doc .content{
     margin-top: 4rem;
 }
 
