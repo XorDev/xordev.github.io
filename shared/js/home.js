@@ -17,6 +17,8 @@ let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Micr
 req.onreadystatechange = res => {
     if (res.target.readyState == 4 && res.target.status == 200) {
         let tuts = JSON.parse(res.target.responseText);
+        pageSearchLibrary = tuts;
+        pageCompareProp = 'name';
         if (document.readyState === 'complete') appendContent(tuts);
         else document.onreadystatechange = () => {
             if (document.readyState === 'complete') appendContent(tuts);
@@ -29,7 +31,7 @@ req.send();
 function appendContent(tuts) {
     let show = document.getElementById('showcase');
 
-    let tut = getTutorial(tuts, 0);
+    let tut = getTutorial(tuts.shaders, 0);
 
     show.innerHTML = `
         <div class="colon">Latest tutorial:</div>
@@ -43,17 +45,20 @@ function appendContent(tuts) {
 
     const grid = document.querySelector('#tutorials .grid');
 
-    for (let i = 0; i < tuts.length; i++) {
-        let tut = getTutorial(tuts, i);
+    for (let type in tuts) {
+        let typtuts = tuts[type];
+        for (let i = 0; i < typtuts.length; i++) {
+            let tut = getTutorial(typtuts, i);
 
-        let a = document.createElement('a');
-            a.setAttribute('href', `./tutorials/${tut.pagename}/`);
-            a.innerHTML = `
-                <div class="item">
-                    <img src="./tutorials/${tut.pagename}/thumbnail.png">
-                    <span>${tut.name}</span>
-                </div>`;
+            let a = document.createElement('a');
+                a.setAttribute('href', `./tutorials/${tut.pagename}/`);
+                a.innerHTML = `
+                    <div class="item">
+                        <img src="./tutorials/${tut.pagename}/thumbnail.png">
+                        <span>${tut.name}</span>
+                    </div>`;
 
-        grid.appendChild(a);
+            grid.appendChild(a);
+        }
     }
 }

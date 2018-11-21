@@ -8,7 +8,8 @@ req.onreadystatechange = res => {
             /(\W)`([^`]+)`(\W)/g,
             '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
         ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
-        pageGlossary = glossary;
+        pageSearchLibrary = glossary;
+        pageCompareProp = 'key';
         if (document.readyState === 'complete') appendContent(glossary);
         else document.onreadystatechange = () => {
             if (document.readyState === 'complete') appendContent(glossary);

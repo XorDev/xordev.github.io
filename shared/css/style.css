@@ -517,7 +517,7 @@ header .logo{
 }
 
 .searchbar .results .result{
-    padding:.1rem .6rem;
+    padding:.2rem .6rem;
     color:var(--txt);
 }
 

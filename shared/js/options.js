@@ -1,53 +1,59 @@
 
-if (document.cookie.match('theme-white=true')) {
-    loadTheme('white');
-}
+if (document.cookie.match('theme-white=true')) loadTheme('white');
 
 window.addEventListener('focus', () => {
     const loadedTheme = document.querySelector('link.theme');
     let checked = !!document.cookie.match('theme-white=true');
 
-    if (checked && !loadedTheme) {
-        loadTheme('white');
-
-    } else if (!checked && loadedTheme) {
-        loadedTheme.parentElement.removeChild(loadedTheme);
-    }
+    if (checked && !loadedTheme) loadTheme('white');
+    else if (!checked && loadedTheme) loadedTheme.parentElement.removeChild(loadedTheme);
 });
 
+let pageSearchLibrary = null;
+let pageCompareProp = null;
+
 async function searchbarUpdate(searchbar, evt) {
-    if (pageGlossary) {
-        setTimeout(() => {
+    if (!pageSearchLibrary) return;
+    setTimeout(() => {
 
-            if (evt.key.toLowerCase() === 'enter') {
-                window.location.href = searchbar.value ?
-                    `./?search=${searchbar.value.toLowerCase()}` :
-                    `./`;
-            }
+        if (evt.key.toLowerCase() === 'enter') {
+            window.location.href = searchbar.value ?
+                `./?search=${searchbar.value.toLowerCase()}` :
+                `./`;
+        }
 
-            const valu = searchbar.value.toLowerCase();
-            if (valu.length < 1) return;
+        const valu = searchbar.value.toLowerCase();
+        if (valu.length < 1) return;
 
-            let results = [];
+        let results = [];
 
-            for (const type in pageGlossary) {
-                for (const elm of pageGlossary[type]) {
-                    if (!!~elm.key.toLowerCase().indexOf(valu)) results.push(elm.key);
-                    if (results.length > 9) break;
-                }
+        for (const type in pageSearchLibrary) {
+            for (const elm of pageSearchLibrary[type]) {
+                if (!!~elm[pageCompareProp].toLowerCase().indexOf(valu)) results.push(elm);
                 if (results.length > 9) break;
             }
+            if (results.length > 9) break;
+        }
 
-            if (!results.length) return;
+        console.log(results);
 
-            results = results.sort((a, b) => ('' + a.attr).localeCompare(b.attr));
+        if (!results.length) return;
 
-            let outputbox = searchbar.parentElement.parentElement.getElementsByClassName('results')[0];
+        results = results.sort((a, b) => ('' + a[pageCompareProp].attr).localeCompare(b[pageCompareProp].attr));
 
-            results[0] = `<a href="./?load=${results[0]}"><div class="result">${results[0]}</div></a>`;
-            outputbox.innerHTML = results.reduce((acc, val) => acc + `<a href="./?load=${val}"><div class="result">${val}</div></a>`);
-        }, 20);
-    } else console.log('glossary is not defined');
+        let outputbox = searchbar.parentElement.parentElement.getElementsByClassName('results')[0];
+        let resElement;
+        switch (document.location.pathname) {
+            case '/glossary/': resElement = res => `<a href="./?load=${res[pageCompareProp]}"><div class="result">${res[pageCompareProp]}</div></a>`; break;
+            case '/': resElement = res => `<a href="./tutorials/${res.pagename}/"><div class="result">${res[pageCompareProp]}</div></a>`; break;
+        }
+
+        let outstr = '';
+        for (let result of results) {
+            outstr += resElement(results[0])
+        }
+        outputbox.innerHTML = outstr;
+    }, 20);
 }
 
 function initialize() {
