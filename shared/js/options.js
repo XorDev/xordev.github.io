@@ -52,7 +52,7 @@ async function searchbarUpdate(searchbar, evt) {
 
         let outstr = '';
         for (let result of results) {
-            outstr += resElement(results[0])
+            outstr += resElement(results[0]);
         }
         outputbox.innerHTML = outstr;
     }, 20);
