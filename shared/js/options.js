@@ -15,10 +15,43 @@ window.addEventListener('focus', () => {
     }
 });
 
+async function searchbarUpdate(searchbar, evt) {
+    if (pageGlossary) {
+        setTimeout(() => {
+            const valu = searchbar.value.toLowerCase();
+            if (valu.length < 1) return;
+
+            let results = [];
+
+            for (const type in pageGlossary) {
+                for (const elm of pageGlossary[type]) {
+                    if (!!~elm.key.toLowerCase().indexOf(valu)) results.push(elm.key);
+                    if (results.length > 9) break;
+                }
+                if (results.length > 9) break;
+            }
+
+            if (!results) return;
+
+            results = results.sort((a, b) => ('' + a.attr).localeCompare(b.attr));
+
+            let outputbox = searchbar.parentElement.getElementsByClassName('results')[0];
+
+            results[0] = `<div>${results[0]}</div>`;
+            outputbox.innerHTML = results.reduce((acc, val) => acc + `<div>${val}</div>`);
+        }, 20);
+    } else console.log('glossary is not defined');
+}
+
 function initialize() {
     if (document.cookie.match('show-background=true')) {
         let bgimg = document.getElementsByClassName('background-image');
         bgimg[0].classList.remove('hidden');
+    }
+
+    const searchbars = document.querySelectorAll('.searchbar input[type="search"]');
+    for (let searchbar of searchbars) {
+        searchbar.addEventListener('keydown', evt => searchbarUpdate(searchbar, evt));
     }
 
     const options = document.getElementById('options');

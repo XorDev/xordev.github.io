@@ -1,4 +1,6 @@
 
+let pageGlossary = undefined;
+
 let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 req.onreadystatechange = res => {
     if (res.target.readyState == 4 && res.target.status == 200) {
@@ -6,6 +8,7 @@ req.onreadystatechange = res => {
             /(\W)`([^`]+)`(\W)/g,
             '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
         ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
+        pageGlossary = glossary;
         if (document.readyState === 'complete') appendContent(glossary);
         else document.onreadystatechange = () => {
             if (document.readyState === 'complete') appendContent(glossary);
@@ -27,11 +30,11 @@ function appendContent(glossary) {
 
     const temp = document.createElement('template');
     for (const type in glossary) {
-        temp.innerHTML += html`<div id="${type}" class="type-title"><span>${type}</span></div>`;
+        temp.innerHTML += `<div id="${type}" class="type-title"><span>${type}</span></div>`;
         for (const elm of glossary[type]) {
             let properties = glsParse(elm);
 
-            temp.innerHTML += html`
+            temp.innerHTML += `
                 <div class="${type} doc" id="${elm.key}">
                     ${properties}
                 </div>

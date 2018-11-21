@@ -5,4 +5,15 @@ body {
     --txt:#585a65;
     --link:#48a55a;
     --white:#28822a;
+    --bbg: #e9eaea;
+    --dbtxt: #b2b4c2;
+}
+
+.background-image.repeat{
+    opacity:.04;
+}
+
+.background-image:not(.repeat){
+    opacity:.2;
+    filter:invert(100%);
 }

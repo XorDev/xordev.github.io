@@ -4,7 +4,7 @@ body{
     --blue:#24252d;
     --scroll:#3b282f;
     --txt:#8b909b;
-    --bbg: #1c1d23;
+    --bbg: #1a1d23;
     --dbtxt: #424452;
     --link:#cbd0db;
     --white:#ffffff;
@@ -22,7 +22,6 @@ body{
 
 html{
     height:100%;
-
 }
 
 html, body{
@@ -34,9 +33,6 @@ html, body{
     min-height:calc(100% - 4rem);
     padding-bottom:4rem;
     position: relative;
-}
-
-.wrapper>.inner{
 }
 
 footer{
@@ -111,11 +107,10 @@ code.hljs{
 .background-image.repeat{
     position: fixed;
     z-index:-1000;
-    opacity: .33;
+    opacity:.33;
     height:100%;
     min-width:100%;
-    background-image:url(/glossary/grid.png);
-    background-image:url(/xorshaders/glossary/grid.png);
+    background-image:url('../../glossary/grid.png');
     background-repeat: repeat;
 }
 
@@ -448,4 +443,59 @@ header .logo{
 
 #contact .fa-discord{
     transform:translateY(3px);
+}
+
+.searchbar{
+    width: 80%;
+    max-width:36rem;
+    margin: 0 auto;
+    margin-top:4rem;
+}
+
+.searchbar input[type="search"]{
+    background-color: var(--bg);
+    width:100%;
+    border:none;
+    outline:none;
+    color:var(--txt);
+    padding:.7rem 1rem;
+    border-radius: 6px;
+    font-size:1.2rem;
+    box-shadow:0 2px 10px -1px var(--bg);
+    transition:.2s box-shadow;
+}
+
+.searchbar input[type="search"]:hover{
+    box-shadow: 0 3px 14px 0 var(--bg);
+}
+
+.searchbar input[type="search"]:focus{
+    color:var(--link);
+}
+
+.searchbar .results{
+    background-color:var(--bbg);
+    border-bottom-left-radius:8px;
+    border-bottom-right-radius:8px;
+}
+
+.searchbar .results>:nth-child(even){
+    background-color: var(--bg);
+}
+
+.searchbar .results>:last-child{
+    background-color: var(--bg);
+    border-bottom-left-radius:8px;
+    border-bottom-right-radius:8px;
+}
+
+.searchbar .results>div{
+    padding:.1rem .6rem;
+    color:var(--txt);
+}
+
+.searchbar .results>div:hover{
+    padding-left:.8rem;
+    cursor:pointer;
+    color:var(--main);
 }

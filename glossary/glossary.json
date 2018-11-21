@@ -59,5 +59,26 @@
         "value": "Contains the current texel coordinates being drawn at.",
         "desc": "This is commonly used to get the correct pixel color value with `texture2D(gm_BaseTexture, v_vTexcoord)`, but can also be used to determine adjacent texels, and other smart stuff",
         "examples":["duck", "dack"]
+    }],
+    "debugging":[{
+        "key": "vnaoyubvv"
+    },{
+        "key": "vnasdaoyubv"
+    },{
+        "key": "vnasdasdaoyubv"
+    },{
+        "key": "vnaodrgxdbyubv"
+    },{
+        "key": "vnaoxvcvyubv"
+    },{
+        "key": "vasdnaoyubv2"
+    },{
+        "key": "vnaoyubv"
+    },{
+        "key": "vnadVvsdoyubv"
+    },{
+        "key": "vnaoygsfubvx"
+    },{
+        "key": "v1naoyubsfv"
     }]
 }
