@@ -105,11 +105,11 @@ code.hljs{
 }
 
 .background-image.repeat{
-    position: fixed;
+    position:absolute;
     z-index:-1000;
     opacity:.33;
     height:100%;
-    min-width:100%;
+    width:100%;
     background-image:url('../../glossary/grid.png');
     background-repeat: repeat;
 }
@@ -148,6 +148,7 @@ a:hover, .link:hover{
     margin-bottom:.6rem;
     border-bottom: 2px solid var(--blue);
 }
+
 
 .floating-menu .option{
     padding:.4rem 1rem;
@@ -241,7 +242,7 @@ header .logo{
 
 #options .fa-cog{
     transition:.2s all;
-    z-index:200;
+    z-index:2001;
     transform:rotate(0);
 }
 
@@ -452,7 +453,34 @@ header .logo{
     margin-top:4rem;
 }
 
-.searchbar input[type="search"]{
+.searchbar .bar{
+    position:relative;
+}
+
+
+.searchbar .bar .return{
+    top:4px;
+    right:4px;
+    bottom:4px;
+    width:2.6rem;
+    border-radius: 6px;
+    position:absolute;
+    text-align:center;
+    font-size: 1.4rem;
+    color:var(--txt);
+    transform: translateY(3px);
+}
+
+.searchbar .bar .return:hover{
+    color:var(--link);
+    cursor:pointer;
+}
+
+.searchbar .bar .return .faded{
+    color:var(--dbtxt);
+}
+
+.searchbar .bar input{
     background-color: var(--bg);
     width:100%;
     border:none;
@@ -465,11 +493,11 @@ header .logo{
     transition:.2s box-shadow;
 }
 
-.searchbar input[type="search"]:hover{
+.searchbar .bar input:hover{
     box-shadow: 0 3px 14px 0 var(--bg);
 }
 
-.searchbar input[type="search"]:focus{
+.searchbar .bar input:focus{
     color:var(--link);
 }
 

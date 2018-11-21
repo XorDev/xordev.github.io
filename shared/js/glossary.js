@@ -18,25 +18,28 @@ req.onreadystatechange = res => {
 req.open('GET', '../glossary/glossary.json', true);
 req.send();
 
-// This is not supported in all browsers, can safely be removed.
-const html = (a, ...keys) => a.reduce((acc, val) => acc + keys.shift() + val);
-
 function appendContent(glossary) {
     const docs = document.getElementById('docs');
 
-    let filter = '';
     const matchFilter = window.location.href.match(/[&?]load=([\w\d]+)([;&]|$)/);
-    if (matchFilter) {
-        console.log(matchFilter[1]);
-        filter = matchFilter[1];
-    }
+    const searchFilter = window.location.href.match(/[&?]search=([\w\d]+)([;&]|$)/);
+
+    let filter = {
+        key: matchFilter ? matchFilter[1] : null,
+        search: searchFilter ? searchFilter[1] : null
+    };
+
+    console.log(filter);
 
     const temp = document.createElement('template');
     for (const type in glossary) {
         let elms = [];
         for (const elm of glossary[type]) {
-            if (filter && filter !== elm.key) continue;
-    
+            if (
+                filter.key    && (elm.key !== filter.key) ||
+                filter.search && (!~elm.key.toLowerCase().indexOf(filter.search))
+            ) continue;
+
             let properties = glsParse(elm);
 
             elms.push(`
@@ -78,17 +81,17 @@ function glsParse(elm, used = []) {
     const special = {
         syntax: (elm, prop) => ({
             skip: elm[prop] === (elm.hasOwnProperty('def') ? elm.def : elm.key),
-            val: html`<span class="inline-hljs"><pre><code>${elm[prop]}</code></pre></span>`
+            val: `<span class="inline-hljs"><pre><code>${elm[prop]}</code></pre></span>`
         }),
         key: (elm, prop) => ({
-            html: html`<div class="name">${elm.hasOwnProperty('def') ? elm.def : elm.key}</div>`,
+            html: `<div class="name">${elm.hasOwnProperty('def') ? elm.def : elm.key}</div>`,
             skip: true
         }),
         def: (elm, prop) => ({ skip: true }),
         desc: (elm, props) => ({ title: `Description:`, class: 'block' }),
         examples: (elm, props) => ({
             title: elm[props].length < 2 && 'Example:',
-            val: elm[props].map(s => html`<pre><code>${s}</pre></code>`)
+            val: elm[props].map(s => `<pre><code>${s}</pre></code>`)
         })
     };
 
@@ -116,7 +119,7 @@ function glsParse(elm, used = []) {
 
         switch (typeof elm[prop]) {
             case 'string':
-                properties += html`
+                properties += `
                     <div class="${prop} ${addClass}">
                         <div class="title">${addTitle}</div>
                         ${elm[prop]}
@@ -126,7 +129,7 @@ function glsParse(elm, used = []) {
             case 'object':
                 if (Array.isArray(elm[prop])) {
                     if (!elm[prop].length) break;
-                    properties += html`
+                    properties += `
                         <div class="${prop} ${addClass}">
                             <div class="title">${addTitle}</div>
                             <ul><li>${elm[prop].map(val => typeof val == 'object' ? glsParse(val) : val ).reduce((acc, val) =>

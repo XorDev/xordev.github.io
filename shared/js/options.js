@@ -18,6 +18,13 @@ window.addEventListener('focus', () => {
 async function searchbarUpdate(searchbar, evt) {
     if (pageGlossary) {
         setTimeout(() => {
+
+            if (evt.key.toLowerCase() === 'enter') {
+                window.location.href = searchbar.value ?
+                    `./?search=${searchbar.value.toLowerCase()}` :
+                    `./`;
+            }
+
             const valu = searchbar.value.toLowerCase();
             if (valu.length < 1) return;
 
@@ -31,11 +38,11 @@ async function searchbarUpdate(searchbar, evt) {
                 if (results.length > 9) break;
             }
 
-            if (!results) return;
+            if (!results.length) return;
 
             results = results.sort((a, b) => ('' + a.attr).localeCompare(b.attr));
 
-            let outputbox = searchbar.parentElement.getElementsByClassName('results')[0];
+            let outputbox = searchbar.parentElement.parentElement.getElementsByClassName('results')[0];
 
             results[0] = `<a href="./?load=${results[0]}"><div class="result">${results[0]}</div></a>`;
             outputbox.innerHTML = results.reduce((acc, val) => acc + `<a href="./?load=${val}"><div class="result">${val}</div></a>`);
@@ -49,9 +56,12 @@ function initialize() {
         bgimg[0].classList.remove('hidden');
     }
 
-    const searchbars = document.querySelectorAll('.searchbar input[type="search"]');
+    const searchbars = document.querySelectorAll('.searchbar .bar input');
     for (let searchbar of searchbars) {
         searchbar.addEventListener('keydown', evt => searchbarUpdate(searchbar, evt));
+        const returnbtn = document.querySelector('.searchbar .bar .return>i');
+        returnbtn.addEventListener('click', () => document.location.href = './');
+        if (!~document.location.href.indexOf('?')) returnbtn.classList.add('faded');
     }
 
     const options = document.getElementById('options');
