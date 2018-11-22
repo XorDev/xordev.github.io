@@ -81,9 +81,41 @@ function appendContent(glossary) {
 }
 
 function creacopURL(elm, key) {
-    console.log(elm);
-    elm.innerText = `${window.location.href.match(/(.+?)(?:\?|$)/)[1]}?load=${key}`;
+    const link = `${window.location.href.match(/(.+?)(?:\?|$)/)[1]}?load=${key}`;
 
+    if (elm.innerText === 'Create link')
+        elm.innerText = link;
+
+    const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('value', link);
+    document.body.append(input);
+
+    input.select();
+    document.execCommand("copy");
+
+    document.body.removeChild(input);
+
+    let doc = document.documentElement;
+    let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    let div = document.createElement('div');
+        div.setAttribute('class', 'cheese');
+        div.setAttribute('style', `top:${Math.floor(elm.getBoundingClientRect().top + top + 24)}px;left:${Math.floor(elm.getBoundingClientRect().left + 32)}px;`);
+        div.innerHTML = `Copied link to clipboard`;
+    document.body.append(div);
+    loadunload(div, 60, 3000);
+}
+
+function loadunload(div, startTime, endTime) {
+    let clas = div.getAttribute('class');
+    if (clas.match(/\bload\b/)) {
+        div.setAttribute('class', clas.replace(/\s*\bload\b\s*/, ' '));
+        setTimeout(() => { div.parentElement.removeChild(div); }, endTime / 2);
+
+    } else setTimeout(() => {
+        div.setAttribute('class', clas + ' load');
+        setTimeout(() => { loadunload(div, startTime, endTime); }, endTime);
+    }, '', startTime);
 }
 
 function glsParse(elm, used = []) {

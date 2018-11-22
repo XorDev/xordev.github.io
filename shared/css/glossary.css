@@ -112,3 +112,18 @@
 #docs .doc .arguments ul li>div{
     display:inline;
 }
+
+.cheese.load {
+    color:var(--main);
+    opacity:1;
+}
+
+.cheese{
+    transition:2s all;
+    opacity:0;
+    position:absolute;
+    background-color:var(--bbg);
+    padding: 0.3rem 0.7rem;
+    border-radius:1rem;
+    box-shadow: 0 9px 0px 6px var(--bg);
+}
