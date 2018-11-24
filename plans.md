@@ -1,14 +1,18 @@
-
+﻿
 ## planned features
 
-*   Tutorials linking to next/previous tutorials, with some metadata displayed
+*   Button for sharing tutorial on twitter (can extend to buttons for multiple platforms)
+
+
+## potential features?
+
+*   Dynamic loading of Glossary entries (it'll be a very big page if every glossary entry is loaded at once)
 *   List that shows titles/highlights from paragraphs/points in the text, same way this one works: https://tonystr.net/test/generated/digitocracy …
-*   Button for sharing tutorial on twitter (can have multiple buttons for multiple platforms if you'd like)
-*   Dynamic loading of Glossary entries (it'll probably be a very big page if every glossary entry loaded at once)
 
 
-## implemented (done)
+## implemented
 
+*   Tutorials linking to next/previous tutorials, with some metadata displayed
 *   Glossary entry links
 *   Tutorials search bar
 *   Glossary search bar

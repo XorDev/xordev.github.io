@@ -5,7 +5,8 @@ body{
 
 .top-info{
     display:flex;
-    padding:2rem 0;
+    padding-bottom:2rem;
+    padding-top:3rem;
     width:75%;
     margin: 0 auto;
     max-width: 50rem;

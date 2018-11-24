@@ -29,10 +29,10 @@ html, body{
     padding:0;
 }
 
-.wrapper{
+body>.wrapper{
     min-height:calc(100% - 4rem);
     padding-bottom:4rem;
-    position: relative;
+    position:relative;
 }
 
 footer{
@@ -525,4 +525,31 @@ header .logo{
     padding-left:.8rem;
     cursor:pointer;
     color:var(--main);
+}
+
+.navigate-end{
+    display:flex;
+    justify-content:space-between;
+    width:80%;
+    max-width:52rem;
+    font-size:1.3rem;
+    margin: 0 auto;
+    padding-bottom:2.4rem;
+    padding-top:4rem;
+}
+
+.navigate-end .title{
+    font-size:1rem;
+}
+
+.navigate-end .desc{
+    font-size:.8rem;
+}
+
+.navigate-end .middle{
+    width:22%;
+}
+
+.navigate-end .next{
+    text-align:right;
 }
