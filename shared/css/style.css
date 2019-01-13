@@ -2,7 +2,7 @@
 body{
     --bg:#181a1f;
     --blue:#24252d;
-    --scroll:#3b282f;
+    --scroll:#424452;
     --txt:#8b909b;
     --bbg: #1a1d23;
     --dbtxt: #424452;
@@ -83,8 +83,8 @@ code.hljs{
 
 ::-webkit-scrollbar {
     background: transparent;
-    width: 9px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-thumb {

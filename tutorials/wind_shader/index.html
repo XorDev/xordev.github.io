@@ -62,8 +62,8 @@
                     <p>
                         To make our wind, we need a simple ripple effect. We will create a vec2 and call it "Coord". This will be used for the wind distortion. We will set it to "v_vTexcoord". Now you need to change the texture2D coordinates to our Coord vector. It should look like this:
                     </p>
-    <pre><code>vec2 Coord = v_vTexcoord;
-    gl_FragColor = v_vColour * texture2D(gm_BaseTexture, Coord);</code></pre>
+<pre><code>vec2 Coord = v_vTexcoord;
+gl_FragColor = v_vColour * texture2D(gm_BaseTexture, Coord);</code></pre>
                     <p>
                         This​ is a pass-through shader. If you run the shader applied to a sprite, it shouldn't change anything. To make a ripple we will use a cosine wave. We could do it like this:
         ​            </p>
@@ -84,12 +84,12 @@
                         t is multiplied by 6.2831 (pi times two) because cosine uses angles in <a href="https://en.wikipedia.org/wiki/Radian" target="_blank">radians</a> so that it does a full cycle every second.
                         <br> We'll set the time uniform in GameMaker like this in the draw event:
                     </p>
-    <pre><code>var uTime = shader_get_uniform(shdr_wind, "Time");
+<pre><code>var uTime = shader_get_uniform(shdr_wind, "Time");
 
-    shader_set(shdr_wind);
-    shader_set_uniform_f(uTime, current_time / 1000);
-    draw_self();
-    shader_reset();</code></pre>
+shader_set(shdr_wind);
+shader_set_uniform_f(uTime, current_time / 1000);
+draw_self();
+shader_reset();</code></pre>
                     <p>
                         This will set "Time" to the number of seconds since the game started.
                         If you run this it will be animated. You may notice a problem where the base of the grass moves​
@@ -108,10 +108,10 @@
                     <p>
                         And back to the fragment shader use this for the coordinates:
                     </p>
-    <pre><code>vec2 Size = vec2(256, 128);
-    vec2 Wave = vec2(48, 5);
+<pre><code>vec2 Size = vec2(256, 128);
+vec2 Wave = vec2(48, 5);
 
-    vec2 Coord = v_vTexcoord + vec2(cos((v_vPosition.y / Wave.x + Time) * 6.2831) * Wave.y, 0) / Size * (1.0 - v_vTexcoord.y)​;</pre></code>
+vec2 Coord = v_vTexcoord + vec2(cos((v_vPosition.y / Wave.x + Time) * 6.2831) * Wave.y, 0) / Size * (1.0 - v_vTexcoord.y)​;</pre></code>
                     <p>
                         "Size" should be the size of the texture. Use a uniform if necessary. "Wave" is for adjusting the wave shape. The first number is the height of the wave and the second number is the amplitude.
                         This works by making a cosine wave of the chosen size with time added (multiplied by 6.2831 because of radians) and then multiplied by the amplitude; then divided by "Size" to get it between 0 and 1 and finally multiplied by the code I mentioned above to fix the bottom.
