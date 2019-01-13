@@ -69,9 +69,11 @@ function initialize() {
     const searchbars = document.querySelectorAll('.searchbar .bar input');
     for (let searchbar of searchbars) {
         searchbar.addEventListener('keydown', evt => searchbarUpdate(searchbar, evt));
-        const returnbtn = document.querySelector('.searchbar .bar .return>i');
-        returnbtn.addEventListener('click', () => document.location.href = './');
-        if (!~document.location.href.indexOf('?')) returnbtn.classList.add('faded');
+        const returnbtn = document.querySelector('.searchbar .bar .return');
+        if (returnbtn !== null) {
+            returnbtn.addEventListener('click', () => document.location.href = './');
+            if (!~document.location.href.indexOf('?')) returnbtn.classList.add('faded');
+        }
     }
 
     const options = document.getElementById('options');

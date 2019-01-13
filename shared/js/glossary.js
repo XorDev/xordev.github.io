@@ -30,18 +30,19 @@ function appendContent(glossary) {
         search: searchFilter ? searchFilter[1] : null
     };
 
-    console.log(filter);
+    if (filter.search !== null) {
+        const searchBar = document.getElementById("search_docs");
+        searchBar.value = filter.search;
+    }
 
     const temp = document.createElement('template');
     for (const type in glossary) {
-        let elms = [];
+        const elms = [];
         for (const elm of glossary[type]) {
-            if (
-                filter.key    && (elm.key !== filter.key) ||
-                filter.search && (!~elm.key.toLowerCase().indexOf(filter.search))
-            ) continue;
+            if (filter.key    && elm.key !== filter.key ||
+                filter.search && !~elm.key.toLowerCase().indexOf(filter.search)) continue;
 
-            let properties = glsParse(elm);
+            const properties = glsParse(elm);
 
             elms.push(`
                 <div class="${type} doc" id="${elm.key}">

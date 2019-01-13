@@ -461,14 +461,16 @@ header .logo{
 .searchbar .bar .return{
     top:4px;
     right:4px;
-    bottom:4px;
     width:2.6rem;
     border-radius: 6px;
     position:absolute;
     text-align:center;
     font-size: 1.4rem;
-    color:var(--txt);
     transform: translateY(3px);
+}
+
+.searchbar .bar .return{
+    color:var(--button);
 }
 
 .searchbar .bar .return:hover{
@@ -476,7 +478,7 @@ header .logo{
     cursor:pointer;
 }
 
-.searchbar .bar .return .faded{
+.searchbar .bar .return.faded{
     color:var(--dbtxt);
 }
 

@@ -64,16 +64,25 @@
 }
 
 #docs .type-title span{
-    background-color:var(--blue);
     padding: 0 1rem;
-    box-shadow: 0 0 2px 2px var(--blue);
 }
 
 #docs .type-title::before{
     content:"";
     position:absolute;
     left:0;
+    width:calc(50% - 5.6rem);
+    bottom:0;
+    top:50%;
+    border-top: 4px solid var(--dbtxt);
+    z-index: -50;
+}
+
+#docs .type-title::after{
+    content:"";
+    position:absolute;
     right:0;
+    width:calc(50% - 5.6rem);
     bottom:0;
     top:50%;
     border-top: 4px solid var(--dbtxt);
