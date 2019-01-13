@@ -45,10 +45,12 @@ async function searchbarUpdate(searchbar, evt) {
         let resElement;
         let path = document.location.pathname;
         if (path.startsWith('/xorshaders')) path = path.slice(11);
-        switch (path) {
-            case '/glossary/': resElement = res => `<a href="./?load=${res[pageCompareProp]}"><div class="result">${res[pageCompareProp]}</div></a>`; break;
-            case '/': resElement = res => `<a href="./tutorials/${res.pagename}/"><div class="result">${res[pageCompareProp]}</div></a>`; break;
-        }
+
+        // glossary search
+        if (path.endsWith('/glossary/')) resElement = res => `<a href="./?load=${res[pageCompareProp]}"><div class="result">${res[pageCompareProp]}</div></a>`;
+        // home search
+        else if (path.endsWith('/')) resElement = res => `<a href="./tutorials/${res.pagename}/"><div class="result">${res[pageCompareProp]}</div></a>`;
+
 
         let outstr = '';
         for (let result of results) {

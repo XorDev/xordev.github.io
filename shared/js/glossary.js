@@ -77,7 +77,7 @@ function appendContent(glossary) {
         }
     }
 
-    hljs.initHighlightingOnLoad();
+    hljs.initHighlighting();
 }
 
 function creacopURL(elm, key) {
