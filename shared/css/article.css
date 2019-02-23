@@ -23,10 +23,10 @@ body{
     color:var(--txt);
 }
 
-.article{
+.article {
     font-size: 1.2rem;
     width: 54rem;
-    max-width:100%;
+    max-width:90%;
     padding:1rem;
     margin: 0 auto;
     background-color:var(--bg);
@@ -57,4 +57,13 @@ body{
 .article h1, .article h2, .article h3, .article .title{
     color:var(--main);
     font-weight: lighter;
+}
+
+@media(max-width: 900px) {
+    .article {
+        padding: 1rem 0;
+        width:100%;
+        max-width:100%;
+        border-radius: 0;
+    }
 }

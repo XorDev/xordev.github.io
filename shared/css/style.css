@@ -555,3 +555,63 @@ header .logo{
 .navigate-end .next{
     text-align:right;
 }
+
+@media(max-width: 550px) {
+    body {
+        font-size: .8rem;
+    }
+
+    .article,
+    header .elm.title,
+    .header-buttons .elm {
+        font-size: 1rem !important;
+    }
+
+    #showcase .colon,
+    .top-info .date,
+    .top-info #title {
+        font-size: 1.4rem !important;
+    }
+
+    #tutorials .grid {
+        grid-template-columns: repeat(auto-fill, 8rem);
+    }
+
+    #tutorials .grid .item img {
+        border-radius: 4px;
+    }
+
+    #tutorials .grid .item span {
+        opacity: 1;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, .6);
+    }
+}
+
+@media(max-width: 700px) {
+    #about .center {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 4rem;
+    }
+
+    #about .split {
+        flex-direction: column;
+    }
+
+    #about .split>div {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #about .split .right {
+        margin-top: 4rem;
+        margin-bottom:3rem;
+        padding-top: 4rem;
+        border-top: 1px solid var(--main);
+    }
+
+    #contact .question {
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+}
