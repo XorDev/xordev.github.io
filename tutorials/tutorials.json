@@ -1,16 +1,15 @@
 {
-    "shaders": [
-    {
-      "name": "First tutorial",
-      "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
-      "pagename": "Basic1",
-      "date": 10000000
-    },
-    {
-      "name": "Wind Shader",
-      "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
-      "pagename": "wind_shader",
-      "date": 1541579848
-    }
-  ]
+  "shaders":
+  [{
+    "name": "First tutorial",
+    "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
+    "pagename": "Basic1",
+    "date": 100000000
+  },
+  {
+    "name": "Wind Shader",
+    "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
+    "pagename": "wind_shader",
+    "date": 1541579848
+  }]
 }
