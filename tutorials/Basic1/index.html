@@ -65,14 +65,6 @@
 <pre><code>vec2 Code = Test.yx;</code></pre>
                     <div class="image"><img src="./Demo1.png"></img></div>
                     <p>
-                        This is closer to what we want, but we need it to be animated. This works by shifting the X coordinates in a cosine wave shape. This makes a nice ripple. You can adjust the frequency by changing the first 30.0 and adjust the amplitude by changing the second 30.0. We'll come back to this at the end of the tutorial
-                    </p>
-                    <h2> Animating </h2>
-                    <p>
-                        We need to add a uniform float and we'll call it "Time" and we'll add it in the cosine like this:
-                    </p>
-                    <pre><code>vec2 Coord = v_vTexcoord + vec2(cos(v_vTexcoord.y * 30.0 + Time * 6.2831) / 30.0, 0);</code></pre>
-                    <p>
                         Here's a link on <a href="https://en.wikipedia.org/wiki/Radian" target="_blank">radians</a>.
                     </p>
                 </div></div>
