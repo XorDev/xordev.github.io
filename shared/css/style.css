@@ -276,6 +276,7 @@ header .logo{
 
 .header-buttons a[href*="glossary"]{
     display:none;
+    /*display:inline;*/
 }
 
 .header-buttons .current{
