@@ -1,9 +1,9 @@
 {
   "shaders":
   [{
-    "name": "First tutorial",
-    "description": "Tutorial test.",
-    "pagename": "Basic1",
+    "name": "Example",
+    "description": "My tutorial example. You're not supposed to see this yet. Shhhh!",
+    "pagename": "Example",
     "date": 1551137329
   }]
 }
