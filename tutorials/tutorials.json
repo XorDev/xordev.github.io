@@ -1,21 +1,9 @@
 {
   "shaders":
   [{
-    "name": "Second tutorial",
-    "description": "A secondary tutorial test.",
-    "pagename": "Basic2",
-    "date": 1551137329
-  },
-  {
     "name": "First tutorial",
     "description": "Tutorial test.",
     "pagename": "Basic1",
     "date": 1551137329
-  },
-  {
-    "name": "Wind Shader",
-    "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
-    "pagename": "wind_shader",
-    "date": 1541579848
   }]
 }
