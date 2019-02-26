@@ -1,6 +1,12 @@
 {
   "shaders":
   [{
+    "name": "Second tutorial",
+    "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
+    "pagename": "Basic2",
+    "date": 1551137329
+  },
+  {
     "name": "First tutorial",
     "description": "Lean to bend reality with this *insane* wind shader that you can only learn about here",
     "pagename": "Basic1",
