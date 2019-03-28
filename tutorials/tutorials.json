@@ -1,9 +1,9 @@
 {
   "shaders":
   [{
-    "name": "Example",
-    "description": "My tutorial example. You're not supposed to see this yet. Shhhh!",
-    "pagename": "Example",
+    "name": "GameMaker",
+    "description": "Learn how to setup and use shaders in GameMaker.",
+    "pagename": "GameMaker",
     "date": 1551137329
   }]
 }

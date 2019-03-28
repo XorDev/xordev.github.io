@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GameMaker</title>
+        <meta name="description" content="Shader tutorials for GameMaker Studio">
+        <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
+        <meta name="copyright" content="Copyright 2019 GM shaders">
+        <meta name="theme-color" content="#e0ba23">
+        <!-- Twitter -->
+        <meta name="twitter:site" content="@XorDev">
+        <meta name="twitter:title" content="Xor">
+        <meta name="twitter:description" content="Shader tutorials for GameMaker Studio">
+        <meta name="twitter:image" content="./thumbnail.png">
+        <meta name="twitter:url" content="/">
+        <!-- Open Graph -->
+        <meta property="og:title" content="GMshaders">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="/">
+        <meta property="og:image" content="./thumbnail.png">
+        <meta property="og:description" content="Shader tutorials for GameMaker Studio">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/atom-one-dark.css">
+        <script src="../../shared/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <!-- styles -->
+        <link rel="icon" href="https://GMshaders.com/shared/images/x.png">
+        <link rel="stylesheet" href="../../shared/css/style.css">
+        <link rel="stylesheet" href="../../shared/css/article.css">
+        <!-- javascript and fontawesome -->
+        <script>const root = '../../';</script>
+        <script src="../../shared/js/options.js"></script>
+        <script src="../../shared/js/tutorial.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="wrapper">
+            <img class="background-image hidden" src="../../shared/images/background.jpg">
+            <header>
+                <div class="header-buttons">
+                    <div class="left">
+                        <a href="../../">
+                            <div class="title elm">GM Shaders</div>
+                        </a>
+                        <a href="../../about"><div class="elm">About</div></a>
+                        <a href="../../contact"><div class="elm">Contact</div></a>
+                        <a href="../../glossary"><div class="elm">Glossary</div></a>
+                    </div>
+                    <div class="right">
+                        <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+            </header>
+            <div class="pagecontent">
+                <div class="top-info">
+                    <a href="./#title"><div id="title">GameMaker</div></a>
+                    <div class="date">25 Feb 2019</div>
+                </div>
+                <div class="article"><div class="wrapper">
+                    <p>
+                        Welcome to <a title="GM Shaders about page" href="https://gmshaders.com/about/" target="_blank">GM Shaders</a>!
+                        <br>
+                        This first tutorial covers the basics of shaders in GameMaker Studio.
+                        Make sure you have an understanding of coding in GML.
+                        If you are already familiar with the purpose and setup of shaders, then feel free to skip to the next tutorial.
+                        <br>
+                        Shaders are used to produce all kinds of graphical and visual effects for 2D or 3D.
+                        They are perfect for enhancing any game's visuals.
+                        You can use them for anything from color effects like grayscale, sepia tone to blur effects, to lighting effects like normal maps, shadows
+                        to water reflections/refractions, shockwaves, wind and much more!
+                        Let's get started from the very beginning by looking at texture pages in GM.
+                    </p>
+                    <h2>Texture pages</h2>
+                    <p>
+                        So before we get to the shaders I want to explain a bit about texture pages and next, how draw_sprite() works in GM.
+                        First, when you run your game, all textures (sprites, fonts, etc) are placed on texture pages.
+                        In summary, a texture page takes <span title="Removing all empty space">trimmed-down</span> sprites and fits as many as possible on a single page and you can
+                        read about texture pages <a title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>
+                        You can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" to put it on its own texture page.
+                        That means drawing a sprite, is actually just drawing a part of a larger texture page.
+                    </p>
+                    <h2>Drawing sprites in GM</h2>
+                    <p>
+                        When you draw a sprite, it is actually drawing two triangles together which form a rectangle.
+                        Each vertex carries information such as its position, texture coordinates and color.
+                        So the vertices positions are in the corners of the sprite of sprite.
+                        The texture coordinates are the coordinates on texture page ranging from 0 and 1.
+                        So 0,0 is the top-left corner of the texture page and 0,1 is the bottom-left corner.
+                        Typically a sprite's texture coordinates will be somewhere in the middle of the texture page.
+                        <br>
+                        When you use draw_sprite_ext, setting the color and alpha is just setting the color/alpha of all the vertices in the sprite.
+                        If you've used vertex buffers or draw_vertex_* functions you'll know that you can actually change the colors of individual vertices
+                        and you can use this to create gradients and other effects.
+                        Understanding this helps with shaders because these are the inputs the shaders have to work with.
+                    </p>
+                    <h2>How shaders work</h2>
+                    <p>
+                        Shaders are graphical programs that handle drawing (sprites, surfaces, vertex buffers, etc).
+                        GM supports two shader units: the vertex shader and fragment shader (sometimes called pixel shaders).
+                        <br>
+                        The vertex shader handles each vertex. It can be used to move vertices, change the colors and more.
+                        <br>
+                        The fragment shader handles each fragment/pixel. It's used for most effects, including texture or color effects.
+                        <br>
+                        When you don't apply any shader, GM uses a default "passthrough" shader.
+                        This passthrough shader outputs the texture with the draw color and alpha the way you're used to.
+                        It also handles things such as alpha testing and fog/lights in 3D, but we don't need to deal with this right now.
+                    </p>
+                    <h2>Adding a shader</h2>
+                    <p>
+                        Right-click the shaders folder and create a shader.
+                        You can title it "shd_passthrough" because this is going to be just another passthrough shader, albeit
+                        <span title="The default shader does not handle gpu effects like alpha testing, fog or lights!">simplified</span>.
+                        If you right-click the shader in the resource tree, you can set the shader type to GLSL ES, GLSL or HLSL 11.
+                        <br>
+                        <b>GLSL ES</b> is compatible with all platforms.
+                        <br>
+                        <b>GLSL</b> is compatible with Mac and Ubuntu.
+                        <br>
+                        <b>HLSL 11</b> is compatible with Windows, UWP and Xbox One.
+                        Also supports <span title="Multiple Render Targets">MRTs</span> which I would like to cover later.
+                        <br>
+                        For now we will just use GLSL ES because it is fairly standard and can be used on all platform targets.
+                    </p>
+                    <h2>Passthrough shader explained</h2>
+                    <p>
+                    I've gone through the default vertex and fragment shader, but I replaced the comments with my own.
+                    This will give a basic explanation of what each line does, but don't worry about the details just yet.
+                    Explained Vertex shader code:
+                    </p>
+                    <pre><code>
+//Receive the input positions (x,y,z/depth) of the vertices.
+attribute vec3 in_Position;
+//Receive the input color (red, green, blue, alpha) of the vertices.
+attribute vec4 in_Colour;
+//Receive the input texture coordinates (u,v) of the vertices.
+//u,v are the x,y of texture coordinates, but called u,v to avoid confusion.
+attribute vec2 in_TextureCoord;
+
+//Pass the texture coordinates to the fragment shader.
+varying vec2 v_vTexcoord;
+//Pass the vertex color/alpha to the fragment shader.
+varying vec4 v_vColour;
+
+//Handle vertex.
+void main()
+{
+    //Create a 4D vertex position for some matrix math.
+    vec4 object_space_pos = vec4( in_Position.x, in_Position.y, in_Position.z, 1.0);
+    //Output the vertex position (in projection-space).
+    gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
+
+    //Set the vertex color/alpha to be passed to the fragment shader.
+    v_vColour = in_Colour;
+    //Set the texture coordinates to be passed to the fragment shader.
+    v_vTexcoord = in_TextureCoord;
+}
+                    </code></pre>
+                    <p>
+                    Fragment:
+                    </p>
+                    <pre><code>
+//Pass in the texture coordinates from the vertex shader.
+varying vec2 v_vTexcoord;
+//Pass in the vertex color/alpha from the vertex shader.
+varying vec4 v_vColour;
+
+//Handle fragment/pixel.
+void main()
+{
+    //Output the vertex color and texture color to each pixel.
+    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
+}
+                    </code></pre>
+                    <h2>Summary</h2>
+                    <p>
+                        Congrats on adding and examining your first shader!
+                        Like I said earlier, don't worry if you don't understand all of it as there are more of tutorials to break down the details.
+                        For many, matrices and vertex positions look quite complicated and scary.
+                        But that's okay though!
+                        We won't need to get into all of that until much later, for now we'll focus mostly on the fragment shader.
+                        For now I hope you learned something interesting and are looking forward to modifying and creating your own shaders.
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="navigate-end"></div>
+            <footer><div class="left">&copy; GM Shaders 2019 </div><div class="right"> Website developed by <a taret="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+        </div>
+        <script>initialize();</script>
+    </body>
+</html>

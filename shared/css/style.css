@@ -1,18 +1,18 @@
 
 body{
-    --bg:#181a1f;
-    --blue:#24252d;
+    --dark:#181a1f;
+    --back:#24252d;
     --scroll:#424452;
+    --search:#1a1d23;
+    --htxt:#e0ba23;
     --txt:#8b909b;
-    --bbg:#1a1d23;
-    --dbtxt:#424452;
-    --link:#cbd0db;
-    --white:#ffffff;
-    --main:#e0ba23;
-    --button:#ffc025;
-    --buttondk:#bc8c18;
+    --ftxt:#424452;
+    --link:#bfbfbf;
+    --hov:#ffffff;
+    --lbutton:#ffc025;
+    --dbutton:#bc8c18;
 
-    background-color:var(--blue);
+    background-color:var(--back);
     color:var(--txt);
 
     font: 1rem/1.5 Arial, Helvetica, sans-serif;
@@ -42,15 +42,15 @@ footer{
     bottom:0;
     width:100%;
     height:3rem;
-    background-color: var(--bg);
-    color:var(--dbtxt);
-    border-top: 1px solid var(--blue);
+    background-color: var(--dark);
+    color:var(--ftxt);
+    border-top: 1px solid var(--back);
 }
 
 footer>div{
     margin: auto 1rem;
     min-width:40%;
-    text-align:center;
+    txt-align:center;
 }
 
 footer a{
@@ -58,7 +58,7 @@ footer a{
 }
 
 code.hljs{
-    background-color: var(--blue);
+    background-color: var(--back);
     font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
     border-radius:6px;
     box-shadow: 0 2px 17px -3px rgba(0,0,0,.1);
@@ -72,8 +72,8 @@ code.hljs{
     padding: 0;
     border-radius: 3px;
     margin:0;
-    background-color:var(--blue);
-    box-shadow: 0 0px 4px var(--bg);
+    background-color:var(--back);
+    box-shadow: 0 0px 4px var(--dark);
 }
 
 .inline-hljs code{
@@ -93,7 +93,7 @@ code.hljs{
 }
 
 ::-webkit-scrollbar-track {
-    /* background: linear-gradient(to bottom, var(--gray) 0%, var(--bg) 60%, var(--gray) 100%); */
+    /* background: linear-gradient(to bottom, var(--gray) 0%, var(--dark) 60%, var(--gray) 100%); */
     background: transparent;
 }
 
@@ -126,7 +126,11 @@ a, .link{
 }
 
 a:hover, .link:hover{
-    color:var(--white);
+    color:var(--hov);
+}
+
+span{
+    color:var(--link);
 }
 
 /* floating menu (eg. options) */
@@ -138,15 +142,15 @@ a:hover, .link:hover{
     padding:.5rem 1rem;
     border-radius: 5px;
     box-shadow:0 2px 16px rgba(0,0,0,.2);
-    background-color:var(--bg);
+    background-color:var(--dark);
     z-index: 2000;
 }
 
 .floating-menu .title {
-    text-align:center;
+    txt-align:center;
     padding-bottom:.3rem;
     margin-bottom:.6rem;
-    border-bottom: 2px solid var(--blue);
+    border-bottom: 2px solid var(--back);
 }
 
 
@@ -187,7 +191,7 @@ a:hover, .link:hover{
     right:0;
     bottom:0;
     border-radius:13px/12px;
-    border:2px solid var(--button);
+    border:2px solid var(--lbutton);
     -webkit-transition: .24s;
     transition: .24s;
 }
@@ -200,13 +204,13 @@ a:hover, .link:hover{
     left:2px;
     bottom:2px;
     border-radius:50%;
-    background-color:var(--button);
+    background-color:var(--lbutton);
     -webkit-transition: .24s;
     transition: .24s;
 }
 
 .switch input:checked + .slider {
-    background-color:var(--buttondk);
+    background-color:var(--dbutton);
 }
 
 .switch input:focus + .slider{
@@ -224,8 +228,8 @@ a:hover, .link:hover{
 header {
     padding:0 8%;
     width:84%;
-    background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0));
-    box-shadow: inset 0 -2px 9px 3px var(--bg);
+    background:linear-gradient(180deg,var(--dark),rgba(0,0,0,0));
+    box-shadow: inset 0 -2px 9px 3px var(--dark);
 }
 
 header .elm.title{
@@ -280,7 +284,7 @@ header .logo{
 }
 
 .header-buttons .current{
-    color:var(--main);
+    color:var(--htxt);
 }
 
 /* showcase news above tutorials grid */
@@ -302,8 +306,8 @@ header .logo{
     max-width:60%;
     display:flex;
     padding: 0 1rem;
-    border-left:  1px solid var(--bg);
-    border-right: 1px solid var(--bg);
+    border-left:  1px solid var(--dark);
+    border-right: 1px solid var(--dark);
 }
 
 #showcase .content .title{
@@ -322,7 +326,7 @@ header .logo{
     max-width: 64rem;
     margin: 0 auto;
     padding: 2rem 2.4rem;
-    background-color:var(--bg);
+    background-color:var(--dark);
     box-shadow: 0 2px 13px rgba(0,0,0,.2);
     border-radius: 7px;
 }
@@ -346,7 +350,7 @@ header .logo{
     box-shadow: 0 2px 16px rgba(0,0,0,.5);
     transform:scale(1);
     transition: .22s all;
-    background-color:var(--blue);
+    background-color:var(--back);
 }
 
 #tutorials .grid .item span {
@@ -357,7 +361,7 @@ header .logo{
     text-align:center;
     transform:translateX(-50%) translateY(-50%);
     font-weight:bold;
-    color:var(--main);
+    color:var(--htxt);
     font-size:1.3rem;
     opacity:0;
     transition: .22s all;
@@ -397,7 +401,7 @@ header .logo{
     justify-content: space-around;
     margin-top:4rem;
     padding-top:4rem;
-    border-top: 1px solid var(--main);
+    border-top: 1px solid var(--htxt);
 }
 
 #about .split>div{
@@ -431,7 +435,7 @@ header .logo{
 
 #contact .button-container>a{
     margin: 0 .5rem;
-    color:var(--main);
+    color:var(--htxt);
 }
 
 #contact .button-container>a i{
@@ -465,13 +469,13 @@ header .logo{
     width:2.6rem;
     border-radius: 6px;
     position:absolute;
-    text-align:center;
+    txt-align:center;
     font-size: 1.4rem;
     transform: translateY(3px);
 }
 
 .searchbar .bar .return{
-    color:var(--button);
+    color:var(--lbutton);
 }
 
 .searchbar .bar .return:hover{
@@ -480,11 +484,11 @@ header .logo{
 }
 
 .searchbar .bar .return.faded{
-    color:var(--dbtxt);
+    color:var(--ftxt);
 }
 
 .searchbar .bar input{
-    background-color: var(--bg);
+    background-color: var(--dark);
     width:100%;
     border:none;
     outline:none;
@@ -492,12 +496,12 @@ header .logo{
     padding:.7rem 1rem;
     border-radius: 6px;
     font-size:1.2rem;
-    box-shadow:0 2px 10px -1px var(--bg);
+    box-shadow:0 2px 10px -1px var(--dark);
     transition:.2s box-shadow;
 }
 
 .searchbar .bar input:hover{
-    box-shadow: 0 3px 14px 0 var(--bg);
+    box-shadow: 0 3px 14px 0 var(--dark);
 }
 
 .searchbar .bar input:focus{
@@ -505,13 +509,13 @@ header .logo{
 }
 
 .searchbar .results{
-    background-color:var(--bbg);
+    background-color:var(--search);
     border-bottom-left-radius:8px;
     border-bottom-right-radius:8px;
 }
 
 .searchbar .results>:nth-child(even)>.result{
-    background-color: var(--bg);
+    background-color: var(--dark);
 }
 
 .searchbar .results>:last-child>.result{
@@ -527,7 +531,7 @@ header .logo{
 .searchbar .results .result:hover{
     padding-left:.8rem;
     cursor:pointer;
-    color:var(--main);
+    color:var(--htxt);
 }
 
 .navigate-end{
@@ -541,7 +545,7 @@ header .logo{
     padding-top:4rem;
 }
 
-.navigate-end .title{
+.navigate-end .htxt{
     font-size:1rem;
 }
 
@@ -584,7 +588,7 @@ header .logo{
 
     #tutorials .grid .item span {
         opacity: 1;
-        text-shadow: 0 2px 3px rgba(0, 0, 0, .6);
+        txt-shadow: 0 2px 3px rgba(0, 0, 0, .6);
     }
 }
 
@@ -608,7 +612,7 @@ header .logo{
         margin-top: 4rem;
         margin-bottom:3rem;
         padding-top: 4rem;
-        border-top: 1px solid var(--main);
+        border-top: 1px solid var(--htxt);
     }
 
     #contact .question {
