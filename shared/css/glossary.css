@@ -7,15 +7,15 @@
 
 #docs .name {
     font-size: 1.5rem;
-    color: var(--button);
+    color: var(--lbutton);
 }
 
 #docs .doc{
     margin-bottom:2rem;
-    background-color:var(--bg);
+    background-color:var(--dark);
     border-radius: .6rem;
     padding: 1.4rem 2rem;
-    box-shadow: 0 2px 14px 1px var(--bg);
+    box-shadow: 0 2px 14px 1px var(--dark);
     position: relative;
 }
 
@@ -28,7 +28,7 @@
     top:0;
     left:0;
     right:0;
-    background-color:var(--bbg);
+    background-color:var(--search);
     padding:1rem 2rem;
 }
 
@@ -59,7 +59,7 @@
 #docs .type-title{
     font-size: 2.2rem;
     padding:2rem 0;
-    text-align:center;
+    txt-align:center;
     position: relative;
 }
 
@@ -74,7 +74,7 @@
     width:calc(50% - 5.6rem);
     bottom:0;
     top:50%;
-    border-top: 4px solid var(--dbtxt);
+    border-top: 4px solid var(--ftxt);
     z-index: -50;
 }
 
@@ -85,7 +85,7 @@
     width:calc(50% - 5.6rem);
     bottom:0;
     top:50%;
-    border-top: 4px solid var(--dbtxt);
+    border-top: 4px solid var(--ftxt);
     z-index: -50;
 }
 
@@ -96,7 +96,7 @@
 #docs .doc .examples ul,
 #docs .doc .arguments ul{
     list-style-type: none;
-    border-left: 3px solid var(--blue);
+    border-left: 3px solid var(--back);
     margin-top:0;
     padding:.5rem 0;
 }
@@ -115,7 +115,7 @@
 }
 
 #docs .doc .arguments ul li:nth-child(odd){
-    background-color:var(--bbg);
+    background-color:var(--search);
 }
 
 #docs .doc .arguments ul li>div{
@@ -123,7 +123,7 @@
 }
 
 .cheese.load {
-    color:var(--main);
+    color:var(--htxt);
     opacity:1;
 }
 
@@ -131,8 +131,8 @@
     transition:2s all;
     opacity:0;
     position:absolute;
-    background-color:var(--bbg);
+    background-color:var(--search);
     padding: 0.3rem 0.7rem;
     border-radius:1rem;
-    box-shadow: 0 9px 0px 6px var(--bg);
+    box-shadow: 0 9px 0px 6px var(--dark);
 }

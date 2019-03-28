@@ -15,7 +15,7 @@ body{
 
 .top-info #title{
     font-size: 2rem;
-    color:var(--main);
+    color:var(--htxt);
 }
 
 .top-info .date{
@@ -29,7 +29,7 @@ body{
     max-width:90%;
     padding:1rem;
     margin: 0 auto;
-    background-color:var(--bg);
+    background-color:var(--dark);
     box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
     border-radius:6px;
     position:relative;
@@ -55,7 +55,7 @@ body{
 }
 
 .article h1, .article h2, .article h3, .article .title{
-    color:var(--main);
+    color:var(--htxt);
     font-weight: lighter;
 }
 
