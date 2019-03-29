@@ -75,7 +75,7 @@
                     <p>
                         So before we get to the shaders I want to explain a bit about texture pages and next, how draw_sprite() works in GM.
                         First, when you run your game, all textures (sprites, fonts, etc) are placed on texture pages.
-                        In summary, a texture page takes <span title="Removing all empty space">trimmed-down</span> sprites and fits as many as possible on a single page and you can
+                        In summary, a texture page takes <span title="Removing all empty, transparent space">trimmed-down</span> sprites and fits as many as possible on a single page and you can
                         read about texture pages <a title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>
                         You can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" to put it on its own texture page.
                         That means drawing a sprite, is actually just drawing a part of a larger texture page.
@@ -83,7 +83,7 @@
                     <h2>Drawing sprites in GM</h2>
                     <p>
                         When you draw a sprite, it is actually drawing two triangles together which form a rectangle.
-                        Each vertex carries information such as its position, texture coordinates and color.
+                        Each vertex carries information such as its position, texture coordinates, and color.
                         So the vertices positions are in the corners of the sprite of sprite.
                         The texture coordinates are the coordinates on texture page ranging from 0 and 1.
                         So 0,0 is the top-left corner of the texture page and 0,1 is the bottom-left corner.
@@ -96,7 +96,7 @@
                     </p>
                     <h2>How shaders work</h2>
                     <p>
-                        Shaders are graphical programs that handle drawing (sprites, surfaces, vertex buffers, etc).
+                        Shaders are graphical programs run on your GPU (or iGPU) that handle drawing (sprites, surfaces, vertex buffers, etc).
                         GM supports two shader units: the vertex shader and fragment shader (sometimes called pixel shaders).
                         <br>
                         The vertex shader handles each vertex. It can be used to move vertices, change the colors and more.
@@ -105,13 +105,17 @@
                         <br>
                         When you don't apply any shader, GM uses a default "passthrough" shader.
                         This passthrough shader outputs the texture with the draw color and alpha the way you're used to.
-                        It also handles things such as alpha testing and fog/lights in 3D, but we don't need to deal with this right now.
+                        It also handles things such as alpha testing and fog/lights in 3D, but that is for another time.
+                        <br>
+                        Shaders process all vertices simultaneously and then all the pixels.
+                        This means that any conditional effect (dependent on a specific area, time or any other variable)
+                        will perform slower since all vertices/pixels use the same code despite varying results.
                     </p>
                     <h2>Adding a shader</h2>
                     <p>
                         Right-click the shaders folder and create a shader.
                         You can title it "shd_passthrough" because this is going to be just another passthrough shader, albeit
-                        <span title="The default shader does not handle gpu effects like alpha testing, fog or lights!">simplified</span>.
+                        <span title="The default shader does not handle GPU effects like alpha testing, fog or lights!">simplified</span>.
                         If you right-click the shader in the resource tree, you can set the shader type to GLSL ES, GLSL or HLSL 11.
                         <br>
                         <b>GLSL ES</b> is compatible with all platforms.
@@ -176,10 +180,10 @@ void main()
                     <h2>Summary</h2>
                     <p>
                         Congrats on adding and examining your first shader!
-                        Like I said earlier, don't worry if you don't understand all of it as there are more of tutorials to break down the details.
+                        Like I said earlier, don't worry if you don't understand all of it as there are more tutorials to break down the details.
                         For many, matrices and vertex positions look quite complicated and scary.
                         But that's okay though!
-                        We won't need to get into all of that until much later, for now we'll focus mostly on the fragment shader.
+                        We won't need to get into all of that until much later, for now, we'll focus mostly on the fragment shader.
                         For now I hope you learned something interesting and are looking forward to modifying and creating your own shaders.
                     </p>
                 </div>
