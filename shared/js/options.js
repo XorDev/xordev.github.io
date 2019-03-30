@@ -146,6 +146,17 @@ function initialize() {
             }, 60)
         }
     });
+
+    let codeElms = document.getElementsByTagName('code');
+    console.log(codeElms.length);
+    if (codeElms.length) {
+        for (let codeElm of codeElms) {
+            if (codeElm.parentElement.nodeName.toLowerCase() != 'pre') {
+                codeElm.classList.add('inline-hljs');
+                hljs.highlightBlock(codeElm);
+            }
+        }
+    }
 }
 
 function toggelBG(elm) {
