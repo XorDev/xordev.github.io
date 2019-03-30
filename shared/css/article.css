@@ -1,69 +1,67 @@
-
-body{
-    overflow-x:hidden;
+body {
+    overflow-x: hidden;
 }
 
-.top-info{
-    display:flex;
-    padding-bottom:2rem;
-    padding-top:3rem;
-    width:75%;
+.top-info {
+    display: flex;
+    padding-bottom: 2rem;
+    padding-top: 3rem;
+    width: 75%;
     margin: 0 auto;
     max-width: 50rem;
     justify-content: space-between;
 }
 
-.top-info #title{
+.top-info #title {
     font-size: 2rem;
-    color:var(--htxt);
+    color: var(--htxt);
 }
 
-.top-info .date{
+.top-info .date {
     font-size: 2rem;
-    color:var(--txt);
+    color: var(--txt);
 }
 
 .article {
     font-size: 1.2rem;
     width: 54rem;
-    max-width:90%;
-    padding:1rem;
+    max-width: 90%;
+    padding: 1rem;
     margin: 0 auto;
-    background-color:var(--dark);
-    box-shadow: 0 5px 17px -3px rgba(0,0,0,.2);
-    border-radius:6px;
-    position:relative;
+    background-color: var(--dark);
+    box-shadow: 0 5px 17px -3px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    position: relative;
 }
 
-.article .wrapper{
-    width:calc(100% - 4rem);
-    height:100%;
-    margin:auto;
+.article .wrapper {
+    width: calc(100% - 4rem);
+    height: 100%;
+    margin: auto;
 }
 
-.article .image{
+.article .image {
     align-self: center;
     position: relative;
 }
 
-.article .image img{
-    max-width:100%;
-    /* This is a pretty hacky solution
-    for centering images. Fix later */
-    margin-left:50%;
-    transform:translateX(-50%);
+.article .image img {
+    max-width: 100%;
+    /* TODO: This is a pretty hacky solution for centering images. Fix later */
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
-.article h1, .article h2, .article h3, .article .title{
-    color:var(--htxt);
+.article .title, .article h1, .article h2, .article h3 {
+    color: var(--htxt);
     font-weight: lighter;
 }
 
-@media(max-width: 900px) {
+@media (max-width: 900px) {
     .article {
         padding: 1rem 0;
-        width:100%;
-        max-width:100%;
+        width: 100%;
+        max-width: 100%;
         border-radius: 0;
     }
 }

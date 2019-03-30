@@ -1,7 +1,6 @@
-
 #docs {
     width: 80%;
-    max-width:60rem;
+    max-width: 60rem;
     margin: 2rem auto;
 }
 
@@ -10,129 +9,135 @@
     color: var(--lbutton);
 }
 
-#docs .doc{
-    margin-bottom:2rem;
-    background-color:var(--dark);
-    border-radius: .6rem;
+#docs .doc {
+    margin-bottom: 2rem;
+    background-color: var(--dark);
+    border-radius: 0.6rem;
     padding: 1.4rem 2rem;
     box-shadow: 0 2px 14px 1px var(--dark);
     position: relative;
 }
 
-#docs .doc .name{
+#docs .doc .name {
     font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier;
 }
 
-#docs .doc .content>.name{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    background-color:var(--search);
-    padding:1rem 2rem;
-}
-
-#docs .doc>.link{
-    z-index:2;
-    position: absolute;
-    right:2rem;
-}
-
-#docs .doc .content{
+#docs .doc .content {
     margin-top: 4rem;
 }
 
-#docs .doc>div/*:not(:last-child)*/{
-    margin-bottom:1rem;
+#docs .doc .content>.name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--search);
+    padding: 1rem 2rem;
 }
 
-#docs .doc .title{
+#docs .doc>.link {
+    z-index: 2;
+    position: absolute;
+    right: 2rem;
+}
+
+#docs .doc>div {
+    margin-bottom: 1rem;
+}
+
+#docs .doc .title {
     font-size: 1.3rem;
-    margin-bottom: .3rem;
-    display:inline;
+    margin-bottom: 0.3rem;
+    display: inline;
 }
 
-#docs .doc>.block>.title{
-    display:block;
+#docs .doc>.block>.title {
+    display: block;
 }
 
-#docs .type-title{
+#docs .type-title {
     font-size: 2.2rem;
-    padding:2rem 0;
-    txt-align:center;
+    padding: 2rem 0;
+    text-align: center;
     position: relative;
 }
 
-#docs .type-title span{
+#docs .type-title span {
     padding: 0 1rem;
 }
 
-#docs .type-title::before{
-    content:"";
-    position:absolute;
-    left:0;
-    width:calc(50% - 5.6rem);
-    bottom:0;
-    top:50%;
+#docs .type-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: calc(50% - 5.6rem);
+    bottom: 0;
+    top: 50%;
     border-top: 4px solid var(--ftxt);
     z-index: -50;
 }
 
-#docs .type-title::after{
-    content:"";
-    position:absolute;
-    right:0;
-    width:calc(50% - 5.6rem);
-    bottom:0;
-    top:50%;
+#docs .type-title::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: calc(50% - 5.6rem);
+    bottom: 0;
+    top: 50%;
     border-top: 4px solid var(--ftxt);
     z-index: -50;
 }
 
-#docs .doc .examples ul li{
-    padding-left:1rem;
-}
-
-#docs .doc .examples ul,
-#docs .doc .arguments ul{
+#docs .doc .examples ul {
     list-style-type: none;
     border-left: 3px solid var(--back);
-    margin-top:0;
-    padding:.5rem 0;
+    margin-top: 0;
+    padding: 0.5rem 0;
 }
 
-#docs .doc .arguments ul .title{
-    display:none;
+#docs .doc .examples ul li {
+    padding-left: 1rem;
 }
 
-#docs .doc .arguments ul li{
-    padding-bottom:.3rem;
-    padding-left:3rem;
+#docs .doc .arguments ul {
+    list-style-type: none;
+    border-left: 3px solid var(--back);
+    margin-top: 0;
+    padding: 0.5rem 0;
 }
 
-#docs .doc .arguments ul li .name{
-    padding-right:1rem;
+#docs .doc .arguments ul .title {
+    display: none;
 }
 
-#docs .doc .arguments ul li:nth-child(odd){
-    background-color:var(--search);
+#docs .doc .arguments ul li {
+    padding-bottom: 0.3rem;
+    padding-left: 3rem;
 }
 
-#docs .doc .arguments ul li>div{
-    display:inline;
+#docs .doc .arguments ul li .name {
+    padding-right: 1rem;
+}
+
+#docs .doc .arguments ul li:nth-child(odd) {
+    background-color: var(--search);
+}
+
+#docs .doc .arguments ul li>div {
+    display: inline;
+}
+
+.cheese {
+    transition: 2s all;
+    opacity: 0;
+    position: absolute;
+    background-color: var(--search);
+    padding: 0.3rem 0.7rem;
+    border-radius: 1rem;
+    box-shadow: 0 9px 0 6px var(--dark);
 }
 
 .cheese.load {
-    color:var(--htxt);
-    opacity:1;
-}
-
-.cheese{
-    transition:2s all;
-    opacity:0;
-    position:absolute;
-    background-color:var(--search);
-    padding: 0.3rem 0.7rem;
-    border-radius:1rem;
-    box-shadow: 0 9px 0px 6px var(--dark);
+    color: var(--htxt);
+    opacity: 1;
 }

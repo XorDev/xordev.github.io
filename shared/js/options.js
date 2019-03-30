@@ -22,8 +22,13 @@ async function searchbarUpdate(searchbar, evt) {
                 `./`;
         }
 
+        let outputbox = searchbar.parentElement.parentElement.getElementsByClassName('results')[0];
+
         const valu = searchbar.value.toLowerCase();
-        if (valu.length < 1) return;
+        if (valu.length < 1) {
+            outputbox.innerHTML = '';
+            return;
+        }
 
         let results = [];
 
@@ -37,11 +42,14 @@ async function searchbarUpdate(searchbar, evt) {
 
         console.log(results);
 
-        if (!results.length) return;
+
+        if (!results.length) {
+            outputbox.innerHTML = '';
+            return;
+        }
 
         results = results.sort((a, b) => ('' + a[pageCompareProp].attr).localeCompare(b[pageCompareProp].attr));
 
-        let outputbox = searchbar.parentElement.parentElement.getElementsByClassName('results')[0];
         let resElement;
         let path = document.location.pathname;
         if (path.startsWith('/xorshaders')) path = path.slice(11);
