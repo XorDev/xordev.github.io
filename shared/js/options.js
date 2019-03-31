@@ -40,9 +40,6 @@ async function searchbarUpdate(searchbar, evt) {
             if (results.length > 9) break;
         }
 
-        console.log(results);
-
-
         if (!results.length) {
             outputbox.innerHTML = '';
             return;
@@ -148,7 +145,6 @@ function initialize() {
     });
 
     let codeElms = document.getElementsByTagName('code');
-    console.log(codeElms.length);
     if (codeElms.length) {
         for (let codeElm of codeElms) {
             if (codeElm.parentElement.nodeName.toLowerCase() != 'pre') {
