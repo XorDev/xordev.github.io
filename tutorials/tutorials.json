@@ -1,9 +1,15 @@
 {
   "shaders":
-  [{
+  [ {
     "name": "GameMaker",
-    "description": "Learn how to setup and use shaders in GameMaker.",
-    "pagename": "GameMaker",
-    "date": 1551137329
-  }]
+    "description": "How to setup and use shaders in GameMaker.",
+    "pagename": "gamemaker",
+    "date": 1553888516
+    },
+    {
+      "name": "Data Types",
+      "description": "Introduction to data types and swizzling.",
+      "pagename": "datatypes",
+      "date": 1553999516
+    } ]
 }

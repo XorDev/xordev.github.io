@@ -9,7 +9,7 @@
         <meta name="theme-color" content="#e0ba23">
         <!-- Twitter -->
         <meta name="twitter:site" content="@XorDev">
-        <meta name="twitter:title" content="Xor">
+        <meta name="twitter:title" content="XorDev">
         <meta name="twitter:description" content="Shader tutorials for GameMaker Studio">
         <meta name="twitter:image" content="./thumbnail.png">
         <meta name="twitter:url" content="/">
@@ -55,7 +55,7 @@
             <div class="pagecontent">
                 <div class="top-info">
                     <a href="./#title"><div id="title">GameMaker</div></a>
-                    <div class="date">25 Feb 2019</div>
+                    <div class="date">29 Mar 2019</div>
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
@@ -133,8 +133,7 @@
                     This will give a basic explanation of what each line does, but don't worry about the details just yet.
                     Explained Vertex shader code:
                     </p>
-                    <pre><code>
-//Receive the input positions (x,y,z/depth) of the vertices.
+<pre><code>//Receive the input positions (x,y,z/depth) of the vertices.
 attribute vec3 in_Position;
 //Receive the input color (red, green, blue, alpha) of the vertices.
 attribute vec4 in_Colour;
@@ -159,13 +158,11 @@ void main()
     v_vColour = in_Colour;
     //Set the texture coordinates to be passed to the fragment shader.
     v_vTexcoord = in_TextureCoord;
-}
-                    </code></pre>
+}</code></pre>
                     <p>
                     Fragment:
                     </p>
-                    <pre><code>
-//Pass in the texture coordinates from the vertex shader.
+<pre><code>//Pass in the texture coordinates from the vertex shader.
 varying vec2 v_vTexcoord;
 //Pass in the vertex color/alpha from the vertex shader.
 varying vec4 v_vColour;
@@ -175,14 +172,12 @@ void main()
 {
     //Output the vertex color and texture color to each pixel.
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
-}
-                    </code></pre>
+}</code></pre>
                     <h2>Summary</h2>
                     <p>
                         Congrats on adding and examining your first shader!
                         Like I said earlier, don't worry if you don't understand all of it as there are more tutorials to break down the details.
-                        For many, matrices and vertex positions look quite complicated and scary.
-                        But that's okay though!
+                        For many, matrices and vertex positions look quite complicated, but that's okay though!
                         We won't need to get into all of that until much later, for now, we'll focus mostly on the fragment shader.
                         For now I hope you learned something interesting and are looking forward to modifying and creating your own shaders.
                     </p>

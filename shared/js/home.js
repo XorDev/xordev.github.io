@@ -31,7 +31,7 @@ req.send();
 function appendContent(tuts) {
     let show = document.getElementById('showcase');
 
-    let tut = getTutorial(tuts.shaders, 0);
+    let tut = getTutorial(tuts.shaders, tuts.shaders.length - 1);
 
     show.innerHTML = `
         <div class="colon">Latest tutorial:</div>
