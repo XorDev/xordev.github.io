@@ -48,7 +48,7 @@ footer {
 footer>div {
     margin: auto 1rem;
     min-width: 40%;
-    txt-align: center;
+    text-align: center;
 }
 
 footer a {
