@@ -36,7 +36,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <img class="background-image hidden" src="../../shared/images/background.jpg">
+            <img class="background-image hidden" src="../../shared/images/background.png">
             <header>
                 <div class="header-buttons">
                     <div class="left">
@@ -71,7 +71,7 @@
                         to water reflections/refractions, shockwaves, wind and much more!
                         Let's get started from the very beginning by looking at texture pages in GM.
                     </p>
-                    <h2>Texture pages</h2>
+                    <h1>Texture pages</h1>
                     <p>
                         So before we get to the shaders I want to explain a bit about texture pages and next, how draw_sprite() works in GM.
                         First, when you run your game, all textures (sprites, fonts, etc) are placed on texture pages.
@@ -80,7 +80,7 @@
                         You can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" to put it on its own texture page.
                         That means drawing a sprite, is actually just drawing a part of a larger texture page.
                     </p>
-                    <h2>Drawing sprites in GM</h2>
+                    <h1>Drawing sprites in GM</h1>
                     <p>
                         When you draw a sprite, it is actually drawing two triangles together which form a rectangle.
                         Each vertex carries information such as its position, texture coordinates, and color.
@@ -94,7 +94,7 @@
                         and you can use this to create gradients and other effects.
                         Understanding this helps with shaders because these are the inputs the shaders have to work with.
                     </p>
-                    <h2>How shaders work</h2>
+                    <h1>How shaders work</h1>
                     <p>
                         Shaders are graphical programs run on your GPU (or iGPU) that handle drawing (sprites, surfaces, vertex buffers, etc).
                         GM supports two shader units: the vertex shader and fragment shader (sometimes called pixel shaders).
@@ -111,7 +111,7 @@
                         This means that any conditional effect (dependent on a specific area, time or any other variable)
                         will perform slower since all vertices/pixels use the same code despite varying results.
                     </p>
-                    <h2>Adding a shader</h2>
+                    <h1>Adding a shader</h1>
                     <p>
                         Right-click the shaders folder and create a shader.
                         You can title it "shd_passthrough" because this is going to be just another passthrough shader, albeit
@@ -127,7 +127,7 @@
                         <br>
                         For now we will just use GLSL ES because it is fairly standard and can be used on all platform targets.
                     </p>
-                    <h2>Passthrough shader explained</h2>
+                    <h1>Passthrough shader explained</h1>
                     <p>
                     I've gone through the default vertex and fragment shader, but I replaced the comments with my own.
                     This will give a basic explanation of what each line does, but don't worry about the details just yet.
@@ -173,7 +173,7 @@ void main()
     //Output the vertex color and texture color to each pixel.
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 }</code></pre>
-                    <h2>Summary</h2>
+                    <h1>Summary</h1>
                     <p>
                         Congrats on adding and examining your first shader!
                         Like I said earlier, don't worry if you don't understand all of it as there are more tutorials to break down the details.

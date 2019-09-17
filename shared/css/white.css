@@ -14,5 +14,4 @@ body {
 
 .background-image:not(.repeat) {
     opacity: .2;
-    filter: invert(100%);
 }
