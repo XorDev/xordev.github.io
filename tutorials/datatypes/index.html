@@ -81,7 +81,7 @@
                         Floating-point matrices. A mat2 contains 2 vec2s, mat3 contains 3 vec3s and mat4 contains 4 vec4s. More on this later.
                         </li>
                         <li><strong>sampler</strong>
-                            ID of a texture. GM only supports 2D textures (called a sampler2D), but GM does not support other type such as "samplerCube" for cubemaps. More on this in the next tutorial.
+                            ID of a texture. GM only supports 2D textures (called a sampler2D), but GM does not support other type such as 'samplerCube' for cubemaps. More on this in the next tutorial.
                         </li>
                         <li><strong>void</strong>
                             No value at all. This is used in functions that don't return anything. More on this in the next tutorial.
@@ -98,26 +98,26 @@ float a = 15.0;
 int b;
 //Bools are either true or false.
 bool c = false,
-//"d" is also a bool because of the comma after the "c" definition.
+//'d' is also a bool because of the comma after the 'c' definition.
 d = true;
 </pre></code>
                     <p>
-                        As you can see with the integer case, you can initialize a variables type without setting it. This is like local variables in GM (e.g. var i = 0). Also you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool "D".
+                        As you can see with the integer case, you can initialize a variables type without setting it. This is like local variables in GM (e.g. var i = 0). Also you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool 'd'.
                     </p>
                     <h3>Casting between datatypes</h3>
                     <p>
-                        Sometimes you need to convert from one datatype to another and this is called "casting". To cast a value you use the replacement datatype as function with the value you want to convert as the argument. Here's a quick example:
+                        Sometimes you need to convert from one datatype to another and this is called 'casting'. To cast a value you use the replacement datatype as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
 <pre><code>//Cast an int to a float.
 float a = float(10);
 //Cast a bool to an int (false = 0, true = 1).
 int b = int(true);
 </pre></code>
-                    <h1>Dimensions and components</h1>
+                    <h1>Dimensions</h1>
                     <p>
-                        Unlike in GML, some shader variables can contain up to 4 values at once and these values are called "components" of the variable. <span title='"Vectors" are variables with 2 or more components and "scalars" only have one component like in GML.'>Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
+                        Unlike in GML, some shader variables can contain up to 4 values at once and these values are called 'components' of the variable. <span title="'Vectors' are variables with 2 or more components and 'scalars' only have one component like in GML.">Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
                         <br>
-                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a constructor, which is just like a caster, but can have multiple values, separated by commas. Here's how it looks to initialize different variable types:
+                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a constructor which is just like a caster but can have multiple components separated by commas. Here's how it looks to initialize different variable types:
                     </p>
 <pre><code>//1D scalar with a value of 1.0. Scalars don't need constructors.
 float line = 1.0;
@@ -133,7 +133,10 @@ vec4 tess = vec4(cube,4.0);
                     <p>
                         You can also do same with integers by using int, ivec2, ivec3 and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3 and bvec4), but they aren't used as often.
                     </p>
+                    <h3>Components</h3>
                     <p>
+                        Todo! Components
+                        <br>
                         At this point, we've covered the essentials and the rest of this tutorial is about more complicated topics. If you need some time to take in all that you learned, this is a good place to stop and you can come back when you're ready. You have all you need to know to continue to the next tutorial if you like!
                     </p>
                     <h3>Matrices</h3>
@@ -154,7 +157,7 @@ mat3 rotate2 = mat3(.6,.8,.0,-.8,.6,.0,.0,.0,1.);
 float y_z = rotate2[1][2];
 </pre></code>
                     <p>
-                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of the multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
+                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of the multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to 'transform' vectors.
                     </p>
                     <h1>Storage Qualifers</h1>
                     <p>
@@ -168,7 +171,7 @@ float y_z = rotate2[1][2];
                                 <strong>attribute:</strong> Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals.
                             </li>
                             <li>
-                                <strong>varying:</strong> Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title='Technically "linearly interpolated"'>blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
+                                <strong>varying:</strong> Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
                             </li>
                             <li>
                                 <strong>uniform:</strong> Constant variables which are set from GML and received in either the fragment shader or vertex shader.

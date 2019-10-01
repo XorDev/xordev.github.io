@@ -1,5 +1,27 @@
 {
-    "functions": [{
+    "Attributes": [{
+        "key": "in_Position",
+        "def": "in_Position",
+        "syntax": "attribute vec3 in_Position;",
+        "returns": "vec3, vertex position",
+        "desc": "Vertex position in model space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don't need the world matrix. Keep this in mind when you're using your own vertex buffer!",
+        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
+    },{
+        "key": "in_TextureCoord",
+        "def": "in_TextureCoord",
+        "syntax": "attribute vec3 in_Position;",
+        "returns": "vec2, texture coordinates",
+        "desc": "Alternative: `in_Texcoord`.<br>The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from `sprite_get_uvs`) and normalize them yourself.",
+        "examples":["//Pass a varying 'v_vTexcoord' to the fragment shader.\nv_vTexcoord = in_Texcoord;"]
+    },{
+        "key": "in_Colour",
+        "def": "in_Colour",
+        "syntax": "attribute vec4 in_Colour;",
+        "returns": "vec4, vertex color and alpha",
+        "desc": "Alternative: `in_Color`.<br>Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. So 'in_Colour' can be useful in many situations!",
+        "examples":["//Pass a varying 'v_vColour' to the fragment shader.\nv_vColour = in_Colour;"]
+    }],
+    "Functions": [{
         "key": "texture2D",
         "def": "texture2D(sampler2D, vec2, [float])",
         "syntax": "texture2D(texture, coordinates, [bias])",
@@ -12,30 +34,32 @@
             "desc": "x and y texture coordinates of the pixel to sample."
         },{
             "key": "bias",
-            "desc": "Optional mipmap bias (added to the LOD)."
+            "desc": "Optional mipmap bias."
         }],
-        "returns": "vec4, RGBA",
-        "desc": "",
+        "returns": "vec4, texel color and alpha",
+        "desc": "Samples a texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel on the sampler's texture page. Each texture has it's own texture coordinates so you may need to convert from once coordinate range to another by using `sprite_get_uvs` on both sprites. Surfaces and sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>With mipmapping you can add a bias to the current LOD level. But this does not work with surfaces!",
         "examples":[
           "texture2D(gm_BaseTexture, v_vTexcoord);",
-          "//Using the uniform uni_diffuse and 1.0 as the bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
+          "//Using the sampler 'uni_diffuse' and 1.0 bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
     },{
-        "key": "vec3",
-        "def": "vec3(r, [g, b])",
-        "syntax": "vec4(r, [g, b])",
-        "arguments_min": 1,
+        "key": "mix",
+        "def": "mix(float/vec, float/vec, float/vec)",
+        "syntax": "mix(x, y, a)",
+        "arguments_min": 3,
         "arguments": [{
-            "key": "r",
-            "desc": "The red component of a color vector"
+            "key": "x",
+            "desc": "The first (or source) value."
         },{
-            "key": "g",
-            "desc": "The green component of a color vector"
+            "key": "y",
+            "desc": "The second (or destination) value."
         },{
-            "key": "b",
-            "desc": "The blue component of a color vector"
+            "key": "a",
+            "desc": "The amount to intepolate."
         }],
-        "returns": "vec3 object",
-        "desc": "`vec3()` will create a vec3 object containing three values. Its values can be accessed with `.r`, `.b`, `.rgb`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec3 object will be applied to each component of the vec3 object. `vec3(1. - vec3(.4, .2, .3))` will create a vec3 object with .6 red, .8 green and .7 blue. `vec3()` does not demand all arguments be satisfied. `vec3(.8)` will create a vec3 object and fill each channel with .8. It is equivalent to doing `vec3(.8, .8, .8)`",
-        "examples":[]
+        "returns": "float/vec mixture of a and b",
+        "desc": "'Mix' is just like `lerp` in GML, but with it works with vectors as well. In case you're unfamiliar, it linearly interpolates between 'x' and 'y' by the amount 'a' so if `a = 0.0` then `mix(x,y,a) = x` and if `a = 1.0` then `mix(x,y,a) = y`. When a is anything between 0 and 1, the result will be somewhere between x and y.<br>Mix is calculated internally like so: `mix(x,y,a) = x*(1.-a) + y*a`<br>For this reason, 'x' and 'y' must have the same number of components. 'a' must as well unless it is a float.",
+        "examples":[
+          "//Mix between the source color and destination color, by 'factor' (float or vec3)\nvec3 col = mix(src,dst,factor);",
+          "//Get the source's red and green channels and the destination's blue.\nvec3 col = mix(src,dst,vec3(0,0,1));"]
     }]
 }
