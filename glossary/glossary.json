@@ -1,30 +1,29 @@
 {
     "functions": [{
-        "key": "vec4",
-        "def": "vec4(r, [g, b, a])",
-        "syntax": "vec4(r, [g, b, a])",
-        "arguemnts_min": 1,
+        "key": "texture2D",
+        "def": "texture2D(sampler2D, vec2, [float])",
+        "syntax": "texture2D(texture, coordinates, [bias])",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "r",
-            "desc": "The red component of a color vector"
+            "key": "texture",
+            "desc": "ID of the texture to sample."
         },{
-            "key": "g",
-            "desc": "The green component of a color vector"
+            "key": "coordinates",
+            "desc": "x and y texture coordinates of the pixel to sample."
         },{
-            "key": "b",
-            "desc": "The blue component of a color vector"
-        },{
-            "key": "a",
-            "desc": "The alpha (opacity) component of a color vector"
+            "key": "bias",
+            "desc": "Optional mipmap bias (added to the LOD)."
         }],
-        "returns": "vec4 object",
-        "desc": "`vec4()` will create a vec4 object containing four values. Its values can be accessed with `.r`, `.a`, `.rgba`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec4 object will be applied to each component of the vec4 object. `vec4(1. - vec4(.4, .2, .2, .3))` will create a vec4 object with .6 red, .8 green, .8 blue and .7 alpha. `vec4()` does not demand all arguments be satisfied. `vec4(.8)` will create a vec4 object and fill each channel with .8. It is equivalent to doing `vec4(.8, .8, .8, .8)`",
-        "examples":[]
+        "returns": "vec4, RGBA",
+        "desc": "",
+        "examples":[
+          "texture2D(gm_BaseTexture, v_vTexcoord);",
+          "//Using the uniform uni_diffuse and 1.0 as the bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
     },{
         "key": "vec3",
         "def": "vec3(r, [g, b])",
         "syntax": "vec4(r, [g, b])",
-        "arguemnts_min": 1,
+        "arguments_min": 1,
         "arguments": [{
             "key": "r",
             "desc": "The red component of a color vector"
@@ -38,47 +37,5 @@
         "returns": "vec3 object",
         "desc": "`vec3()` will create a vec3 object containing three values. Its values can be accessed with `.r`, `.b`, `.rgb`, etc. This is useful for storing color values with an alpha channel, but can be used as a container for any kind of data. Arithmetic operations performed on a vec3 object will be applied to each component of the vec3 object. `vec3(1. - vec3(.4, .2, .3))` will create a vec3 object with .6 red, .8 green and .7 blue. `vec3()` does not demand all arguments be satisfied. `vec3(.8)` will create a vec3 object and fill each channel with .8. It is equivalent to doing `vec3(.8, .8, .8)`",
         "examples":[]
-    }],
-    "accessors": [{
-        "key": "r",
-        "def": ".r",
-        "syntax": "vector.r",
-        "returns": "Red component of vector",
-        "desc": "This will *access* the red channel of vector, thus the name \"accessor\" for its category. I've no clue if this is actually called an accessor, so this description ends here before I make a bigger fool of myself.",
-        "examples":["vec3 newColor = vec3(color.r, vec2(1.));\nfloat redComponent = newColor.r;"]
-    },{
-        "key": "x",
-        "def": ".x",
-        "syntax": "{lang:glsl}vector.x",
-        "returns": "x coordinate component of vector",
-        "desc": "This will *access* the x coordinate component of vector, thus the name \"accessor\" for its category. I've no clue if this is actually called an accessor, so this description ends here before I make a bigger fool of myself.",
-        "examples":["{lang:glsl}vec3 newCoord = vec3(v_vTexcoord.x, .6);\nfloat x = newCoord.x;"]
-    }],
-    "variables": [{
-        "key": "v_vTexcoord",
-        "value": "Contains the current texel coordinates being drawn at.",
-        "desc": "This is commonly used to get the correct pixel color value with `texture2D(gm_BaseTexture, v_vTexcoord)`, but can also be used to determine adjacent texels, and other smart stuff",
-        "examples":["duck", "dack"]
-    }],
-    "debugging":[{
-        "key": "vnaoyubvv"
-    },{
-        "key": "vnasdaoyubv"
-    },{
-        "key": "vnasdasdaoyubv"
-    },{
-        "key": "vnaodrgxdbyubv"
-    },{
-        "key": "vnaoxvcvyubv"
-    },{
-        "key": "vasdnaoyubv2"
-    },{
-        "key": "vnaoyubv"
-    },{
-        "key": "vnadVvsdoyubv"
-    },{
-        "key": "vnaoygsfubvx"
-    },{
-        "key": "v1naoyubsfv"
     }]
 }

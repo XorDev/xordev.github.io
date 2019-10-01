@@ -278,11 +278,6 @@ header .logo {
     margin: 2rem 1rem;
 }
 
-.header-buttons a[href*="glossary"] {
-    display: none;
-    /*display:inline;*/
-}
-
 .header-buttons .current {
     color: var(--htxt);
 }

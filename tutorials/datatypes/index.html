@@ -43,9 +43,9 @@
                         <a href="../../">
                             <div class="title elm">GM Shaders</div>
                         </a>
+                        <a href="../../glossary"><div class="elm">Glossary</div></a>
                         <a href="../../about"><div class="elm">About</div></a>
                         <a href="../../contact"><div class="elm">Contact</div></a>
-                        <a href="../../glossary"><div class="elm">Glossary</div></a>
                     </div>
                     <div class="right">
                         <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
@@ -59,73 +59,77 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        In GML, you can set variables to any value from tiny fractions to large integers to booleans without worrying about data types. However in shaders you need to intialize what data type you are using for each variable, allowing shaders to be faster and more precise.
-                        <br>
                         This tutorial covers the data types in GLSL ES and how to use them.
+                        <br>
+                        In GML, you can set variables to any value from tiny fractions to large integers to booleans without worrying about data types. However in shaders you need to intialize what data type you are using for each variable, allowing shaders to be faster and more precise.
                     </p>
                     <h1>Types</h1>
                     <p>
                         The first thing to learn about shader variables are the data types. You can use any of the following types:
                     </p>
-                    <h3>float and vec</h3>
-                    <p>These are standard (floating-point) numbers that can be a fraction or decimal number, but it must contain a decimal point like: 2.0, 50., 1.57 or -95.0. You can also use <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a> to write very large or small numbers. This can be written like: 2.0e3, 3e7 or 4.7e-4 which is shorter way to write: 2000.0 (2.0*10^3), 3000000.0 (3.0*10^7) or 0.00047 (4.7*10^-4).
-                    </p>
-                    <h3>int and ivec</h3>
-                    <p>
-                        Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error.
-                    </p>
-                    <h3>bool and bvec</h3>
-                    <p>
-                        Boolean values which can only be: true or false.
-                    </p>
-                    <h3>mat</h3>
-                    <p>
-                    Floating-point matrices. A mat2 contains 2 vec2s, mat3 contains 3 vec3s and mat4 contains 4 vec4s. More on this later.
-                    </p>
-                    <h3>sampler</h3>
-                    <p>
-                        ID of a texture. GM only supports 2D textures (called a sampler2D), but GM does not support other type such as "samplerCube" for cubemaps. More on this in the next tutorial.
-                    </p>
-                    <h3>void</h3>
-                    <p>
-                        No value at all. This is used in functions that don't return anything. More on this in the next tutorial.
-                    </p>
+                    <ul>
+                        <li><strong>float / vec:</strong>
+                            These are standard (floating-point) numbers that can be a fraction or decimal number, but it must contain a decimal point like: 2.0, 50., 1.57 or -95.0. You can also use <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a> to write very large or small numbers. This can be written like: 2.0e3, 3e7 or 4.7e-4 which is shorter way to write: 2000.0 (2.0*10^3), 3000000.0 (3.0*10^7) or 0.00047 (4.7*10^-4).
+                        </li>
+                        <li><strong>int / ivec:</strong>
+                            Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error.
+                        </li>
+                        <li><strong>bool / bvec:</strong>
+                            Boolean values which can only be: true or false.
+                        </li>
+                        <li><strong>mat</strong>
+                        Floating-point matrices. A mat2 contains 2 vec2s, mat3 contains 3 vec3s and mat4 contains 4 vec4s. More on this later.
+                        </li>
+                        <li><strong>sampler</strong>
+                            ID of a texture. GM only supports 2D textures (called a sampler2D), but GM does not support other type such as "samplerCube" for cubemaps. More on this in the next tutorial.
+                        </li>
+                        <li><strong>void</strong>
+                            No value at all. This is used in functions that don't return anything. More on this in the next tutorial.
+                        </li>
+                    </ul>
                     <h3>Initializing variables</h3>
                     <p>
-                        To initialize your variables in code you must specify the type before the variable name and shader syntax requires a semi-colon at the end of the definition:
+                        To declare your variables in code you must specify the type before the variable name and shader syntax requires a semi-colon at the end of the declaration:
                     </p>
 <pre><code>//Floats must include a decimal point.
-float A = 15.0;
+float a = 15.0;
+//You can declare the variable without setting the value:
 //Integers must exclude a decimal point.
-int B;
+int b;
 //Bools are either true or false.
-bool C = false,
-//This is also a bool because of the comma after C's definition.
-D = true;
+bool c = false,
+//"d" is also a bool because of the comma after the "c" definition.
+d = true;
 </pre></code>
                     <p>
                         As you can see with the integer case, you can initialize a variables type without setting it. This is like local variables in GM (e.g. var i = 0). Also you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool "D".
                     </p>
-                    <h3>Casting values</h3>
+                    <h3>Casting between datatypes</h3>
                     <p>
-                        Hehe
+                        Sometimes you need to convert from one datatype to another and this is called "casting". To cast a value you use the replacement datatype as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
+<pre><code>//Cast an int to a float.
+float a = float(10);
+//Cast a bool to an int (false = 0, true = 1).
+int b = int(true);
+</pre></code>
                     <h1>Dimensions and components</h1>
                     <p>
-                        Unlike in GML, shader variables can contain multiple . Vectors make it much easier to do math with 2 or more dimensions. If you want to add two vectors you can do so in a single step, like you would with any other variable (very useful later).
+                        Unlike in GML, some shader variables can contain up to 4 values at once and these values are called "components" of the variable. <span title='"Vectors" are variables with 2 or more components and "scalars" only have one component like in GML.'>Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
                         <br>
-                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, but a float has 1 component while vec4 has 4. Here's how initializing different variables could look:
+                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a constructor, which is just like a caster, but can have multiple values, separated by commas. Here's how it looks to initialize different variable types:
                     </p>
 <pre><code>//1D scalar with a value of 1.0. Scalars don't need constructors.
 float line = 1.0;
 //Construct a 2D integer vector containing 1 and 2 respectively.
 ivec2 square = ivec2(1,2);
-//You can include other floats as components:
+//You can include floats as components:
 //Construct a 3D vector containing 1.0, 2.0 and 3.0 respectively.
 vec3 cube = vec3(line,2.0,3.0);
-//You can even include other vectors:
+//You can also include vectors:
 //Construct a 4D vector containing 1.0, 2.0, 3.0 and 4.0 respectively.
-vec4 tess = vec4(cube,4.0);</pre></code>
+vec4 tess = vec4(cube,4.0);
+</pre></code>
                     <p>
                         You can also do same with integers by using int, ivec2, ivec3 and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3 and bvec4), but they aren't used as often.
                     </p>
@@ -134,34 +138,61 @@ vec4 tess = vec4(cube,4.0);</pre></code>
                     </p>
                     <h3>Matrices</h3>
                     <p>
-                        Yay, you've made it this far! <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">Matrices</a> are a special data type that behave a bit differently from the other data types.
+                        <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)" target="_blank">Matrices</a> are a special data type that contain more components than their vector equivalents. It helps to think of matrices as tables with either 2, 3 or 4 rows and columns, so a <strong>mat2</strong> contains 2 vec2s (2x2 or 4 components), a <strong>mat3</strong> contains 3 vec3s (3x3 or 9 components) and a <strong>mat4</strong> contains 4 vec4s (4x4 or 16 components).
+                        <br>
+                        They can be initialized like so:
                     </p>
-<pre><code>mat2 rotate = mat2(.6,.8,
-                  -.8,.6);
+<pre><code>//Set the first and second rows with vec2s.
+mat2 rotate = mat2(vec2(0.6,0.8),vec2(-0.8,0.6));
+//Get the vec2 from the second row which is vec2(-0.8,0.6).
 vec2 y_dot = rotate[1];
-float y_x = rotate[1][0];
-</pre></code>
 
+//And here are some mat3 examples:
+//Alternatively, you can set all components individually.
+mat3 rotate2 = mat3(.6,.8,.0,-.8,.6,.0,.0,.0,1.);
+//Get the second row, third column component which is 0.
+float y_z = rotate2[1][2];
+</pre></code>
+                    <p>
+                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of the multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
+                    </p>
                     <h1>Storage Qualifers</h1>
                     <p>
                         You can also use these storage qualifers:
-                        <br><b>const</b>: Constant/unchanging variable. Must be initialized once, but it cannot be redefined again. This is necessary in for loops.
-                        <br><b>attribute</b>: Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals.
-                        <br><b>varying</b>: Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title='Technically "linearly interpolated"'>blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
-                        <br><b>uniform</b>: Constant variables which are set from GML and received in either the fragment shader or vertex shader.
                     </p>
+                        <ul>
+                            <li>
+                                <strong>const:</strong> Constant/unchanging variable. Must be initialized once, but it cannot be redefined again. This is necessary in for loops.
+                            </li>
+                            <li>
+                                <strong>attribute:</strong> Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals.
+                            </li>
+                            <li>
+                                <strong>varying:</strong> Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title='Technically "linearly interpolated"'>blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
+                            </li>
+                            <li>
+                                <strong>uniform:</strong> Constant variables which are set from GML and received in either the fragment shader or vertex shader.
+                            </li>
+                        </ul>
+
                     <h1>Groups</h1>
                     <p>
                         Variables can be grouped:
-                        <br><b>array</b>: A list of values in a single variable (scalars or vectors).
-                        </p>
-  <pre><code>//Initialize a integer array to a constant size (e.g. 4).
+                        <ul>
+                            <li>
+                                <strong>array</strong>: A list of values in a single variable (scalars or vectors).
+                            </li>
+<pre><code>//Initialize a integer array to a constant size (e.g. 4).
 int array[4];
 //Set the 2 index to 0.
-array[2] = 0;</pre></code>
-                      <p>
-                        <br><b>struct</b>:
-
+array[2] = 0;
+</pre></code>
+                        <li>
+                            <strong>struct</strong>:
+                        </li>
+                    </ul>
+                    <p>
+                      Plans:
                         Dimensions:
                         void, float, vec2, vec3, vec4.
                         Types:

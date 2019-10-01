@@ -56,6 +56,10 @@ body {
     color: var(--htxt);
     font-weight: lighter;
 }
+.article h3 {
+  list-style-type: disc;
+  list-style-position: inside;
+}
 
 @media (max-width: 900px) {
     .article {
