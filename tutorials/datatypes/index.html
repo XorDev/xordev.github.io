@@ -36,7 +36,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <img class="background-image hidden" src="../../shared/images/background.png">
+            <div class="background-image hidden"></div>
             <header>
                 <div class="header-buttons">
                     <div class="left">
@@ -113,7 +113,7 @@ float a = float(10);
 //Cast a bool to an int (false = 0, true = 1).
 int b = int(true);
 </pre></code>
-                    <h1>Dimensions</h1>
+                    <h1>Dimensions and components</h1>
                     <p>
                         Unlike in GML, some shader variables can contain up to 4 values at once and these values are called 'components' of the variable. <span title="'Vectors' are variables with 2 or more components and 'scalars' only have one component like in GML.">Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
                         <br>
@@ -133,9 +133,36 @@ vec4 tess = vec4(cube,4.0);
                     <p>
                         You can also do same with integers by using int, ivec2, ivec3 and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3 and bvec4), but they aren't used as often.
                     </p>
-                    <h3>Components</h3>
+                    <h3>Swizzle notation</h3>
                     <p>
-                        Todo! Components
+                        So you now know how to cast datatypes and construct vectors, but to extract components from vectors you need to know about 'swizzle notation'. There are two ways to access components.
+                    </p>
+                    <ul>
+                        <li>
+                        <strong>Array notation:</strong> works with vectors like arrays in GML. So with a vec4 you can put a pair of square brackets with the component 'index' being an integer <span title="The first component's index is 0, second is 1, etc. You can't access a component that hasn't been defined, so an index of 2 on a vec2 will be invalid!">ranging from 0-3</span>. So vector[2] will extract the third component from 'vector'. It's helpful to understand this before learning'dotted notation'.
+                        </li>
+                        <li>
+                        <strong>Dotted notation: </strong> can be used to access <span title="You can repeat (or ignore) components as you wish and put then in any order. But only up to 4 components!">multiple components</span>  (as a new vector) at the same time. To access a component from a vector you just put a dot directly behind the vector with the component(s) that you want to access. The components can be represented as either 'xyzw', 'rgba', or 'stpq,'. These all work the same, but the general guide is that xyzw is used for positions or points in space, rgba is used for red, green, blue and alpha 'channels' and <span title="For some reason stpq is rarely used, but it works just as well!">stpq</span> is meant for texture coordinates. Notice the order of each set. x, r or s will always represent the first component, y, g or t represents the second component, z, b or p, the third and w, a or q the fourth.
+                        </li>
+                    </ul>
+                    <p>
+                        Dotted notation is more widely used because it can be used to access floats or vectors where as array notation only accesses floats. Here's an example to show both methods:
+                    </p>
+
+<pre><code>//Construct a vec4 from ints for example.
+vec4 a = vec4(0,1,2,3);
+//Get the first component of 'a', 0.0.
+float b = a.x;
+//Get the second component of 'a', 1.0.
+float c = a[1];
+//Reverse the component order of 'a', vec4(3,2,1,0).
+vec4 d = a.abgr;
+//This also works for setting vectors:
+//Set the first two component to the last two components, vec2(2,3).
+a.st = a.pq;
+</pre></code>
+                    <p>
+                        It's important to tell you, you <strong>CANNOT mix components from one set with another.</strong> So you can pick between xyzw, rgba or stpq, but you can't do something like xyrg because this will cause an error.
                         <br>
                         At this point, we've covered the essentials and the rest of this tutorial is about more complicated topics. If you need some time to take in all that you learned, this is a good place to stop and you can come back when you're ready. You have all you need to know to continue to the next tutorial if you like!
                     </p>
@@ -168,7 +195,7 @@ float y_z = rotate2[1][2];
                                 <strong>const:</strong> Constant/unchanging variable. Must be initialized once, but it cannot be redefined again. This is necessary in for loops.
                             </li>
                             <li>
-                                <strong>attribute:</strong> Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals.
+                                <strong>attribute:</strong> Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals. All of GM's built-in attributes can be found in my <a href="../../glossary">glossary</a>!
                             </li>
                             <li>
                                 <strong>varying:</strong> Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
@@ -194,6 +221,7 @@ array[2] = 0;
                             <strong>struct</strong>:
                         </li>
                     </ul>
+                    <h1>Precision</h1>
                     <p>
                       Plans:
                         Dimensions:

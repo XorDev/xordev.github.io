@@ -4,12 +4,12 @@
     "name": "#1 GameMaker",
     "description": "Setup and use of shaders in GameMaker.",
     "pagename": "gamemaker",
-    "date": 1553888516
+    "date": 1570133017
     },
     {
       "name": "#2 Data Types",
-      "description": "Introduction to data types and swizzling.",
+      "description": "Introduction to data types and conversion.",
       "pagename": "datatypes",
-      "date": 1553999516
+      "date": 1570133017
     } ]
 }

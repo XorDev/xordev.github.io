@@ -95,25 +95,26 @@ code.hljs {
 }
 
 ::-webkit-scrollbar-track {
-    /* background: linear-gradient(to bottom, var(--gray) 0%, var(--dark) 60%, var(--gray) 100%); */
     background: transparent;
 }
 
-.background-image:not(.repeat) {
+.background-image {
     position: fixed;
     z-index: -1000;
-    opacity: 0.1;
-    min-width: 100%;
-}
 
-.background-image.repeat {
-    position: absolute;
-    z-index: -1000;
-    opacity: 0.33;
     height: 100%;
     width: 100%;
-    background-image: url("../../glossary/grid.png");
     background-repeat: repeat;
+}
+
+.background-image:not(.grid) {
+    opacity: 0.1;
+    background-image: url("../../shared/images/background.png");
+    filter: contrast(50%);
+}
+.background-image.grid {
+    opacity: 0.33;
+    background-image: url("../../glossary/grid.png");
 }
 
 .hidden {
@@ -122,6 +123,7 @@ code.hljs {
 
 .link,
 a {
+
     color: var(--link);
     text-decoration: none;
     transition: 0.14s all;
@@ -229,7 +231,7 @@ a:hover {
 header {
     padding: 0 8%;
     width: 84%;
-    background: linear-gradient(180deg, var(--dark), rgba(0, 0, 0, 0));
+    background: linear-gradient(180deg, var(--dark), #00000000);
     box-shadow: inset 0 -2px 9px 3px var(--dark);
 }
 

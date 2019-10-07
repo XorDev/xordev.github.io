@@ -9,17 +9,24 @@
     },{
         "key": "in_TextureCoord",
         "def": "in_TextureCoord",
-        "syntax": "attribute vec3 in_Position;",
+        "syntax": "attribute vec2 in_TextureCoord;",
         "returns": "vec2, texture coordinates",
-        "desc": "Alternative: `in_Texcoord`.<br>The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from `sprite_get_uvs`) and normalize them yourself.",
+        "desc": "The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from `sprite_get_uvs`) and normalize them yourself.<br><br>Alternative: `in_Texcoord`",
         "examples":["//Pass a varying 'v_vTexcoord' to the fragment shader.\nv_vTexcoord = in_Texcoord;"]
     },{
         "key": "in_Colour",
         "def": "in_Colour",
         "syntax": "attribute vec4 in_Colour;",
         "returns": "vec4, vertex color and alpha",
-        "desc": "Alternative: `in_Color`.<br>Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. So 'in_Colour' can be useful in many situations!",
-        "examples":["//Pass a varying 'v_vColour' to the fragment shader.\nv_vColour = in_Colour;"]
+        "desc": "Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. So 'in_Colour' can be useful in many situations!<br><br>Alternative: `in_Color`",
+        "examples":["//Pass a varying 'v_vColor' to the fragment shader.\nv_vColor = in_Color;"]
+    },{
+        "key": "in_Normal",
+        "def": "in_Normal",
+        "syntax": "attribute vec3 in_Normal;",
+        "returns": "vec3, vertex normal",
+        "desc": "To do later!",
+        "examples":["To do later!"]
     }],
     "Functions": [{
         "key": "texture2D",
