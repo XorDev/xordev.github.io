@@ -135,7 +135,11 @@ a:hover {
     color: var(--hov);
 }
 
-.article p span {
+.article p span{
+    color: var(--link);
+    font-style: italic;
+}
+.article li span{
     color: var(--link);
     font-style: italic;
 }

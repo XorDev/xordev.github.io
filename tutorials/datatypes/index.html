@@ -72,7 +72,7 @@
                             These are standard (floating-point) numbers that can be a fraction or decimal number, but it must contain a decimal point like: 2.0, 50., 1.57 or -95.0. You can also use <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a> to write very large or small numbers. This can be written like: 2.0e3, 3e7 or 4.7e-4 which is shorter way to write: 2000.0 (2.0*10^3), 3000000.0 (3.0*10^7) or 0.00047 (4.7*10^-4).
                         </li>
                         <li><strong>int / ivec:</strong>
-                            Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error.
+                            Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error. <a href="https://en.wikipedia.org/wiki/Hexadecimal">Hexadecimal</a> numbers can be defined by putting '0x' at the start and for <a href="https://en.wikipedia.org/wiki/Octal">octal</a> numbers just start with '0': 0xFF, 017.
                         </li>
                         <li><strong>bool / bvec:</strong>
                             Boolean values which can only be: true or false.
@@ -104,7 +104,7 @@ d = true;
                     <p>
                         As you can see with the integer case, you can initialize a variables type without setting it. This is like local variables in GM (e.g. var i = 0). Also you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool 'd'.
                     </p>
-                    <h3>Casting between datatypes</h3>
+                    <h3>Casting between data types</h3>
                     <p>
                         Sometimes you need to convert from one datatype to another and this is called 'casting'. To cast a value you use the replacement datatype as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
@@ -117,7 +117,7 @@ int b = int(true);
                     <p>
                         Unlike in GML, some shader variables can contain up to 4 values at once and these values are called 'components' of the variable. <span title="'Vectors' are variables with 2 or more components and 'scalars' only have one component like in GML.">Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
                         <br>
-                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a constructor which is just like a caster but can have multiple components separated by commas. Here's how it looks to initialize different variable types:
+                        So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a <span title="Constructors can be used as casters as well. So: ivec2(0.0,5.8) is the same as ivec2(0,5)">constructor</span> which is just like a caster but can have multiple components separated by commas. Here's how it looks to initialize different variable types:
                     </p>
 <pre><code>//1D scalar with a value of 1.0. Scalars don't need constructors.
 float line = 1.0;
@@ -135,7 +135,7 @@ vec4 tess = vec4(cube,4.0);
                     </p>
                     <h3>Swizzle notation</h3>
                     <p>
-                        So you now know how to cast datatypes and construct vectors, but to extract components from vectors you need to know about 'swizzle notation'. There are two ways to access components.
+                        So you now know how to cast data types and construct vectors, but to extract components from vectors you need to know about 'swizzle notation'. There are two ways to access components.
                     </p>
                     <ul>
                         <li>
@@ -163,8 +163,6 @@ a.st = a.pq;
 </pre></code>
                     <p>
                         It's important to tell you, you <strong>CANNOT mix components from one set with another.</strong> So you can pick between xyzw, rgba or stpq, but you can't do something like xyrg because this will cause an error.
-                        <br>
-                        At this point, we've covered the essentials and the rest of this tutorial is about more complicated topics. If you need some time to take in all that you learned, this is a good place to stop and you can come back when you're ready. You have all you need to know to continue to the next tutorial if you like!
                     </p>
                     <h3>Matrices</h3>
                     <p>
@@ -184,58 +182,94 @@ mat3 rotate2 = mat3(.6,.8,.0,-.8,.6,.0,.0,.0,1.);
 float y_z = rotate2[1][2];
 </pre></code>
                     <p>
-                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of the multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to 'transform' vectors.
+                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to 'transform' vectors.
                     </p>
                     <h1>Storage Qualifers</h1>
                     <p>
-                        You can also use these storage qualifers:
+                        'Storage qualifers' control how you want your variable is handled. This can be used to receive vertex information, receive values from GML and more! These are the storage qualifers and how they are used:
                     </p>
-                        <ul>
-                            <li>
-                                <strong>const:</strong> Constant/unchanging variable. Must be initialized once, but it cannot be redefined again. This is necessary in for loops.
-                            </li>
-                            <li>
-                                <strong>attribute:</strong> Vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals. All of GM's built-in attributes can be found in my <a href="../../glossary">glossary</a>!
-                            </li>
-                            <li>
-                                <strong>varying:</strong> Constant variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
-                            </li>
-                            <li>
-                                <strong>uniform:</strong> Constant variables which are set from GML and received in either the fragment shader or vertex shader.
-                            </li>
-                        </ul>
-
+                    <ul>
+                        <li>
+                            <strong>const:</strong> Constant/unchanging variable. Must be initialized once to a 'constant' value and it cannot be redefined again. Every number you type in a shader is a constant however using functions (more in the next tutorial) or any <span title="Plus, minus, multiply, divide, etc">operations</span> including non-constants will result in a non-constant.
+                        </li>
+                            <strong>attribute:</strong> Read-only vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals. All of GM's built-in attributes can be found in my <a href="../../glossary">glossary</a>!
+                        </li>
+                        <li>
+                            <strong>varying:</strong> Variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
+                        </li>
+                        <li>
+                            <strong>uniform:</strong> Read-only variables which are set from GML and received in either the fragment shader or vertex shader.
+                        </li>
+                    </ul>
                     <h1>Groups</h1>
                     <p>
                         Variables can be grouped:
                         <ul>
                             <li>
-                                <strong>array</strong>: A list of values in a single variable (scalars or vectors).
+                                <strong>array:</strong> A list of values in a single variable. They are similar to array notation, but instead of dealing with components, it's scalars or vectors. Because it is not limited by components, you can have an array of any constant size.
                             </li>
-<pre><code>//Initialize a integer array to a constant size (e.g. 4).
-int array[4];
-//Set the 2 index to 0.
-array[2] = 0;
+<pre><code>//Initialize a integer array with 5 slots.
+ivec2 array[4];
+//Set the 2 index value as a ivec2.
+array[2] = ivec2(2,4);
 </pre></code>
                         <li>
-                            <strong>struct</strong>:
+                            <strong>struct:</strong> A structure or group of of the other data types in a single variable. It's a bit like how in GM, objects have many properties like x, y, sprite_index, etc, but with structures you can use any data types.
                         </li>
+<pre><code>//Initialize structure format.
+struct sample
+{
+    vec2 uv;
+    sampler2D tex;
+};
+//Set create a 'sample' structure.
+sample pixel = sample(v_vTexcoord,gm_BaseTexture);
+
+//Get pixel's uvs.
+vec2 pix_uv = pixel.uv;
+//Set pixel's texture to 'uni_diffuse'.
+pixel.tex = uni_diffuse;
+</pre></code>
                     </ul>
-                    <h1>Precision</h1>
+                    <h1>Precision Qualifers</h1>
                     <p>
-                      Plans:
-                        Dimensions:
-                        void, float, vec2, vec3, vec4.
-                        Types:
-                        float, int, bool.
-                        Storage Qualifers:
-                        attribute, varying, uniform, const.
-                        Groups:
-                        normal, array, struct.
-                        Precision:
-                        highp, mediump, lowp.
-                        Swizzle,cast
-                        Hexadecimal, Octal
+                        Lastly, there are precision qualifers, which can control the range and quality for variables. Most modern hardware will use a higher precision than you specify, but precision qualifers are there to set the minimum acceptable precision. This is rarely used, but it can be useful with cross platform shaders so I decided to include it here. These are the three precision types:
+                        <ul>
+                            <li>
+                                <strong>lowp:</strong> Float's range goes up to 2 (positive and negative) with a precision of <span title="Equaling 1/256">2^-8</span>.
+                                <br>
+                                Integers can range up to <span title="Equaling 256">2^8</span> (positive and negative).
+                                <br>
+                                Lowp floats are adequate for colors, but may not be precise enough for other purposes.
+                            </li>
+                            <li>
+                                <strong>mediump:</strong> Float's range goes up to <span title="Equaling 16,384 (positive and negative)">2^14</span> with a precision of <span title="Equaling 1/1,024">2^-10</span>.
+                                <br>
+                                Integers can range up to <span title="Equaling 1,024 (positive and negative)">2^10</span>.
+                                <br>
+                                Mediump floats are usually adequate for normals and texture coordinates.
+                            </li>
+                            <li>
+                                <strong>highp</strong> Float's range goes up to <span title="Equaling ‭4,611,686,018,427,387,904 (positive and negative)!‬">2^62</span> with a precision of <span title="Equaling 1/65536">2^-16</span>.
+                                <br>
+                                Integers can range up to <span title="Equaling 65536 (positive and negative)">2^16</span>.
+                                <br>
+                                Highp floats are best used for positions.
+                            </li>
+                        </ul>
+                        Also the keyword "precision" can be used to set the default precision for when a particular data type is used, but not specified. Here's an example:
+                    </p>
+<pre><code>//Set the default float precision to highp.
+precision highp float;
+//Set the default integer precision to lowp.
+precision lowp int;
+
+//Set the color at low precision.
+lowp vec3 color = vec3(0.2,0.4,0.8);
+</pre></code>
+                    <h1>Summary</h1>
+                    <p>
+                        Great job! You've learned about all the different data types and what they store. You've learned how to handle multi-dimensional variables (vectors) and their components. You now know how to access shader inputs (attributes, varyings, uniforms) and how to use constants, data groups (arrays and structs) and precision. This lays the framework necessary to understand functions and logic which is covered in the next tutorial. For now, pat yourself on the back and take a break if need it!
                     </p>
                 </div>
               </div>
