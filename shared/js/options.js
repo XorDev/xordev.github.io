@@ -40,9 +40,6 @@ async function searchbarUpdate(searchbar, evt) {
             if (results.length > 9) break;
         }
 
-        console.log(results);
-
-
         if (!results.length) {
             outputbox.innerHTML = '';
             return;
@@ -146,6 +143,16 @@ function initialize() {
             }, 60)
         }
     });
+
+    let codeElms = document.getElementsByTagName('code');
+    if (codeElms.length) {
+        for (let codeElm of codeElms) {
+            if (codeElm.parentElement.nodeName.toLowerCase() != 'pre') {
+                codeElm.classList.add('inline-hljs');
+                hljs.highlightBlock(codeElm);
+            }
+        }
+    }
 }
 
 function toggelBG(elm) {

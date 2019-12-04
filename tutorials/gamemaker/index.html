@@ -62,7 +62,7 @@
                         Welcome to <a title="GM Shaders About" href="https://gmshaders.com/about/" target="_blank">GM Shaders</a>!
                         <br>
                         <br>
-                        These shader tutorials were carefully written with beginners and amatuers in mind, however this can be a difficult topic. I advise taking your time when reading through them and take as many breaks as you need. They are designed to be comprehensive, yet concise which means you may not want to skip over anything unless suggested, or you'll miss something important! I avoid repeating myself wherever possible to keep them short. Throughout the tutorials you will find highlighted italics for optional explanations and links for extra information. Thanks for reading!
+                        These shader tutorials were carefully written with beginners and amatuers in mind, however this can be a difficult topic. I advise taking your time when reading through them and take as many breaks as you need. They are designed to be comprehensive, yet concise which means you may not want to skip over anything unless suggested, or you'll miss something important! I avoid repeating myself wherever possible to keep them short. Throughout the tutorials you will find <span title="Like this!">highlighted text</span> which contains additional information. Thanks for reading!
                     </p>
                     <h3>Tutorial Introduction</h3>
                     <p>
@@ -76,12 +76,13 @@
                     </p>
                     <h1>Texture pages</h1>
                     <p>
-                        So before we get to the shaders I want to explain a bit about texture pages and next, how draw_sprite() works in GM.
+                        Before we get to the shaders, I want to explain a bit about texture pages and how <code>draw_sprite()</code> works in GM.
                         First, when you run your game, all textures (sprites, fonts, etc) are placed on texture pages.
-                        In summary, a texture page takes <span title="Removing all empty, transparent space">trimmed-down</span> sprites and fits as many as possible on a single page and you can
-                        read about texture pages <a title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>
-                        You can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" to put it on its own texture page.
-                        That means drawing a sprite, is actually just drawing a part of a larger texture page.
+                        In summary, a texture page takes <span title="Removing all empty, transparent space">trimmed-down</span> sprites and fits as many as possible on a single page. You can
+                        read more about texture pages <a target="_blank" title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>.
+                        Additionally, you can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" option to put it on its own texture page.
+                        That means drawing a sprite is actually just drawing a part of a larger texture page.
+                        <div class="image"><img src="./texture_page.png"></div>
                     </p>
                     <h1>Drawing sprites in GM</h1>
                     <p>
@@ -89,45 +90,50 @@
                         Each vertex carries information such as its position, texture coordinates, and color.
                         So the vertices positions are in the corners of the sprite of sprite.
                         The texture coordinates are the coordinates on texture page ranging from 0 and 1.
-                        So 0,0 is the top-left corner of the texture page and 0,1 is the bottom-left corner.
+                        So <code>0,0</code> is the top-left corner of the texture page and <code>0,1</code> is the bottom-left corner.
                         Typically a sprite's texture coordinates will be somewhere in the middle of the texture page.
-                        <br>
-                        When you use draw_sprite_ext, setting the color and alpha is just setting the color/alpha of all the vertices in the sprite.
-                        If you've used vertex buffers or draw_vertex_* functions you'll know that you can actually change the colors of individual vertices
+                    </p>
+                    <div class="image"><img src="./drawing_sprites.png"></div>
+                    <p>
+                        When you use <code>draw_sprite_ext()</code>, setting the color and alpha is just setting the color/alpha of all the vertices in the sprite.
+                        If you've used vertex buffers or <code>draw_vertex_*</code> functions you'll know that you can actually change the colors of individual vertices
                         and you can use this to create gradients and other effects.
                         Understanding this helps with shaders because these are the inputs the shaders have to work with.
                     </p>
                     <h1>How shaders work</h1>
                     <p>
-                        Shaders are graphical programs run on your GPU (or iGPU) that handle drawing (sprites, surfaces, vertex buffers, etc).
+                        Shaders are graphical programs run on your GPU (or <span title="Integrated Graphics Processing Unit">iGPU</span>) that handle drawing (sprites, surfaces, vertex buffers, etc).
                         GM supports two shader units: the vertex shader and fragment shader (sometimes called pixel shaders).
-                        <br>
-                        The vertex shader handles each vertex. It can be used to move vertices, change the colors and more.
-                        <br>
-                        The fragment shader handles each fragment/pixel. It's used for most effects, including texture or color effects.
-                        <br>
+                    </p>
+                    <ul>
+                        <li>The vertex shader handles each vertex. It can be used to move vertices, change the colors and more.</li>
+                        <li>The fragment shader handles each fragment/pixel. It's used for most effects, including texture or color effects.</li>
+                    </ul>
+                    <p>
                         When you don't apply any shader, GM uses a default "passthrough" shader.
                         This passthrough shader outputs the texture with the draw color and alpha the way you're used to.
                         It also handles things such as alpha testing and fog/lights in 3D, but that is for another time.
-                        <br>
+                    </p><p>
                         Shaders process all vertices simultaneously and then all the pixels.
                         This means that any conditional effect (dependent on a specific area, time or any other variable)
                         will perform slower since all vertices/pixels use the same code despite varying results.
                     </p>
                     <h1>Adding a shader</h1>
                     <p>
-                        Right-click the shaders folder and create a shader.
-                        You can title it "shd_passthrough" because this is going to be just another passthrough shader, albeit
-                        <span title="The default shader does not handle GPU effects like alpha testing, fog or lights!">simplified</span>.
-                        If you right-click the shader in the resource tree, you can set the shader type to GLSL ES, GLSL or HLSL 11.
-                        <br>
-                        <b>GLSL ES</b> is compatible with all platforms.
-                        <br>
-                        <b>GLSL</b> is compatible with Mac and Ubuntu.
-                        <br>
-                        <b>HLSL 11</b> is compatible with Windows, UWP and Xbox One.
-                        Also supports <span title="'Multiple Render Targets' are outputs to multiple surfaces at once.">MRTs</span> which I plan to cover later.
-                        <br>
+                        Right-click the shaders folder and select create shader, or press ALT+A.
+                        I'll title mine "shd_passthrough" because this is going to be just another <span title="The default shader generated does not handle GPU effects like alpha testing, fog or lights! For true passthrough shader we'd have to add those back in.">(simplified)</span> passthrough shader.
+
+                        If you right-click the shader in the resource tree, you have three options to choose from:
+                    </p>
+                    <ul>
+                        <li><b>GLSL ES</b> is compatible with all platforms.</li>
+                        <li><b>GLSL</b> is compatible with Mac and Ubuntu.</li>
+                        <li>
+                            <b>HLSL 11</b> is compatible with Windows, UWP and Xbox One.
+                            Also supports <span title="'Multiple Render Targets' allow for multiple pixel output to up to four surfaces.">MRTs</span> which I will cover later.
+                        </li>
+                    </ul>
+                    <p>
                         For now we will just use GLSL ES because it is fairly standard and can be used on all platform targets.
                     </p>
                     <h1>Passthrough shader explained</h1>
@@ -178,11 +184,11 @@ void main()
 }</code></pre>
                     <h1>Summary</h1>
                     <p>
-                        Congrats on adding and examining your first shader!
-                        Like I said earlier, don't worry if you don't understand all of it as there are more tutorials to break down the details.
-                        For many, matrices and vertex positions look quite complicated, but that's okay though!
-                        We won't need to get into all of that until much later, for now, we'll focus mostly on the fragment shader.
-                        For now I hope you learned something interesting and are looking forward to modifying and creating your own shaders.
+                        Congrats on creating as well as examining a shader!
+                        For many, matrices and vertex positions look quite complicated, but that's okay!
+                        Don't worry too much about the details as the next tutorials will break the process down in to bit-sized pieces.
+                        <br>
+                        For now I hope you learned something interesting and are looking forward to creating and modifying your own shaders.
                     </p>
                 </div>
               </div>

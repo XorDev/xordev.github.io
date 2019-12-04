@@ -63,7 +63,8 @@ code.hljs {
     padding: 12px 18px;
 }
 
-.inline-hljs pre {
+.inline-hljs pre,
+pre.inline-hljs {
     display: inline;
     padding: 0;
     border-radius: 3px;
@@ -72,7 +73,8 @@ code.hljs {
     box-shadow: 0 0 4px var(--dark);
 }
 
-.inline-hljs code {
+.inline-hljs code,
+code.inline-hljs {
     display: inline;
     padding: 0;
     border-radius: 3px;
@@ -135,11 +137,7 @@ a:hover {
     color: var(--hov);
 }
 
-.article p span{
-    color: var(--link);
-    font-style: italic;
-}
-.article li span{
+.article span[title] {
     color: var(--link);
     font-style: italic;
 }
