@@ -30,8 +30,8 @@
     }],
     "Functions": [{
         "key": "texture2D",
-        "def": "texture2D(sampler2D, vec2, [float])",
-        "syntax": "texture2D(texture, coordinates, [bias])",
+        "def": "texture2D(texture, coordinates, [bias])",
+        "syntax": "texture2D(sampler2D, vec2, [float])",
         "arguments_min": 2,
         "arguments": [{
             "key": "texture",
@@ -44,29 +44,110 @@
             "desc": "Optional mipmap bias."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "Samples a texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel on the sampler's texture page. Each texture has it's own texture coordinates so you may need to convert from once coordinate range to another by using `sprite_get_uvs` on both sprites. Surfaces and sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>With mipmapping you can add a bias to the current LOD level. But this does not work with surfaces!",
+        "desc": "Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
         "examples":[
           "texture2D(gm_BaseTexture, v_vTexcoord);",
           "//Using the sampler 'uni_diffuse' and 1.0 bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
     },{
-        "key": "mix",
-        "def": "mix(float/vec, float/vec, float/vec)",
-        "syntax": "mix(x, y, a)",
+        "key": "texture2DLod",
+        "def": "texture2DLod(texture, coordinates, lod)",
+        "syntax": "texture2DLod(sampler2D, vec2, float)",
         "arguments_min": 3,
         "arguments": [{
-            "key": "x",
+            "key": "texture",
+            "desc": "ID of the texture to sample."
+        },{
+            "key": "coordinates",
+            "desc": "x and y texture coordinates of the pixel to sample."
+        },{
+            "key": "lod",
+            "desc": "Overwrites mipmap LOD."
+        }],
+        "returns": "vec4, texel color and alpha",
+        "desc": "Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.",
+        "examples":["//Force half resolution with mipmapping.\ntexture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);"]
+    },{
+        "key": "texture2DProj",
+        "def": "texture2DProj(texture, coordinates, [bias])",
+        "syntax": "texture2DProj(sampler2D, vec3/vec4, [float])",
+        "arguments_min": 2,
+        "arguments": [{
+            "key": "texture",
+            "desc": "ID of the texture to sample."
+        },{
+            "key": "coordinates",
+            "desc": "x, y and z for projecting texture coordinates."
+        },{
+            "key": "bias",
+            "desc": "Optional mipmap bias."
+        }],
+        "returns": "vec4, texel color and alpha",
+        "desc": "texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
+        "examples":["//Project a texture using frag coordinates.\ntexture2DProj(gm_BaseTexture, gl_FragCoord.xyz);"]
+    },
+    {
+        "key": "texture2DProjLod",
+        "def": "texture2DProjLod(texture, coordinates, lod)",
+        "syntax": "texture2DProjLod(sampler2D, vec3/vec4, float)",
+        "arguments_min": 2,
+        "arguments": [{
+            "key": "texture",
+            "desc": "ID of the texture to sample."
+        },{
+            "key": "coordinates",
+            "desc": "x, y and z for projecting texture coordinates."
+        },{
+            "key": "lod",
+            "desc": "Overwrites mipmap LOD."
+        }],
+        "returns": "vec4, texel color and alpha",
+        "desc": "texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.",
+        "examples":["//Project a texture at half resolution (using mipmapping).\ntexture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);"]
+    },{
+        "key": "mix",
+        "def": "mix(x1, x2, amt)",
+        "syntax": "mix(float/vec, float/vec, float/vec)",
+        "arguments_min": 3,
+        "arguments": [{
+            "key": "x1",
             "desc": "The first (or source) value."
         },{
-            "key": "y",
+            "key": "x2",
             "desc": "The second (or destination) value."
         },{
-            "key": "a",
+            "key": "amt",
             "desc": "The amount to intepolate."
         }],
-        "returns": "float/vec mixture of a and b",
-        "desc": "'Mix' is just like `lerp` in GML, but with it works with vectors as well. In case you're unfamiliar, it linearly interpolates between 'x' and 'y' by the amount 'a' so if `a = 0.0` then `mix(x,y,a) = x` and if `a = 1.0` then `mix(x,y,a) = y`. When a is anything between 0 and 1, the result will be somewhere between x and y.<br>Mix is calculated internally like so: `mix(x,y,a) = x*(1.-a) + y*a`<br>For this reason, 'x' and 'y' must have the same number of components. 'a' must as well unless it is a float.",
+        "returns": "float/vec, mixture of a and b",
+        "desc": "mix is like the GML `lerp`, it linearly interpolates between 'x1' and 'x2' by the amount 'amt'. So `mix(x1,x2,0.0)` would equal 'x1' and `mix(x1,x2,1.0)` equals 'x2'. When 'amt' is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: `x1 + (x2-x1)*amt` so 'x1' and 'x2' must have the same number of components however 'amt' can be a float or a vector.",
         "examples":[
           "//Mix between the source color and destination color, by 'factor' (float or vec3)\nvec3 col = mix(src,dst,factor);",
-          "//Get the source's red and green channels and the destination's blue.\nvec3 col = mix(src,dst,vec3(0,0,1));"]
+          "//Get the source's red and green channels and the destination's blue channel.\nvec3 col = mix(src,dst,vec3(0,0,1));"]
+    },{
+        "key": "abs",
+        "def": "abs(x)",
+        "syntax": "abs(float/int/vec)",
+        "arguments_min": 1,
+        "arguments": [{
+            "key": "x",
+            "desc": "The input value."
+        }],
+        "returns": "float/vec, x as a positive",
+        "desc": "'abs' is like in GML, it returns 'x' as a positive number, so if 'x' is negative it returns '-x' which will be a positive number.",
+        "examples":[
+          "float five = abs(-5.0);"]
+    },{
+        "key": "floor",
+        "def": "floor(x)",
+        "syntax": "floor(float/int/vec)",
+        "arguments_min": 1,
+        "arguments": [{
+            "key": "x",
+            "desc": "The input value."
+        }],
+        "returns": "float/vec, x rounded down",
+        "desc": "'floor' is like in GML, it returns x rounded down to the nearest whole number. So `floor(1.5)` equals 1.0",
+        "examples":[
+          "float two = floor(2.5);"]
     }]
 }

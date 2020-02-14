@@ -59,10 +59,10 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        Welcome to <a title="GM Shaders About" href="https://gmshaders.com/about/" target="_blank">GM Shaders</a>!
+                        Welcome to <a title="GM Shaders About" href="../../about" target="_blank">GM Shaders</a>!
                         <br>
                         <br>
-                        These shader tutorials were carefully written with beginners and amatuers in mind, however this can be a difficult topic. I advise taking your time when reading through them and take as many breaks as you need. They are designed to be comprehensive, yet concise which means you may not want to skip over anything unless suggested, or you'll miss something important! I avoid repeating myself wherever possible to keep them short. Throughout the tutorials you will find <span title="Like this!">highlighted text</span> which contains additional information. Thanks for reading!
+                        These shader tutorials were carefully written with beginners and amateurs in mind, however, this can be a difficult topic. I advise taking your time when reading through them and take as many breaks as you need. They are designed to be comprehensive, yet concise which means you may not want to skip over anything unless suggested, or you'll miss something important! I avoid repeating myself wherever possible to keep them short. Throughout the tutorials, you will find <span title="Like this!">highlighted text</span> which contains additional information. Thanks for reading!
                     </p>
                     <h3>Tutorial Introduction</h3>
                     <p>
@@ -88,7 +88,7 @@
                     <p>
                         When you draw a sprite, it is actually drawing two triangles together which form a rectangle.
                         Each vertex carries information such as its position, texture coordinates, and color.
-                        So the vertices positions are in the corners of the sprite of sprite.
+                        So the vertices positions are in the corners of the sprite.
                         The texture coordinates are the coordinates on texture page ranging from 0 and 1.
                         So <code>0,0</code> is the top-left corner of the texture page and <code>0,1</code> is the bottom-left corner.
                         Typically a sprite's texture coordinates will be somewhere in the middle of the texture page.
@@ -96,7 +96,7 @@
                     <div class="image"><img src="./drawing_sprites.png"></div>
                     <p>
                         When you use <code>draw_sprite_ext()</code>, setting the color and alpha is just setting the color/alpha of all the vertices in the sprite.
-                        If you've used vertex buffers or <code>draw_vertex_*</code> functions you'll know that you can actually change the colors of individual vertices
+                        If you've used vertex buffers or <code>draw_vertex_*</code> functions you'll probably know that you can change the colors of individual vertices
                         and you can use this to create gradients and other effects.
                         Understanding this helps with shaders because these are the inputs the shaders have to work with.
                     </p>
@@ -120,8 +120,8 @@
                     </p>
                     <h1>Adding a shader</h1>
                     <p>
-                        Right-click the shaders folder and select create shader, or press ALT+A.
-                        I'll title mine "shd_passthrough" because this is going to be just another <span title="The default shader generated does not handle GPU effects like alpha testing, fog or lights! For true passthrough shader we'd have to add those back in.">(simplified)</span> passthrough shader.
+                        Right-click the shaders folder and select "Create Shader" or press ALT+A.
+                        I'll title mine "shd_passthrough" because this is going to be just another <span title="The default shader generated does not handle GPU effects like alpha testing, fog or lights! For a true passthrough shader, we'd have to add those back in.">(simplified)</span> passthrough shader.
 
                         If you right-click the shader in the resource tree, you have three options to choose from:
                     </p>
@@ -134,7 +134,7 @@
                         </li>
                     </ul>
                     <p>
-                        For now we will just use GLSL ES because it is fairly standard and can be used on all platform targets.
+                        For now, we will just use GLSL ES because it is fairly standard and can be used on all platform targets.
                     </p>
                     <h1>Passthrough shader explained</h1>
                     <p>
@@ -186,9 +186,9 @@ void main()
                     <p>
                         Congrats on creating as well as examining a shader!
                         For many, matrices and vertex positions look quite complicated, but that's okay!
-                        Don't worry too much about the details as the next tutorials will break the process down in to bit-sized pieces.
+                        Don't worry too much about the details as the next tutorials will break the process down into bite-sized pieces.
                         <br>
-                        For now I hope you learned something interesting and are looking forward to creating and modifying your own shaders.
+                        For now, I hope you learned something interesting and are looking forward to creating and modifying your own shaders.
                     </p>
                 </div>
               </div>

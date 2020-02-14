@@ -61,11 +61,11 @@
                     <p>
                         This tutorial covers the data types in GLSL ES and how to use them.
                         <br>
-                        In GML, you can set variables to any value from tiny fractions to large integers to booleans without worrying about data types. However in shaders you need to intialize what data type you are using for each variable, allowing shaders to be faster and more precise.
+                        In GML, you can set variables to any value from tiny fractions to large integers to booleans without worrying about data types. However, in shaders you need to initialize what data type you are using for each variable, allowing shaders to be faster and more precise.
                     </p>
                     <h1>Types</h1>
                     <p>
-                        The first thing to learn about shader variables are the data types. You can use any of the following types:
+                        The first thing to learn about shader variables is the data types. You can use any of the following types:
                     </p>
                     <ul>
                         <li><strong>float / vec:</strong>
@@ -102,11 +102,11 @@ bool c = false,
 d = true;
 </pre></code>
                     <p>
-                        As you can see with the integer case, you can initialize a variables type without setting it. This is like local variables in GM (e.g. var i = 0). Also you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool 'd'.
+                        As you can see with the integer case, you can initialize a variable's type without setting a value. This is like local variables in GM (e.g. var i = 0). Also, you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool 'd'.
                     </p>
                     <h3>Casting between data types</h3>
                     <p>
-                        Sometimes you need to convert from one datatype to another and this is called 'casting'. To cast a value you use the replacement datatype as function with the value you want to convert as the argument. Here's a quick example:
+                        Sometimes you need to convert from one data type to another and this is called 'casting'. To cast a value you use the replacement data type as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
 <pre><code>//Cast an int to a float.
 float a = float(10);
@@ -131,7 +131,7 @@ vec3 cube = vec3(line,2.0,3.0);
 vec4 tess = vec4(cube,4.0);
 </pre></code>
                     <p>
-                        You can also do same with integers by using int, ivec2, ivec3 and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3 and bvec4), but they aren't used as often.
+                        You can also do the same with integers by using int, ivec2, ivec3, and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3, and bvec4), but they aren't used as often.
                     </p>
                     <h3>Swizzle notation</h3>
                     <p>
@@ -139,14 +139,14 @@ vec4 tess = vec4(cube,4.0);
                     </p>
                     <ul>
                         <li>
-                        <strong>Array notation:</strong> works with vectors like arrays in GML. So with a vec4 you can put a pair of square brackets with the component 'index' being an integer <span title="The first component's index is 0, second is 1, etc. You can't access a component that hasn't been defined, so an index of 2 on a vec2 will be invalid!">ranging from 0-3</span>. So vector[2] will extract the third component from 'vector'. It's helpful to understand this before learning'dotted notation'.
+                        <strong>Array notation:</strong> works with vectors like arrays in GML. So with a vec4, you can put a pair of square brackets with the component 'index' being an integer <span title="The first component's index is 0, second is 1, etc. You can't access a component that hasn't been defined, so an index of 2 on a vec2 will be invalid!">ranging from 0-3</span>. So vector[2] will extract the third component from 'vector'. It's helpful to understand this before learning'dotted notation'.
                         </li>
                         <li>
-                        <strong>Dotted notation: </strong> can be used to access <span title="You can repeat (or ignore) components as you wish and put then in any order. But only up to 4 components!">multiple components</span>  (as a new vector) at the same time. To access a component from a vector you just put a dot directly behind the vector with the component(s) that you want to access. The components can be represented as either 'xyzw', 'rgba', or 'stpq,'. These all work the same, but the general guide is that xyzw is used for positions or points in space, rgba is used for red, green, blue and alpha 'channels' and <span title="For some reason stpq is rarely used, but it works just as well!">stpq</span> is meant for texture coordinates. Notice the order of each set. x, r or s will always represent the first component, y, g or t represents the second component, z, b or p, the third and w, a or q the fourth.
+                        <strong>Dotted notation: </strong> can be used to access <span title="You can repeat (or ignore) components as you wish and put them in any order. But only up to 4 components!">multiple components</span>  (as a new vector) at the same time. To access a component from a vector you just put a dot directly behind the vector with the component(s) that you want to access. The components can be represented as either 'xyzw', 'rgba', or 'stpq,'. These all work the same, but the general guide is that xyzw is used for positions or points in space, rgba is used for red, green, blue and alpha 'channels' and <span title="For some reason, stpq is rarely used, but it works just as well!">stpq</span> is meant for texture coordinates. Notice the order of each set. x, r or s will always represent the first component, y, g or t represents the second component, z, b or p, the third and w, a or q the fourth.
                         </li>
                     </ul>
                     <p>
-                        Dotted notation is more widely used because it can be used to access floats or vectors where as array notation only accesses floats. Here's an example to show both methods:
+                        Dotted Notation is more widely used because it can be used to access floats or vectors whereas array notation only accesses floats. Here's an example to show both methods:
                     </p>
 
 <pre><code>//Construct a vec4 from ints for example.
@@ -186,7 +186,7 @@ float y_z = rotate2[1][2];
                     </p>
                     <h1>Storage Qualifers</h1>
                     <p>
-                        'Storage qualifers' control how you want your variable is handled. This can be used to receive vertex information, receive values from GML and more! These are the storage qualifers and how they are used:
+                        'Storage qualifiers' control how you want your variable is handled. This can be used to receive vertex information, receive values from GML and more! These are the storage qualifiers and how they are used:
                     </p>
                     <ul>
                         <li>
@@ -214,7 +214,7 @@ ivec2 array[4];
 array[2] = ivec2(2,4);
 </pre></code>
                         <li>
-                            <strong>struct:</strong> A structure or group of of the other data types in a single variable. It's a bit like how in GM, objects have many properties like x, y, sprite_index, etc, but with structures you can use any data types.
+                            <strong>struct:</strong> A structure or group of of the other data types in a single variable. It's a bit like how in GM, objects have many properties like x, y, sprite_index, etc, but with structures, you can use any data types.
                         </li>
 <pre><code>//Initialize structure format.
 struct sample
@@ -233,7 +233,7 @@ pixel.tex = uni_diffuse;
                     </ul>
                     <h1>Precision Qualifers</h1>
                     <p>
-                        Lastly, there are precision qualifers, which can control the range and quality for variables. Most modern hardware will use a higher precision than you specify, but precision qualifers are there to set the minimum acceptable precision. This is rarely used, but it can be useful with cross platform shaders so I decided to include it here. These are the three precision types:
+                        Lastly, there are precision qualifiers, which can control the range and quality of variables. Most modern hardware will use a higher precision than you specify, but precision qualifiers are there to set the minimum acceptable precision. This is rarely used, but it can be useful with cross-platform shaders so I decided to include it here. These are the three precision types:
                         <ul>
                             <li>
                                 <strong>lowp:</strong> Float's range goes up to 2 (positive and negative) with a precision of <span title="Equaling 1/256">2^-8</span>.
@@ -269,7 +269,7 @@ lowp vec3 color = vec3(0.2,0.4,0.8);
 </pre></code>
                     <h1>Summary</h1>
                     <p>
-                        Great job! You've learned about all the different data types and what they store. You've learned how to handle multi-dimensional variables (vectors) and their components. You now know how to access shader inputs (attributes, varyings, uniforms) and how to use constants, data groups (arrays and structs) and precision. This lays the framework necessary to understand functions and logic which is covered in the next tutorial. For now, pat yourself on the back and take a break if need it!
+                        Great job! You've learned about all the different data types and what they store. You've learned how to handle multi-dimensional variables (vectors) and their components. You now know how to access shader inputs (attributes, varyings, uniforms) and how to use constants, data groups (arrays and structs) and precision. This lays the framework necessary to understand functions and logic which is covered in the next tutorial. For now, pat yourself on the back and take a break if you need it!
                     </p>
                 </div>
               </div>
