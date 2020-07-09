@@ -61,49 +61,93 @@
                     <p>
                         Now that we've covered the data types, it's time to learn how to use them!
                     </p>
-                    <h3>Operations</h3>
+                    <a href="./#operations"><h1 id="operations">Operations</h1></a>
                     <p>
                         The first thing you need to know about is the operators. Thankfully, they are quite similar to GML, so this should quick to cover.
                         All operators must both terms to use the same data type. So for <code>x + y</code>, x and y should both be floats or both be ints, not mixed data types.
-                        <br>
-                        <br><strong>Arithmetic operators:</strong> Addition (+), subtraction (-), multiplication (*) and division (/).
-                        <br><strong>Assignment operators:</strong> Increment (++), decrement (--), addition assignment (+=), subtraction assignment (-=), multiplication assignment (*=) and division assignment (/=).
-                        <br><strong>Comparison operators:</strong> Equal-to (==), not-equal-to (!=), less-than (<), less-than or equal-to (<=), greater-than (>), greater-than or equal-to(>=).
-                        <br><strong>Condition operators:</strong> Logical AND (&&), logical OR (||), logical XOR (^^), ternary selection  (?:).
+                        <ul>
+                            <li>
+                                <strong>Arithmetic operators:</strong> Addition (+), subtraction (-), multiplication (*) and division (/). One exception to the data type rule is that matrices and vectors can be multiplied together (as long as they have matching dimensions). Division with integers rounds down to the nearest integer like "div" does in GML.
+                            </li>
+                            <li>
+                                <strong>Assignment operators:</strong> Increment (++), decrement (--), addition assignment (+=), subtraction assignment (-=), multiplication assignment (*=) and division assignment (/=). Incrementation simply means adding 1 to a variable and decrementation means subtracting 1, so <span title="You can put the '++' before or after the variable, depending on if you want to increment before or after it returns it's value."><code>i++</code> is equivalent to <code>i = i+1</code></span>.
+                            </li>
+                            <li>
+                                <strong>Comparison operators:</strong> Equal-to (==), not-equal-to (!=), less-than (<), less-than or equal-to (<=), greater-than (>), greater-than or equal-to(>=). These operations always return a 1-dimensional bool.
+                            </li>
+                            <li>
+                                <strong>Condition operators:</strong> Logical AND (&&), logical OR (||), logical XOR (^^), ternary selection  (?:).
+                            </li>
+                        </ul>
                     </p>
-                    <h3>Functions</h3>
+                    <a href="./#functions"><h1 id="functions">Functions</h1></a>
                     <p>
-                        <a href="/glossary/?load=texture2D" target="_blank">texture2D</a>, <a href="/glossary/?load=texture2DLod" target="_blank">texture2DLod</a>, <a href="/glossary/?load=texture2DProj" target="_blank">texture2DProj</a>, <a href="/glossary/?load=texture2DProjLod" target="_blank">texture2DProjLod</a>
-                        <br>
-                        <a href="/glossary/?load=floor" target="_blank">floor</a>, <a href="/glossary/?load=ceil" target="_blank">ceil</a>, <a href="/glossary/?load=fract" target="_blank">fract</a>, <a href="/glossary/?load=mod" target="_blank">mod</a>, <a href="/glossary/?load=sign" target="_blank">sign</a>, <a href="/glossary/?load=abs" target="_blank">abs</a>, <a href="/glossary/?load=min" target="_blank">min</a>, <a href="/glossary/?load=max" target="_blank">max</a>, <a href="/glossary/?load=clamp" target="_blank">clamp</a>, <a href="/glossary/?load=mix" target="_blank">mix</a>
-                        <br>
-                        texture,common,exp,geometric,trig,mat,bool
+                        Here's a quick overview of all the supported functions in GLSL ES (if want any more detail about specific functions, you can click them to view their page):
+                        <ul>
+                            <li>
+                                <strong>Texture functions:</strong>
+                                <br>
+                                <a href="/glossary/?load=texture2D" target="_blank">texture2D</a>, <a href="/glossary/?load=texture2DProj" target="_blank">texture2DProj</a>,
+                                <strike><a href="/glossary/?load=texture2DLod" target="_blank">texture2DLod</a></strike>, <strike><a href="/glossary/?load=texture2DProjLod" target="_blank">texture2DProjLod</a></strike>
+                                <br>
+                                These are the functions used to get the color and alpha of a pixel on a given sampler. The "Proj" variants are used for projecting a texture on a 3D surface (e.g. for shadow mapping) and the <span title="These are used to set the mipmap 'Level Of Detail'. A lod of 0.0 is full-resolution, 1.0 is half-resolution, 2.0 is quarter and so on.">"Lod" variants</span> are currently NOT supported in GM.
+                            </li>
+                            <li>
+                                <strong>Common functions:</strong>
+                                <br>
+                                <a href="/glossary/?load=floor" target="_blank">floor</a>, <a href="/glossary/?load=ceil" target="_blank">ceil</a>, <a href="/glossary/?load=fract" target="_blank">fract</a>, <a href="/glossary/?load=mod" target="_blank">mod</a>, <a href="/glossary/?load=sign" target="_blank">sign</a>, <a href="/glossary/?load=abs" target="_blank">abs</a>, <a href="/glossary/?load=min" target="_blank">min</a>, <a href="/glossary/?load=max" target="_blank">max</a>, <a href="/glossary/?load=clamp" target="_blank">clamp</a>, <a href="/glossary/?load=mix" target="_blank">mix</a>, <a href="/glossary/?load=step" target="_blank">step</a>, <a href="/glossary/?load=smoothstep" target="_blank">smoothstep</a>
+                                <br>
+                                You're probably familiar with most of these functions. 'floor', 'ceil', 'sign', 'abs', 'clamp' and 'mix' (called <code>lerp</code> in GML) work exactly the same as they do in GML!
+                                <br>
+                                'fract', called <code>frac</code> in GML, and 'mod' both handle negatives differently, 'min' and 'max' are limited to only two arguments each, leaving 'step' and 'smoothstep' as the only unfamiliar functions. I won't summarize them here so I encourage to check out those pages.
+                            </li>
+                            <li>
+                                <strong>Math functions:</strong>
+                                <br>
+                                <a href="/glossary/?load=pow" target="_blank">pow</a>, <a href="/glossary/?load=sqrt" target="_blank">sqrt</a>, <a href="/glossary/?load=inversesqrt" target="_blank">inversesqrt</a>, <a href="/glossary/?load=exp" target="_blank">exp</a>, <a href="/glossary/?load=exp2" target="_blank">exp2</a>, <a href="/glossary/?load=log" target="_blank">log</a>, <a href="/glossary/?load=log2" target="_blank">log2</a>
+                                <br>
+                                'sqrt' works the same as in GML, pow is the equivalent to the GML <code>power</code>, 'inversesqrt' is the reciprocal of the square root, the "exp" functions are exponential functions and the "log" are logarithms with different bases (The Natural Number and 2).
+                            </li>
+                            <li>
+                                <strong>Vector functions:</strong>
+                                <br>
+                                <a href="/glossary/?load=length" target="_blank">length</a>, <a href="/glossary/?load=distance" target="_blank">distance</a>, <a href="/glossary/?load=normalize" target="_blank">normalize</a>, <a href="/glossary/?load=dot" target="_blank">dot</a>, <a href="/glossary/?load=cross" target="_blank">cross</a>, <a href="/glossary/?load=reflect" target="_blank">reflect</a>, <a href="/glossary/?load=refract" target="_blank">refract</a>, <a href="/glossary/?load=faceforward" target="_blank">faceforward</a>, <a href="/glossary/?load=matrixCompMult" target="_blank">matrixCompMult</a>
+                                <br>
+                                'length' and 'distance' find the length of a vector and distance between two vectors, 'normalize' divides a vector by it's length, 'dot' and 'cross' are for dot and cross products which you may or may not be familiar with. The rest are more complicated and worth reading later.
+                            </li>
+                            <li>
+                                <strong>Trigonometry functions:</strong>
+                                <br> <a href="/glossary/?load=radians" target="_blank">radians</a>, <a href="/glossary/?load=degrees" target="_blank">degrees</a>, <a href="/glossary/?load=sin" target="_blank">sin</a>, <a href="/glossary/?load=cos" target="_blank">cos</a>, <a href="/glossary/?load=tan" target="_blank">tan</a>, <a href="/glossary/?load=asin" target="_blank">asin</a>, <a href="/glossary/?load=acos" target="_blank">acos</a>, <a href="/glossary/?load=atan" target="_blank">atan</a>
+                                <br>
+                                'radians' (<code>degtorad</code> in GML) converts angles from degrees to radians and 'degrees' (<code>radtodeg</code> in GML) converts radians to degrees. 'cos', 'sin', 'tan' function just like in GML, 'acos', 'asin', 'atan' function just like the "arc" equivalents in GML.
+                            </li>
+                            <li>
+                                <strong>Boolean functions:</strong>
+                                <br> <a href="/glossary/?load=equal" target="_blank">equal</a>, <a href="/glossary/?load=notEqual" target="_blank">notEqual</a>, <a href="/glossary/?load=lessThan" target="_blank">lessThan</a>, <a href="/glossary/?load=lessThanEqual" target="_blank">lessThanEqual</a>, <a href="/glossary/?load=greaterThan" target="_blank">greaterThan</a>, <a href="/glossary/?load=greaterThanEqual" target="_blank">greaterThanEqual</a>, <a href="/glossary/?load=any" target="_blank">any</a>, <a href="/glossary/?load=all" target="_blank">all</a>, <a href="/glossary/?load=not" target="_blank">not</a>
+                                <br>
+                                'equal', 'notEqual', 'lessThan', 'lessThanEqual', 'greaterThan' and 'greaterThanEqual' all return bools (or bvecs) being <span title="And with vectors, it checks the condition for each component of the vectors.">true if the condition is met</span> or false if not.
+                            </li>
+                        </ul>
                     </p>
-                    <h3>Logic/Statements</h3>
+                    <a href="./#logic"><h1 id="logic">Logic/Statements</h1></a>
                     <p>
                         if, for, while, do-while.
-                        continue,break,discard,return
+                        continue, break, discard, return.
                     </p>
-                    <h3>Custom functions</h3>
+                    <a href="./#custom"><h1 id="custom">Custom Functions</h1></a>
                     <p>
-                        const,in,out,inout.
+                        const, in, out, inout.
                         scope
                     </p>
-                    <h3>Preprocessor</h3>
+                    <a href="./#preprocess"><h1 id="preprocess">Preprocessor</h1></a>
                     <p>
-                        define,ifdef,ifndef,elsif,endif
-                        <br>
-                        Functions TO DO list:
-                        <br>-Textures
-                        <br>-Math/operations
-                        <br>-Logic/loops
-                        <br>-Preprocessor
+                        define, ifdef, ifndef, elif, endif.
                     </p>
                 </div>
               </div>
             </div>
             <div class="navigate-end"></div>
-            <footer><div class="left">&copy; GM Shaders 2019 </div><div class="right"> Website developed by <a taret="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a taret="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>initialize();</script>
     </body>
