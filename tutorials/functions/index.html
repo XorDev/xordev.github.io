@@ -59,30 +59,29 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        Now that we've covered the data types, it's time to learn how to use them!
+                        Now that we've covered the data types, it's time to learn how to use them! Let's go over operations and functions.
                     </p>
                     <a href="./#operations"><h1 id="operations">Operations</h1></a>
                     <p>
-                        The first thing you need to know about is the operators. Thankfully, they are quite similar to GML, so this should quick to cover.
-                        All operators must both terms to use the same data type. So for <code>x + y</code>, x and y should both be floats or both be ints, not mixed data types.
+                        One of the first things you need to know about is the operators. Thankfully, they are quite similar to GML, so this should quick to cover. All operators must both terms to use the same data type. So for <code>x + y</code>, x and y should both be floats or both be ints, and not mixed data types.
                         <ul>
                             <li>
-                                <strong>Arithmetic operators:</strong> Addition (+), subtraction (-), multiplication (*) and division (/). One exception to the data type rule is that matrices and vectors can be multiplied together (as long as they have matching dimensions). Division with integers rounds down to the nearest integer like "div" does in GML.
+                                <strong>Arithmetic operators:</strong> Addition (+), subtraction (-), multiplication (*) and division (/). One exception to the data type rule is that matrices and vectors can be multiplied together (as long as they have matching dimensions). Division with integers rounds down to the nearest integer as "div" does in GML.
                             </li>
                             <li>
                                 <strong>Assignment operators:</strong> Increment (++), decrement (--), addition assignment (+=), subtraction assignment (-=), multiplication assignment (*=) and division assignment (/=). Incrementation simply means adding 1 to a variable and decrementation means subtracting 1, so <span title="You can put the '++' before or after the variable, depending on if you want to increment before or after it returns it's value."><code>i++</code> is equivalent to <code>i = i+1</code></span>.
                             </li>
                             <li>
-                                <strong>Comparison operators:</strong> Equal-to (==), not-equal-to (!=), less-than (<), less-than or equal-to (<=), greater-than (>), greater-than or equal-to(>=). These operations always return a 1-dimensional bool.
+                                <strong>Comparison operators:</strong> Equal-to (==), not-equal-to (!=), less-than (<), less-than or equal-to (<=), greater-than (>), greater-than or equal-to(>=). These operations always return a 1-dimensional bool being true if the condition is met, and false otherwise.
                             </li>
                             <li>
-                                <strong>Condition operators:</strong> Logical AND (&&), logical OR (||), logical XOR (^^), ternary selection  (?:).
+                                <strong>Condition operators:</strong> Logical AND (&&), logical OR (||), logical XOR (^^) and ternary selection  (?:). These are all supported in GML as well, but you may know them by "and", "or", and "xor". Ternary selection is a like a mini if-statement. In this format: <code>(bool_condition) ? a: b</code>, if bool condition is true, it will return 'a' and if not, it returns 'b'. Helpful with writing concise code.
                             </li>
                         </ul>
                     </p>
                     <a href="./#functions"><h1 id="functions">Functions</h1></a>
                     <p>
-                        Functions are a fundamental part of shaders and they are a bit like an extension of the operators. The built-in shader functions use inputs, called "arguments" to "return" an output from the function. This can be anything from simple math functions to getting a pixel's color from a texture.
+                        Functions are a fundamental part of shaders, a bit like an extension of the operators. The built-in shader functions use inputs, called "parameters" to "return" an output from the function. This can be anything from simple math functions to getting a pixel's color from a texture. Everything beyond operators has to be done with functions.
                     </p>
                     <h3>Built-in functions</h3>
                     <p>
@@ -101,7 +100,7 @@
                                 <br>
                                 <a href="/glossary/?load=floor" target="_blank">floor</a>, <a href="/glossary/?load=ceil" target="_blank">ceil</a>, <a href="/glossary/?load=fract" target="_blank">fract</a>, <a href="/glossary/?load=mod" target="_blank">mod</a>, <a href="/glossary/?load=sign" target="_blank">sign</a>, <a href="/glossary/?load=abs" target="_blank">abs</a>, <a href="/glossary/?load=min" target="_blank">min</a>, <a href="/glossary/?load=max" target="_blank">max</a>, <a href="/glossary/?load=clamp" target="_blank">clamp</a>, <a href="/glossary/?load=mix" target="_blank">mix</a>, <a href="/glossary/?load=step" target="_blank">step</a>, <a href="/glossary/?load=smoothstep" target="_blank">smoothstep</a>
                                 <br>
-                                You're probably familiar with most of these functions. 'floor', 'ceil', 'sign', 'abs', 'clamp' and 'mix' (called <code>lerp</code> in GML) work exactly the same as they do in GML!
+                                You're probably familiar with most of these functions. 'floor', 'ceil', 'sign', 'abs', 'clamp', and 'mix' (called <code>lerp</code> in GML) work exactly the same as they do in GML!
                                 <br>
                                 'fract', called <code>frac</code> in GML, and 'mod' both handle negatives differently, 'min' and 'max' are limited to only two arguments each, leaving 'step' and 'smoothstep' as the only unfamiliar functions. I won't summarize them here so I encourage to check out those pages.
                             </li>
@@ -117,7 +116,7 @@
                                 <br>
                                 <a href="/glossary/?load=length" target="_blank">length</a>, <a href="/glossary/?load=distance" target="_blank">distance</a>, <a href="/glossary/?load=normalize" target="_blank">normalize</a>, <a href="/glossary/?load=dot" target="_blank">dot</a>, <a href="/glossary/?load=cross" target="_blank">cross</a>, <a href="/glossary/?load=reflect" target="_blank">reflect</a>, <a href="/glossary/?load=refract" target="_blank">refract</a>, <a href="/glossary/?load=faceforward" target="_blank">faceforward</a>, <a href="/glossary/?load=matrixCompMult" target="_blank">matrixCompMult</a>
                                 <br>
-                                'length' and 'distance' find the length of a vector and distance between two vectors, 'normalize' divides a vector by it's length, 'dot' and 'cross' are for dot and cross products which you may or may not be familiar with. The rest are more complicated and worth reading later.
+                                'length' and 'distance' find the length of a vector and distance between two vectors, 'normalize' divides a vector by it's length, 'dot' and 'cross' are for dot and cross products which you may or may not be familiar with. The rest of them are more complicated and so I encourage reading later.
                             </li>
                             <li>
                                 <strong>Trigonometry functions:</strong>
@@ -133,9 +132,9 @@
                             </li>
                         </ul>
                     </p>
-                    <a href="./#logic"><h1 id="logic">Logic statements</h1></a>
+                    <a href="./#logic"><h1 id="logic">Logic and loop statements</h1></a>
                     <p>
-                        Logic statements are a crucial part of programming langauges and GLSL ES is no exception. You're probably already familiar with these so I'll be brief and just clarify the syntax differences. Here is a list of those statements:
+                        Logic statements are a crucial part of programming languages and GLSL ES is no exception. You're probably already familiar with these so I'll be brief and just clarify the syntax differences. Here is a list of those statements:
                         <br>
                         <ul>
                             <li>
@@ -146,7 +145,7 @@
 {
     do_something();
 }</code></pre>
-                                Specifically, your condition must be a bool (unlike in GML) and MUST be placed in parentheses. I reccomend using curly brackets at the start and end of the conditional code for ease of reading, but it's not required in one-liners.
+                                Specifically, your condition must be a bool (unlike in GML) and MUST be placed in parentheses. I recommend using curly brackets at the start and end of the conditional code for ease of reading, but it's not required in one-liners.
                             </li>
                             <li>
                                 <strong>for:</strong>
@@ -173,7 +172,7 @@
                             <li>
                                 <strong>do-while:</strong>
                                 <br>
-                                Do-while statements loops code inside the brackets just like <code>while</code>, except the condition is checked after the first iteration. This means it will always do atleast one loop. This is the standard format:
+                                Do-while statements loops code inside the brackets just like <code>while</code>, except the condition is checked after the first iteration. This means it will always do at least one loop. This is the standard format:
                                 <pre><code class="glsl">do
 {
     do_something();
@@ -181,7 +180,7 @@
 while(bool_condition);</code></pre>
                             </li>
                         </ul>
-                        <h3>Loop statements</h3>
+                        <h3>Loop control</h3>
                         There are <span title="You may also break the loop with 'return' and 'discard', but those have additional properties.">two main ways</span> to stop a loop. Break and continue:
                         <ul>
                             <li>
@@ -211,17 +210,17 @@ while(bool_condition);</code></pre>
                             <li>
                                 <strong>in:</strong>
                                 <br>
-                                This is the default qualifier for parameters when non is specified. It simply inputs a value from called function as expected. It can be thought of as a read-only variable.
+                                This is the default qualifier for parameters when none is specified. It simply inputs a value from called function as expected. It can be thought of as a read-only variable.
                             </li>
                             <li>
                                 <strong>out:</strong>
                                 <br>
-                                This is for an output variable rather than an input. That means you need to set it's value inside the function. This can be thought of as a write-only variable.
+                                This is for an output variable rather than an input. That means you need to set its value inside the function. This can be thought of as a write-only variable.
                             </li>
                             <li>
                                 <strong>inout:</strong>
                                 <br>
-                                This can be used as an input and an output. In other words, it's a read and write variable.
+                                This can be used as an input and an output. In other words, it's a read-and-write variable.
                             </li>
                         </ul>
                         Here's an example:
@@ -233,17 +232,17 @@ while(bool_condition);</code></pre>
 }</code></pre>
                         Here we have an input (texture coordinates) and an output (vignette brightness) along with a vec4 return. Sometimes you need to output multiple values and <code>out</code> is a way to do that!
                         <br>
-                        It's also important to understand variable 'scope' to avoid naming conflicts. Basically if you define a variable inside brackets (e.g. custom functions, if-statements or loops), it will only be local to that scope. That means your functions can all use variables with the same name as long as it doesn't conflict with a global variable (outside of functions). It's a lot like global and local variables (being limited to specific instances) in GML.
+                        It's also important to understand variable 'scope' to avoid naming conflicts. Basically, if you define a variable inside brackets (e.g. custom functions, if-statements, or loops), it will only be local to that scope. That means your functions can all use variables with the same name as long as it doesn't conflict with a global variable (outside of functions). It's a lot like global and local variables (being limited to specific instances) in GML.
                     </p>
                     <h3>The main function</h3>
                     <p>
-                        The main function is a bit of unusual because it doesn't have any parameters, doesn't return anything, and is the one custom function required in every single shader! Instead of parameters, you just have to work off of the built-in "gl_" and "gm_" variables, attributes (vertex shader) and varyings (fragment shader).
+                        The main function is a bit of unusual because it doesn't have any parameters, doesn't return anything, and is the one custom function required in every single shader! Instead of parameters, you just have to work off of the built-in "gl_" and "gm_" variables, attributes (vertex shader), and varyings (fragment shader).
                         <ul>
                             <li>
                                 <strong>Vertex shader:</strong>
                                 <br>
-                                In the vertex shader, you must set <code>gl_Position</code>, which is the vertex position in "projection-space". More on that later, but for now, you just need to know that it's the vertex position, usually transformed by the <code>gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]</code>. Here you can set the vertex position however like, for example if you want to flip the y-axis, you can do this:
-                                <pre><code class="glsl">//Vertex position with inverted y-axis.
+                                In the vertex shader, you must set <code>gl_Position</code>, which is the vertex position in "projection-space". More on that later, but for now, you just need to know that it's the vertex position, usually transformed by the <code>gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]</code>. Here you can set the vertex position however like, for example, if you want to flip the y-axis, you can do this:
+                                <pre><code class="glsl">//Vertex position with an inverted y-axis.
 vec4 inverted_pos = vec4(in_Position.x, -in_Position.y, in_Position.z, 1.0);
 //Set the vertex position.
 gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * inverted_pos;
@@ -257,22 +256,24 @@ gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * inverted_pos;
                                 <br>
                                 In the fragment shader, you must set <code>gl_FragColor</code>, which determines the output <span title="A fragment is the portion of a sprite/primitive inside a pixel. That means you could have multiple fragments on different depth layers, but always only one resulting pixel at that point.">fragment/pixel</span> color. For example, the default shader simply outputs the texture color and alpha.
                                 <br>
-                                gl_FragColor's channels are "normalized", meaning the acceptable range is 0 to 1 (unlike GML's 0-255). This is because the shader doesn't "know" how bits are needed for each channel. Currently GM only supports 8-bit (0-255) RGBA textures, but perhaps someday we'll get other options.
+                                gl_FragColor's channels are "normalized", meaning the acceptable range is 0 to 1 (unlike GML's 0-255). This is because the shader doesn't "know" how bits are needed for each channel. Currently, GM only supports 8-bit (0-255) RGBA textures, but perhaps someday we'll get other options.
                                 <br>
-                                Another useful statement is called "discard". When called, it will completely skip rendering the fragment; used for alpha testing and more. Here's an example:
+                                Another useful statement is called "discard". When called, it will completely skip rendering the fragment; used for alpha testing, and more. Here's an example:
                                 <pre><code class="glsl">vec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);
 //Discard all fragments that are less than 50% alpha.
 if (tex.a<.5) discard;
 </code></pre>
                                 Note: You should avoid using discard if it's possible to do so because it is <span title="Shaders use various graphics acceleration techniques to quickly approximate fragment depth and visibility. Using discard makes this acceleration impossible, and it's very slow on mobile devices!">very slow on some platforms</span>.
+                                <br>
+                                And that pretty much covers the fragment shader!
                             </li>
                         </ul>
                     </p>
                     <a href="./#summary"><h1 id="summary">Summary</h1></a>
                     <p>
-                        That was a lot to cover so don't worry if you don't understand some parts! The purpose of these tutorials are to help provide a solid foundation that you can refer to when you need. If you have a decent grasp of operations and functions, you can begin experimenting. As you become more comfortable with shaders, you'll learn how to write code more efficiently and clearly.
+                        That was a lot to cover so don't worry if you don't understand some parts! The purpose of these tutorials is to help provide a solid foundation that you can refer to when you need to. If you have a decent grasp of operations and functions, you can begin experimenting. As you become more comfortable with shaders, you'll learn how to write code more efficiently and clearly.
                         <br>
-                        At this point you have all you need to begin writing your own shaders, however the next tutorial will explain tips and tricks I've learned to help you launch in to it! Congrats, you're almost done!
+                        At this point you have all you need to begin writing your own shaders, however the next tutorial will explain tips and tricks I've learned to help you launch in to it! Congrats, you've almost completed!
                     </p>
                 </div>
               </div>
