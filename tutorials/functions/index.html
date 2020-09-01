@@ -82,7 +82,11 @@
                     </p>
                     <a href="./#functions"><h1 id="functions">Functions</h1></a>
                     <p>
-                        Here's a quick overview of all the supported functions in GLSL ES (if want any more detail about specific functions, you can click them to view their page):
+                        Functions are a fundamental part of shaders and they are a bit like an extension of the operators. The built-in shader functions use inputs, called "arguments" to "return" an output from the function. This can be anything from simple math functions to getting a pixel's color from a texture.
+                    </p>
+                    <h3>Built-in functions</h3>
+                    <p>
+                        Here's a quick overview of all supported functions in GLSL ES (if want any more detail about specific functions, you can click them to view their page):
                         <ul>
                             <li>
                                 <strong>Texture functions:</strong>
@@ -125,29 +129,156 @@
                                 <strong>Boolean functions:</strong>
                                 <br> <a href="/glossary/?load=equal" target="_blank">equal</a>, <a href="/glossary/?load=notEqual" target="_blank">notEqual</a>, <a href="/glossary/?load=lessThan" target="_blank">lessThan</a>, <a href="/glossary/?load=lessThanEqual" target="_blank">lessThanEqual</a>, <a href="/glossary/?load=greaterThan" target="_blank">greaterThan</a>, <a href="/glossary/?load=greaterThanEqual" target="_blank">greaterThanEqual</a>, <a href="/glossary/?load=any" target="_blank">any</a>, <a href="/glossary/?load=all" target="_blank">all</a>, <a href="/glossary/?load=not" target="_blank">not</a>
                                 <br>
-                                'equal', 'notEqual', 'lessThan', 'lessThanEqual', 'greaterThan' and 'greaterThanEqual' all return bools (or bvecs) being <span title="And with vectors, it checks the condition for each component of the vectors.">true if the condition is met</span> or false if not.
+                                'equal', 'notEqual', 'lessThan', 'lessThanEqual', 'greaterThan' and 'greaterThanEqual' all return bools (or bvecs) being <span title="And with vectors, it checks the condition for each component of the vectors.">true if the condition is met</span> or false if not. `all` returns true if all components of a bvec are true, 'any' returns true if any components of a bvec are true and `not` simply <span title="Turning true to false and false to true.">negates</span> all components of a bool or bvec.
                             </li>
                         </ul>
                     </p>
-                    <a href="./#logic"><h1 id="logic">Logic/Statements</h1></a>
+                    <a href="./#logic"><h1 id="logic">Logic statements</h1></a>
                     <p>
-                        if, for, while, do-while.
-                        continue, break, discard, return.
+                        Logic statements are a crucial part of programming langauges and GLSL ES is no exception. You're probably already familiar with these so I'll be brief and just clarify the syntax differences. Here is a list of those statements:
+                        <br>
+                        <ul>
+                            <li>
+                                <strong>if:</strong>
+                                <br>
+                                Shaders syntax is more strict than in GML so your if statement must be in this format:
+                                <pre><code class="glsl">if (bool_condition) //example: a == b
+{
+    do_something();
+}</code></pre>
+                                Specifically, your condition must be a bool (unlike in GML) and MUST be placed in parentheses. I reccomend using curly brackets at the start and end of the conditional code for ease of reading, but it's not required in one-liners.
+                            </li>
+                            <li>
+                                <strong>for:</strong>
+                                <br>
+                                For statements loop code inside the brackets (or the next line) until a condition is false. They must have at least a condition in this format:
+                                <pre><code class="glsl">for(; bool_condition; ) //example: i > 10
+{
+    do_something();
+}
+</code></pre>
+                            But more commonly you'll see something like this:
+                            <pre><code class="glsl">for(int i = 0; i<10; i++)</code></pre>
+                            So you don't have to initialize a variable or increment inside the for-loop, but you must have two semicolons to separate the condition.
+                            </li>
+                            <li>
+                                <strong>while:</strong>
+                                <br>
+                                While statements loop through the code in the brackets (or the next line) until a condition is false. Make sure an end condition is met or it will loop until it crashes.
+                                <pre><code class="glsl">while (bool_condition)
+{
+    do_something();
+}</code></pre>
+                            </li>
+                            <li>
+                                <strong>do-while:</strong>
+                                <br>
+                                Do-while statements loops code inside the brackets just like <code>while</code>, except the condition is checked after the first iteration. This means it will always do atleast one loop. This is the standard format:
+                                <pre><code class="glsl">do
+{
+    do_something();
+}
+while(bool_condition);</code></pre>
+                            </li>
+                        </ul>
+                        <h3>Loop statements</h3>
+                        There are <span title="You may also break the loop with 'return' and 'discard', but those have additional properties.">two main ways</span> to stop a loop. Break and continue:
+                        <ul>
+                            <li>
+                                <strong>break:</strong>
+                                <br>
+                                Aborts the loop, skipping everything in the loop after it. Put this at the bottom of your loop if you want the code to execute before aborting!
+                            </li>
+                            <li>
+                                <strong>continue:</strong>
+                                <br>
+                                Skips the rest of the loop iteration and jumps to the next iteration. Putting this at the end of a loop will have no effect.
+                            </li>
+                        </ul>
+                        'break' is often used when additional iterations are unnecessary and in some cases can speed up performance significantly.
                     </p>
-                    <a href="./#custom"><h1 id="custom">Custom Functions</h1></a>
+                    <a href="./#custom"><h1 id="custom">Custom functions</h1></a>
                     <p>
-                        const, in, out, inout.
-                        scope
+                        Custom functions are another useful feature for organizing your code. Here's a simple example function:
+<pre><code>vec4 tex(vec2 coordinates)
+{
+    return texture2D(gm_BaseTexture, coordinates);
+}</code></pre>
+                        When called, this outputs a (vec4) pixel color from the base-texture at the given texture coordinates. This shows you set the output datatype before the function name and you can add parameters to your functions inside the parentheses.
+                        <br>
+                        Along with defining a parameter's datatype, you can also set parameter qualifiers:
+                        <ul>
+                            <li>
+                                <strong>in:</strong>
+                                <br>
+                                This is the default qualifier for parameters when non is specified. It simply inputs a value from called function as expected. It can be thought of as a read-only variable.
+                            </li>
+                            <li>
+                                <strong>out:</strong>
+                                <br>
+                                This is for an output variable rather than an input. That means you need to set it's value inside the function. This can be thought of as a write-only variable.
+                            </li>
+                            <li>
+                                <strong>inout:</strong>
+                                <br>
+                                This can be used as an input and an output. In other words, it's a read and write variable.
+                            </li>
+                        </ul>
+                        Here's an example:
+<pre><code>vec4 vignette_tex(in vec2 coordinates, out float vignette)
+{
+    vec4 tex = texture2D(gm_BaseTexture, coordinates);
+    vignette = (1.-length(coordinates-.5));
+    return tex*vignette;
+}</code></pre>
+                        Here we have an input (texture coordinates) and an output (vignette brightness) along with a vec4 return. Sometimes you need to output multiple values and <code>out</code> is a way to do that!
+                        <br>
+                        It's also important to understand variable 'scope' to avoid naming conflicts. Basically if you define a variable inside brackets (e.g. custom functions, if-statements or loops), it will only be local to that scope. That means your functions can all use variables with the same name as long as it doesn't conflict with a global variable (outside of functions). It's a lot like global and local variables (being limited to specific instances) in GML.
                     </p>
-                    <a href="./#preprocess"><h1 id="preprocess">Preprocessor</h1></a>
+                    <h3>The main function</h3>
                     <p>
-                        define, ifdef, ifndef, elif, endif.
+                        The main function is a bit of unusual because it doesn't have any parameters, doesn't return anything, and is the one custom function required in every single shader! Instead of parameters, you just have to work off of the built-in "gl_" and "gm_" variables, attributes (vertex shader) and varyings (fragment shader).
+                        <ul>
+                            <li>
+                                <strong>Vertex shader:</strong>
+                                <br>
+                                In the vertex shader, you must set <code>gl_Position</code>, which is the vertex position in "projection-space". More on that later, but for now, you just need to know that it's the vertex position, usually transformed by the <code>gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION]</code>. Here you can set the vertex position however like, for example if you want to flip the y-axis, you can do this:
+                                <pre><code class="glsl">//Vertex position with inverted y-axis.
+vec4 inverted_pos = vec4(in_Position.x, -in_Position.y, in_Position.z, 1.0);
+//Set the vertex position.
+gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * inverted_pos;
+</code></pre>
+                                You may have noticed the "inverted_pos" is a vec4. The W component is used with the transformation matrices and should always be 1.0. This will make sense in the next tutorial so don't worry about it for now.
+                                <br>
+                                The main function is also where you set the values for 'varying' variables. Most shaders pass the color and texture coordinate values from the attributes to the fragment shader via varyings. Some shaders also pass the vertex position or normals, but you can pass anything you want. The general rule is, if it can be computed in the vertex shader, do that because it's faster to do one calculation per-triangle than one per-pixel!
+                            </li>
+                            <li>
+                                <strong>Fragment shader:</strong>
+                                <br>
+                                In the fragment shader, you must set <code>gl_FragColor</code>, which determines the output <span title="A fragment is the portion of a sprite/primitive inside a pixel. That means you could have multiple fragments on different depth layers, but always only one resulting pixel at that point.">fragment/pixel</span> color. For example, the default shader simply outputs the texture color and alpha.
+                                <br>
+                                gl_FragColor's channels are "normalized", meaning the acceptable range is 0 to 1 (unlike GML's 0-255). This is because the shader doesn't "know" how bits are needed for each channel. Currently GM only supports 8-bit (0-255) RGBA textures, but perhaps someday we'll get other options.
+                                <br>
+                                Another useful statement is called "discard". When called, it will completely skip rendering the fragment; used for alpha testing and more. Here's an example:
+                                <pre><code class="glsl">vec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);
+//Discard all fragments that are less than 50% alpha.
+if (tex.a<.5) discard;
+</code></pre>
+                                Note: You should avoid using discard if it's possible to do so because it is <span title="Shaders use various graphics acceleration techniques to quickly approximate fragment depth and visibility. Using discard makes this acceleration impossible, and it's very slow on mobile devices!">very slow on some platforms</span>.
+                            </li>
+                        </ul>
+                    </p>
+                    <a href="./#summary"><h1 id="summary">Summary</h1></a>
+                    <p>
+                        That was a lot to cover so don't worry if you don't understand some parts! The purpose of these tutorials are to help provide a solid foundation that you can refer to when you need. If you have a decent grasp of operations and functions, you can begin experimenting. As you become more comfortable with shaders, you'll learn how to write code more efficiently and clearly.
+                        <br>
+                        At this point you have all you need to begin writing your own shaders, however the next tutorial will explain tips and tricks I've learned to help you launch in to it! Congrats, you're almost done!
                     </p>
                 </div>
               </div>
             </div>
             <div class="navigate-end"></div>
-            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a taret="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>initialize();</script>
     </body>

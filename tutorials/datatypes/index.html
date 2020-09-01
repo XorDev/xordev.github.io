@@ -195,7 +195,7 @@ float y_z = rotate2[1][2];
                             <strong>attribute:</strong> Read-only vertex input information which can only be accessed in the vertex shader. This can be vertex position, color, texture coordinates or even normals. All of GM's built-in attributes can be found in the <a href="../../glossary">glossary</a>!
                         </li>
                         <li>
-                            <strong>varying:</strong> Variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
+                            <strong>varying:</strong> Variables that get sent from the vertex shader to the fragment shader. These variables' values get <span title="Technically, they are linearly interpolated">blended</span> across the pixels between the vertices. So halfway between a red vertex and blue vertex is <span title="Because it's half red, half blue">purple</span>.
                         </li>
                         <li>
                             <strong>uniform:</strong> Read-only variables which are set from GML and received in either the fragment shader or vertex shader.
@@ -233,26 +233,26 @@ pixel.tex = uni_diffuse;
                     </ul>
                     <a href="./#precision"><h1 id="precision">Precision Qualifiers</h1></a>
                     <p>
-                        Lastly, there are precision qualifiers, which can control the range and quality of variables. Most modern hardware will use a higher precision than you specify, but precision qualifiers are there to set the minimum acceptable precision. This is rarely used, but it can be useful with cross-platform shaders so I decided to include it here. These are the three precision types:
+                        Lastly, there are precision qualifiers, which can control the range and quality of variables. Some modren hardware will use a higher precision than you specify, but precision qualifiers set the minimum acceptable precision (if the hardware supports it). This isn't used often, but it can be useful with cross-platform shaders. These are the three precision types:
                         <ul>
                             <li>
-                                <strong>lowp:</strong> Float's range goes up to 2 (positive and negative) with a precision of <span title="Equaling 1/256">2^-8</span>.
+                                <strong>lowp:</strong> Float's range goes up to 2 (positive and negative) with a precision of <span title="Or 2^-8">1/256</span>.
                                 <br>
-                                Integers can range up to <span title="Equaling 256">2^8</span> (positive and negative).
+                                Integers can range up to <span title="Or 2^8">256</span> (including positive and negative).
                                 <br>
                                 Lowp floats are adequate for colors, but may not be precise enough for other purposes.
                             </li>
                             <li>
-                                <strong>mediump:</strong> Float's range goes up to <span title="Equaling 16,384 (positive and negative)">2^14</span> with a precision of <span title="Equaling 1/1,024">2^-10</span>.
+                                <strong>mediump:</strong> Float's range goes up to <span title="Or 2^14  (positive and negative)">16,384</span> with a precision of <span title="Or 2^-10">1/1,024</span>.
                                 <br>
-                                Integers can range up to <span title="Equaling 1,024 (positive and negative)">2^10</span>.
+                                Integers can range up to <span title="Or 2^10 (positive and negative)">1,024</span>.
                                 <br>
-                                Mediump floats are usually adequate for normals and texture coordinates.
+                                Mediump floats are usually adequate for texture coordinates and normals.
                             </li>
                             <li>
-                                <strong>highp</strong> Float's range goes up to <span title="Equaling ‭4,611,686,018,427,387,904 (positive and negative)!‬">2^62</span> with a precision of <span title="Equaling 1/65536">2^-16</span>.
+                                <strong>highp</strong> Float's range goes up to <span title="2^62 (positive and negative)!">‭4,611,686,018,427,387,904!</span> with a precision of <span title="2^-16">1/65536</span>.
                                 <br>
-                                Integers can range up to <span title="Equaling 65536 (positive and negative)">2^16</span>.
+                                Integers can range up to <span title="2^16 (positive and negative)">65536</span>.
                                 <br>
                                 Highp floats are best used for positions.
                             </li>
@@ -275,7 +275,7 @@ lowp vec3 color = vec3(0.2,0.4,0.8);
               </div>
             </div>
             <div class="navigate-end"></div>
-            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a taret="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>initialize();</script>
     </body>

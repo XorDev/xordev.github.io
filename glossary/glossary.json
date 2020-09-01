@@ -677,5 +677,26 @@
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples":[""]
+    }],
+    "Built-in Variables": [{
+        "key": "gl_Position",
+        "def": "gl_Position",
+        "desc": "",
+        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
+    },{
+        "key": "gm_Matrices",
+        "def": "gm_Matrices",
+        "desc": "",
+        "examples":["//Get the world-space position.\nvec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position,1.)).xyz;"]
+    },{
+        "key": "gl_FragColor",
+        "def": "gl_FragColor",
+        "desc": "",
+        "examples":["//Output fragment color.\ngl_FragColor = texture2D(gm_BaseTexture);"]
+    },{
+        "key": "gm_BaseTexture",
+        "def": "gm_BaseTexture",
+        "desc": "",
+        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
     }]
 }
