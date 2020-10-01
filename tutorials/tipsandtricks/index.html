@@ -54,19 +54,93 @@
             </header>
             <div class="pagecontent">
                 <div class="top-info">
-                    <a href="./#title"><div id="title">Data Types</div></a>
+                    <a href="./#title"><div id="title">Tips and tricks</div></a>
                     <div class="date">30 Mar 2019</div>
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        -Optimization tricks and preprocess.
-                        -Useful math (and matrices).
-                        -Error messages.
-                        -How to use extensions.
+                        Now that you know the bones of shaders, let's add some meat!
                     </p>
-                    <a href="./#preprocess"><h1 id="preprocess">Preprocessor</h1></a>
+                    <a href="./#optimization"><h1 id="optimization">Optimization</h1></a>
                     <p>
-                        define, ifdef, ifndef, elif, endif.
+                        When I was first learning about shaders, it was difficult for me to tell what code was efficient and what was slow. After all, you can't easily run code on thousands of pixels in GML, but shaders can with ease. At the same time many shaders can struggle with if-statements and for-loops, while GML has no such problem.
+                        <br>
+                        So that's what I'd like to cover next.
+                        <h3>Preprocessor</h3>
+                        <p>
+                            The preprocessor is used to "process" the shader code before it is compiled. For example, with <code>#define</code> (like GML macros)
+                            <br>
+                            <strong>#define, #undef, #ifdef, #ifndef, #else, #elif, #endif</strong>
+                        </p>
+                        <pre><code class="glsl">#define mode 2
+vec3 col;
+
+#if mode == 0
+col = vec3(1,1,0);
+#elif mode == 1
+col = vec3(0,1,1);
+#else
+col = vec3(1,0,1);
+#endif
+
+#undef mode</code></pre>
+                    <h3>Tips</h3>
+                    <p>
+                        <ul>
+                            <li>
+                                <strong>Constants:</strong>
+                                uniforms, precision
+                            </li>
+                            <li>
+                                <strong>Fragment-vertex:</strong>
+
+                            </li>
+                            <li>
+                                <strong>Loops:</strong>
+
+                            </li>
+                            <li>
+                                <strong>Branching:</strong>
+
+                            </li>
+                            <li>
+                                <strong>Textures and multipass:</strong>
+
+                            </li>
+                            <li>
+                                <strong>Vector:</strong>
+                                Swizzle
+                            </li>
+                        </ul>
+                        <br>
+                        Compile time.
+                    </p>
+
+                    <a href="./#useful"><h1 id="useful">Useful Code and Math</h1></a>
+                    <p>
+                        About matrices.
+                        <br>
+                        Texture coordinate normalization.
+                        <br>Hash/noise?
+                        <br>Color/brightness
+                    </p>
+                    <a href="./#errors"><h1 id="errors">Fixing Errors</h1></a>
+                    <p>
+                        ""
+                        <br>'function'
+                        <br>'variable' -
+                        <br>'constructor'
+                        <br>'assign' - type mismatch
+                    </p>
+                    <a href="./#extensions"><h1 id="extensions">Shader Extensions</h1></a>
+                    <p>
+                        GL_OES_standard_derivatives
+                        <br>
+                        GL_EXT_frag_depth
+                    </p>
+                    <a href="./#variables"><h1 id="variables">Interesting variables</h1></a>
+                    <p>
+                        __VERSION__, _YY_GLSLES_, _YY_GLSL_, _YY_HLSL11_, _YY_PSSL_
                     </p>
                 </div>
               </div>

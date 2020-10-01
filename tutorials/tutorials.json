@@ -7,7 +7,7 @@
     "date": 1570133017
     },
     {
-      "name": "#2 Data Types",
+      "name": "#2 Data types",
       "description": "Introduction to data types and conversion.",
       "pagename": "datatypes",
       "date": 1570133017
@@ -16,6 +16,12 @@
       "name": "#3 Functions",
       "description": "An overview of shader functions and logic.",
       "pagename": "functions",
+      "date": 1570133017
+    },
+    {
+      "name": "#4 Tips and tricks",
+      "description": "An overview of shader functions and logic.",
+      "pagename": "tipsandtricks",
       "date": 1570133017
     }]
 }
