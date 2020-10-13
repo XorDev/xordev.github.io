@@ -21,7 +21,7 @@
         <meta property="og:description" content="Shader tutorials for GameMaker Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
-        <link rel="stylesheet" href="../../shared/highlightjs/styles/atom-one-dark.css">
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
         <script src="../../shared/highlightjs/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <!-- styles -->
@@ -59,33 +59,26 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        Now that you know the bones of shaders, let's add some meat!
+                        At this point, you have all the knowledge you need to start writing your own effects. This tutorial will help you use that knowledge and show you how to improve your code! Let's start with some useful snippets:
                     </p>
-                    <a href="./#optimization"><h1 id="optimization">Optimization</h1></a>
+                    <a href="./#useful"><h2 id="useful">Useful Code and Math</h2></a>
                     <p>
-                        When I was first learning about shaders, it was difficult for me to tell what code was efficient and what was slow. After all, you can't easily run code on thousands of pixels in GML, but shaders can with ease. At the same time many shaders can struggle with if-statements and for-loops, while GML has no such problem.
+                        For many effects
+                        <a href="https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion" target="_blank">brightness</a>
+
                         <br>
-                        So that's what I'd like to cover next.
-                        <h3>Preprocessor</h3>
-                        <p>
-                            The preprocessor is used to "process" the shader code before it is compiled. For example, with <code>#define</code> (like GML macros)
-                            <br>
-                            <strong>#define, #undef, #ifdef, #ifndef, #else, #elif, #endif</strong>
-                        </p>
-                        <pre><code class="glsl">#define mode 2
-vec3 col;
-
-#if mode == 0
-col = vec3(1,1,0);
-#elif mode == 1
-col = vec3(0,1,1);
-#else
-col = vec3(1,0,1);
-#endif
-
-#undef mode</code></pre>
+                        Texture coordinate normalization.
+                        <br>
+                        Hash/noise?
+                        <br>
+                        It's time to talk more about matrices in more depth. <a href="/glossary/?load=dot" target="_blank">dot</a>
+                    </p>
+                    <a href="./#optimization"><h2 id="optimization">Optimization</h2></a>
+                    <p>
+                        When I was first learning about shaders, it was difficult for me to tell what code was efficient and what would be slow. After all, you can't easily run code on thousands of pixels in GML, but shaders can with ease. At the same time many shaders can struggle with if-statements and for-loops, while GML has no such problem. So that's what I'd like to cover next.
                     <h3>Tips</h3>
                     <p>
+                        So here's a list of things to consider.
                         <ul>
                             <li>
                                 <strong>Constants:</strong>
@@ -115,16 +108,40 @@ col = vec3(1,0,1);
                         <br>
                         Compile time.
                     </p>
-
-                    <a href="./#useful"><h1 id="useful">Useful Code and Math</h1></a>
+                    <h3>Preprocessor</h3>
                     <p>
-                        About matrices.
+                        The preprocessor is used to "process" the shader code during compilation (not runtime). For example, with <code>#define</code>, you can define a macro value, let's say 'pi', and it will replace all references of 'pi' with that value (just like <a href="https://docs2.yoyogames.com/source/_build/3_scripting/3_gml_overview/6_scope.html" target="_blank">GML macros</a>). Every time you run the game, the preprocessor will compile those changes as though you hardcoded those values in, making it a good choice for values you may want to change later.
                         <br>
-                        Texture coordinate normalization.
-                        <br>Hash/noise?
-                        <br>Color/brightness
+                        Here's a list of the supported preprocessor directives:
+                        <br>
+                        <strong>#define, #undef, #ifdef, #ifndef, #if, #endif, #else, #elif, </strong>
+                        <br>
+                        So you know that '#define' can define a value like constants, but, like GML macros, it can also hold expressions such as <code class="glsl">#define add a + b</code> or you can use it like a function with custom values like: <code class="glsl">#define add(a,b) a + b</code>.
+                        <br>
+                        <br>
+                        <strong>Note:</strong> This code directly replaces its references, so you probably don't want to put a semi-colon at the end of your expression, if you already have one on that line! And since it's like copy-pasting, you'll want to make sure you're not repeating computations that only need to be done once.
+                        <br>
+                        The next directive is '#undef', which as you may have guessed, can be used to undefine macros, which can be used to avoid naming conflicts. '#ifdef' and `ifndef` are preprocessor if statements to check if a macro is defined (or not, respectively). Instead of brackets, you use '#endif' to close the statement, and any lines in between will be discarded (during compile) if the condition is false. Some people like to leave optional bits of code in their shader that can be toggled on with a define.
+                        <br>
+                        Next is '#if', which can be used for standard conditionals</span> (e.g >, ==, etc). Just make sure the terms in the condition are constant values, macros!
+                        <br>
+                        And finally, you have '#else' and '#elif' which work how you'd expect, being an else statement and else-if respectively. To recap, here's a quick example:
                     </p>
-                    <a href="./#errors"><h1 id="errors">Fixing Errors</h1></a>
+                    <pre><code class="glsl">#define mode 0 //Try changing this to 0, 1 or 2.
+
+#if mode == 0
+color *= vec3(1.0, 0.1, 0.1); //Multiply "color" by a red filter.
+#elif mode == 1
+color *= vec3(0.2, 1.0, 0.1); //Mulitply by a green filter.
+#else
+color = color.rrr; //Use mono-color from red channel.
+#endif
+
+#undef mode</code></pre>
+                    <p>
+                        So that's how you can make your code more customizable without taking runtime performance! You'll thank yourself later for not leaving magic numbers everywhere.
+                    </p>
+                    <a href="./#errors"><h2 id="errors">Fixing Errors</h2></a>
                     <p>
                         ""
                         <br>'function'
@@ -132,13 +149,13 @@ col = vec3(1,0,1);
                         <br>'constructor'
                         <br>'assign' - type mismatch
                     </p>
-                    <a href="./#extensions"><h1 id="extensions">Shader Extensions</h1></a>
+                    <a href="./#extensions"><h2 id="extensions">Shader Extensions</h2></a>
                     <p>
                         GL_OES_standard_derivatives
                         <br>
                         GL_EXT_frag_depth
                     </p>
-                    <a href="./#variables"><h1 id="variables">Interesting variables</h1></a>
+                    <a href="./#variables"><h2 id="variables">Interesting variables</h2></a>
                     <p>
                         __VERSION__, _YY_GLSLES_, _YY_GLSL_, _YY_HLSL11_, _YY_PSSL_
                     </p>

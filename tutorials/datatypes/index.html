@@ -21,7 +21,7 @@
         <meta property="og:description" content="Shader tutorials for GameMaker Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
-        <link rel="stylesheet" href="../../shared/highlightjs/styles/atom-one-dark.css">
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
         <script src="../../shared/highlightjs/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <!-- styles -->
@@ -63,16 +63,16 @@
                         <br>
                         In GML, you can set variables to any value from tiny fractions to large integers to booleans without worrying about data types. However, in shaders you need to initialize what data type you are using for each variable, allowing shaders to be faster and more precise.
                     </p>
-                    <a href="./#types"><h1 id="types">Types</h1></a>
+                    <a href="./#types"><h2 id="types">Types</h2></a>
                     <p>
                         The first thing to learn about shader variables is the data types. You can use any of the following types:
                     </p>
                     <ul>
                         <li><strong>float / vec:</strong>
-                            These are standard (floating-point) numbers that can be a fraction or decimal number, but it must contain a decimal point like: 2.0, 50., 1.57 or -95.0. You can also use <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a> to write very large or small numbers. This can be written like: 2.0e3, 3e7 or 4.7e-4 which is shorter way to write: 2000.0 (2.0*10^3), 3000000.0 (3.0*10^7) or 0.00047 (4.7*10^-4).
+                            These are standard (floating-point) numbers that can be a fraction or decimal number, but it must contain a decimal point like: 2.0, 50., 1.57 or -95.0. You can also use <a href="https://en.wikipedia.org/wiki/Scientific_notation" target="_blank">scientific notation</a> to write very large or small numbers. This can be written like: 2.0e3, 3e7 or 4.7e-4 which is shorter way to write: 2000.0 (2.0*10^3), 3000000.0 (3.0*10^7) or 0.00047 (4.7*10^-4).
                         </li>
                         <li><strong>int / ivec:</strong>
-                            Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error. <a href="https://en.wikipedia.org/wiki/Hexadecimal">Hexadecimal</a> numbers can be defined by putting "0x" at the start and for <a href="https://en.wikipedia.org/wiki/Octal">octal</a> numbers just start with "0". For example: 0xFF, 017 are valid numbers.
+                            Whole numbers or integers like 3, -8 or 400. Adding any decimal points to an int will cause an error. <a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">Hexadecimal</a> numbers can be defined by putting "0x" at the start and for <a href="https://en.wikipedia.org/wiki/Octal" target="_blank">octal</a> numbers just start with "0". For example: 0xFF, 017 are valid numbers.
                         </li>
                         <li><strong>bool / bvec:</strong>
                             Boolean values which can only be: true or false.
@@ -108,18 +108,18 @@ d = true;
                     <p>
                         Sometimes you need to convert from one data type to another and this is called "casting". To cast a value you use the replacement data type as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
-<pre><code>//Cast an int to a float.
+<pre><code class="glsl">//Cast an int to a float.
 float a = float(10);
 //Cast a bool to an int (false = 0, true = 1).
 int b = int(true);
 </pre></code>
-                    <a href="./#dimensions"><h1 id="dimensions">Dimensions and components</h1></a>
+                    <a href="./#dimensions"><h2 id="dimensions">Dimensions and components</h2></a>
                     <p>
                         Unlike in GML, some shader variables can contain up to 4 values at once and these values are called "components" of the variable. <span title="Vectors are variables with 2 or more components and scalars only have one component like in GML.">Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
                         <br>
                         So floats, vec2s, vec3s and vec4s are all floating-point numbers, so a float has 1 component while vec4 has 4. To set a vector with you use a function called a <span title="Constructors can be used as casters as well. So: ivec2(0.0,5.8) is the same as ivec2(0,5)">constructor</span> which is just like a caster but can have multiple components separated by commas. Here's how it looks to initialize different variable types:
                     </p>
-<pre><code>//1D scalar with a value of 1.0. Scalars don't need constructors.
+<pre><code class="glsl">//1D scalar with a value of 1.0. Scalars don't need constructors.
 float line = 1.0;
 //Construct a 2D integer vector containing 1 and 2 respectively.
 ivec2 square = ivec2(1,2);
@@ -149,7 +149,7 @@ vec4 tess = vec4(cube,4.0);
                         Dotted Notation is more widely used because it can be used to access floats or vectors whereas array notation only accesses floats. Here's an example to show both methods:
                     </p>
 
-<pre><code>//Construct a vec4 from ints for example.
+<pre><code class="glsl">//Construct a vec4 from ints for example.
 vec4 a = vec4(0,1,2,3);
 //Get the first component of "a", 0.0.
 float b = a.x;
@@ -170,8 +170,8 @@ a.st = a.pq;
                         <br>
                         They can be initialized like so:
                     </p>
-<pre><code>//Set the first and second rows with vec2s.
-mat2 rotate = mat2(vec2(0.6,0.8),vec2(-0.8,0.6));
+<pre><code class="glsl">//Set the first and second rows with vec2s.
+mat2 rotate = mat2(vec2(0.6,0.8), vec2(-0.8,0.6));
 //Get the vec2 from the second row which is vec2(-0.8,0.6).
 vec2 y_dot = rotate[1];
 
@@ -184,7 +184,7 @@ float y_z = rotate2[1][2];
                     <p>
                         Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
                     </p>
-                    <a href="./#storage"><h1 id="storage">Storage Qualifiers</h1></a>
+                    <a href="./#storage"><h2 id="storage">Storage Qualifiers</h2></a>
                     <p>
                         "Storage qualifiers" control how you want your variable is handled. This can be used to receive vertex information, receive values from GML and more! These are the storage qualifiers and how they are used:
                     </p>
@@ -201,14 +201,14 @@ float y_z = rotate2[1][2];
                             <strong>uniform:</strong> Read-only variables which are set from GML and received in either the fragment shader or vertex shader.
                         </li>
                     </ul>
-                    <a href="./#groups"><h1 id="groups">Groups</h1></a>
+                    <a href="./#groups"><h2 id="groups">Groups</h2></a>
                     <p>
                         Variables can be grouped:
                         <ul>
                             <li>
                                 <strong>array:</strong> A list of values in a single variable. They are similar to array notation, but instead of dealing with components, it's scalars or vectors. Because it is not limited by components, you can have an array of any constant size.
                             </li>
-<pre><code>//Initialize a integer array with 5 slots.
+<pre><code class="glsl">//Initialize a integer array with 5 slots.
 ivec2 array[4];
 //Set the 2 index value as a ivec2.
 array[2] = ivec2(2,4);
@@ -216,7 +216,7 @@ array[2] = ivec2(2,4);
                         <li>
                             <strong>struct:</strong> A structure or group of of the other data types in a single variable. It's a bit like how in GM, objects have many properties like x, y, sprite_index, etc, but with structures, you can use any data types.
                         </li>
-<pre><code>//Initialize structure format.
+<pre><code  class="glsl">//Initialize structure format.
 struct sample
 {
     vec2 uv;
@@ -231,7 +231,7 @@ vec2 pix_uv = pixel.uv;
 pixel.tex = uni_diffuse;
 </pre></code>
                     </ul>
-                    <a href="./#precision"><h1 id="precision">Precision Qualifiers</h1></a>
+                    <a href="./#precision"><h2 id="precision">Precision Qualifiers</h2></a>
                     <p>
                         Lastly, there are precision qualifiers, which can control the range and quality of variables. Some modren hardware will use a higher precision than you specify, but precision qualifiers set the minimum acceptable precision (if the hardware supports it). This isn't used often, but it can be useful with cross-platform shaders. These are the three precision types:
                         <ul>
@@ -267,7 +267,7 @@ precision lowp int;
 //Set the color at low precision.
 lowp vec3 color = vec3(0.2,0.4,0.8);
 </pre></code>
-                    <a href="./#summary"><h1 id="summary">Summary</h1></a>
+                    <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
                         Great job! You've learned about all the different data types and what they store. You've learned how to handle multi-dimensional variables (vectors) and their components. You now know how to access shader inputs (attributes, varyings, uniforms) and how to use constants, data groups (arrays and structs) and precision. This lays the framework necessary to understand functions and logic which is covered in the next tutorial. For now, pat yourself on the back and take a break if you need it!
                     </p>

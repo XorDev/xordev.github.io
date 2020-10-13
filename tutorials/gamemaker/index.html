@@ -21,7 +21,7 @@
         <meta property="og:description" content="Shader tutorials for GameMaker Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
-        <link rel="stylesheet" href="../../shared/highlightjs/styles/atom-one-dark.css">
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
         <script src="../../shared/highlightjs/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <!-- styles -->
@@ -74,7 +74,7 @@
                         to water reflections/refractions, shockwaves, wind and much more!
                         Let's get started from the very beginning by looking at texture pages in GM.
                     </p>
-                    <a href="./#texturepages"><h1 id="texturepages">Texture Pages</h1></a>
+                    <a href="./#texturepages"><h2 id="texturepages">Texture Pages</h2></a>
                     <p>
                         Before we get to the shaders, I want to explain a bit about texture pages (also known as a texture atlas) and how <code>draw_sprite()</code> works in GM.
                         First, when you run your game, all textures including, sprites, fonts, are placed on texture pages.
@@ -84,7 +84,7 @@
                         That means drawing a sprite is actually just drawing a part of a larger texture page:
                         <div class="image"><img src="./texture_page.png"></div>
                     </p>
-                    <a href="./#drawing"><h1 id="drawing">Drawing Sprites In GM</h1></a>
+                    <a href="./#drawing"><h2 id="drawing">Drawing Sprites In GM</h2></a>
                     <p>
                         When you draw a sprite, it is actually drawing two triangles together which form a rectangle (quad).
                         Each vertex carries information such as its position, texture coordinates, and color.
@@ -100,7 +100,7 @@
                         and you can use this to create gradients and other effects.
                         Understanding this helps with shaders because these are the inputs the shaders have to work with.
                     </p>
-                    <a href="./#how"><h1 id="how">How Shaders Work</h1></a>
+                    <a href="./#how"><h2 id="how">How Shaders Work</h2></a>
                     <p>
                         Shaders are graphical programs run on your GPU that handle drawing of sprites, surfaces, vertex buffers, etc.
                         GM supports two types of shaders: the vertex shader and fragment shader (sometimes called pixel shaders).
@@ -118,7 +118,7 @@
                         This means that any conditional effect (dependent on a specific area, time or any other variable)
                         will perform slower since all vertices/pixels use the same code despite varying results.
                     </p>
-                    <a href="./#adding"><h1 id="adding">Adding a Shader</h1></a>
+                    <a href="./#adding"><h2 id="adding">Adding a Shader</h2></a>
                     <p>
                         Right-click the shaders folder and select "Create Shader" or press ALT+A.
                         I'll title mine "shd_passthrough" because this is going to be just another <span title="The default shader generated does not handle GPU effects like alpha testing, fog or lights! For a true passthrough shader, we'd have to add those back in.">(simplified)</span> passthrough shader.
@@ -136,7 +136,7 @@
                     <p>
                         For now, we will just use <span title="GameMaker Studio 2 currently uses GLSL ES 1.00rev17, which is quite dated.">GLSL ES</span> because it is fairly standard and can be used on all platform targets.
                     </p>
-                    <a href="./#passthrough"><h1 id="passthrough">Passthrough Shader Explained</h1></a>
+                    <a href="./#passthrough"><h2 id="passthrough">Passthrough Shader Explained</h2></a>
                     <p>
                     I've gone through the default vertex and fragment shader, but I replaced the comments with my own.
                     This will give a basic explanation of what each line does, but don't worry about the details just yet.
@@ -182,7 +182,7 @@ void main()
     //Set the output the vertex color times texture color to each pixel.
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 }</code></pre>
-                    <a href="./#summary"><h1 id="summary">Summary</h1></a>
+                    <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
                         Congrats on creating and examining a shader!
                         For many, matrices and vertex positions look quite complicated, but that's okay!

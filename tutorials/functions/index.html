@@ -21,7 +21,7 @@
         <meta property="og:description" content="Shader tutorials for GameMaker Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
-        <link rel="stylesheet" href="../../shared/highlightjs/styles/atom-one-dark.css">
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
         <script src="../../shared/highlightjs/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <!-- styles -->
@@ -61,7 +61,7 @@
                     <p>
                         Now that we've covered the data types, it's time to learn how to use them! Let's go over operations and functions.
                     </p>
-                    <a href="./#operations"><h1 id="operations">Operations</h1></a>
+                    <a href="./#operations"><h2 id="operations">Operations</h2></a>
                     <p>
                         One of the first things you need to know about is the operators. Thankfully, they are quite similar to GML, so this should quick to cover. All operators must both terms to use the same data type. So for <code>x + y</code>, x and y should both be floats or both be ints, and not mixed data types.
                         <ul>
@@ -79,7 +79,7 @@
                             </li>
                         </ul>
                     </p>
-                    <a href="./#functions"><h1 id="functions">Functions</h1></a>
+                    <a href="./#functions"><h2 id="functions">Functions</h2></a>
                     <p>
                         Functions are a fundamental part of shaders, a bit like an extension of the operators. The built-in shader functions use inputs, called "parameters" to "return" an output from the function. This can be anything from simple math functions to getting a pixel's color from a texture. Everything beyond operators has to be done with functions.
                     </p>
@@ -132,7 +132,7 @@
                             </li>
                         </ul>
                     </p>
-                    <a href="./#logic"><h1 id="logic">Logic and loop statements</h1></a>
+                    <a href="./#logic"><h2 id="logic">Logic and loop statements</h2></a>
                     <p>
                         Logic statements are a crucial part of programming languages and GLSL ES is no exception. You're probably already familiar with these so I'll be brief and just clarify the syntax differences. Here is a list of those statements:
                         <br>
@@ -196,7 +196,7 @@ while(bool_condition);</code></pre>
                         </ul>
                         'break' is often used when additional iterations are unnecessary and in some cases can speed up performance significantly.
                     </p>
-                    <a href="./#custom"><h1 id="custom">Custom functions</h1></a>
+                    <a href="./#custom"><h2 id="custom">Custom functions</h2></a>
                     <p>
                         Custom functions are another useful feature for organizing your code. Here's a simple example function:
 <pre><code>vec4 tex(vec2 coordinates)
@@ -269,7 +269,7 @@ if (tex.a<.5) discard;
                             </li>
                         </ul>
                     </p>
-                    <a href="./#summary"><h1 id="summary">Summary</h1></a>
+                    <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
                         That was a lot to cover so don't worry if you don't understand some parts! The purpose of these tutorials is to help provide a solid foundation that you can refer to when you need to. If you have a decent grasp of operations and functions, you can begin experimenting. As you become more comfortable with shaders, you'll learn how to write code more efficiently and clearly.
                         <br>
