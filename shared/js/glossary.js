@@ -1,23 +1,20 @@
 
 let pageGlossary = undefined;
 
-// let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-// req.onreadystatechange = res => {
-//     if (res.target.readyState == 4 && res.target.status == 200) {
-//         let glossary = JSON.parse(res.target.responseText.replace(
-//             /(\W)`([^`]+)`(\W)/g,
-//             '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
-//         ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
-//         pageSearchLibrary = glossary;
-//         pageCompareProp = 'key';
-//         if (document.readyState === 'complete') appendContent(glossary);
-//         else document.onreadystatechange = () => {
-//             if (document.readyState === 'complete') appendContent(glossary);
-//         };
-//     }
-// }
-// req.open('GET', '../glossary/glossary.json', true);
-// req.send();
+// Load glossary.json for searching
+let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+req.onreadystatechange = res => {
+    if (res.target.readyState == 4 && res.target.status == 200) {
+        let glossary = JSON.parse(res.target.responseText.replace(
+            /(\W)`([^`]+)`(\W)/g,
+            '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
+        ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
+        pageSearchLibrary = glossary;
+        pageCompareProp = 'key';
+    }
+}
+req.open('GET', '../glossary/glossary.json', true);
+req.send();
 
 function glossaryInit() {
     // Filter
@@ -33,6 +30,16 @@ function glossaryInit() {
         const searchBar = document.getElementById("search_docs");
         searchBar.value = filter.search;
     }
+
+    Array.from(document.querySelectorAll('#docs .doc')).forEach(doc => {
+        const elmKey = doc.id;
+        console.log(elmKey);
+        if ((filter.key && elmKey !== filter.key) ||
+            (filter.search && !~elmKey.toLowerCase().indexOf(filter.search))
+        ) {
+            doc.style = 'display: none; visibility: hidden;';
+        }
+    });
 
 
     // Apply code specs
