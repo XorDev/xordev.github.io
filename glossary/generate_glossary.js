@@ -26,10 +26,6 @@ function glossaryToString(glossary) {
     for (const type in glossary) {
         const elms = [];
         for (const elm of glossary[type]) {
-            // TODO: Filter is disabled on code generation, must do in browser
-            // if (filter.key    && elm.key !== filter.key ||
-            //     filter.search && !~elm.key.toLowerCase().indexOf(filter.search)) continue;
-
             const properties = glsParse(elm);
 
             elms.push(`
@@ -65,7 +61,7 @@ function glsParse(elm, used = []) {
         desc: (elm, props) => ({ title: `Description:`, class: 'block' }),
         examples: (elm, props) => ({
             title: elm[props].length < 2 && 'Example:',
-            val: elm[props].map(s => `<pre><code>${s}</pre></code>`)
+            val: elm[props].map(s => s && `<pre><code>${s}</pre></code>`)
         })
     };
 

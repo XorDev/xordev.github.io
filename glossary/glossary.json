@@ -280,7 +280,7 @@
         }],
         "returns": "float/vec, zero or one",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "pow",
         "def": "pow(x)",
@@ -292,7 +292,7 @@
         }],
         "returns": "float/int/vec, e",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "sqrt",
         "def": "sqrt(x)",
@@ -304,7 +304,7 @@
         }],
         "returns": "float/int/vec, e",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "inversesqrt",
         "def": "inversesqrt(x)",
@@ -316,7 +316,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "exp",
         "def": "exp(x)",
@@ -328,7 +328,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "exp2",
         "def": "exp2(x)",
@@ -340,7 +340,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "log",
         "def": "log(x)",
@@ -352,7 +352,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "log2",
         "def": "log2(x)",
@@ -364,7 +364,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "length",
         "def": "length(x)",
@@ -376,7 +376,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "distance",
         "def": "distance(x)",
@@ -388,7 +388,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "normalize",
         "def": "normalize(x)",
@@ -400,7 +400,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "dot",
         "def": "dot(x)",
@@ -412,7 +412,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "cross",
         "def": "cross(x)",
@@ -424,7 +424,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "reflect",
         "def": "reflect(x)",
@@ -436,7 +436,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "refract",
         "def": "refract(x)",
@@ -448,7 +448,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "faceforward",
         "def": "faceforward(x)",
@@ -460,7 +460,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "matrixCompMult",
         "def": "matrixCompMult(x)",
@@ -472,7 +472,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "radians",
         "def": "radians(x)",
@@ -484,7 +484,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "degrees",
         "def": "degrees(x)",
@@ -496,7 +496,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "sin",
         "def": "sin(x)",
@@ -508,7 +508,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "cos",
         "def": "cos(x)",
@@ -520,7 +520,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "tan",
         "def": "tan(x)",
@@ -532,7 +532,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "asin",
         "def": "asin(x)",
@@ -544,7 +544,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "acos",
         "def": "acos(x)",
@@ -556,7 +556,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "atan",
         "def": "atan(x)",
@@ -568,7 +568,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "equal",
         "def": "equal(x)",
@@ -580,7 +580,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "notEqual",
         "def": "notEqual(x)",
@@ -592,7 +592,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "lessThan",
         "def": "lessThan(x)",
@@ -604,7 +604,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "lessThanEqual",
         "def": "lessThanEqual(x)",
@@ -616,7 +616,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "greaterThan",
         "def": "greaterThan(x)",
@@ -628,7 +628,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "greaterThanEqual",
         "def": "greaterThanEqual(x)",
@@ -640,7 +640,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "any",
         "def": "any(x)",
@@ -652,7 +652,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "all",
         "def": "all(x)",
@@ -664,7 +664,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     },{
         "key": "not",
         "def": "not(x)",
@@ -676,7 +676,7 @@
         }],
         "returns": "float/int/vec, ",
         "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples":[""]
+        "examples": []
     }],
     "Built-in Variables": [{
         "key": "gl_Position",
