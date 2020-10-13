@@ -1,24 +1,63 @@
 
 let pageGlossary = undefined;
 
-let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-req.onreadystatechange = res => {
-    if (res.target.readyState == 4 && res.target.status == 200) {
-        let glossary = JSON.parse(res.target.responseText.replace(
-            /(\W)`([^`]+)`(\W)/g,
-            '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
-        ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
-        pageSearchLibrary = glossary;
-        pageCompareProp = 'key';
-        if (document.readyState === 'complete') appendContent(glossary);
-        else document.onreadystatechange = () => {
-            if (document.readyState === 'complete') appendContent(glossary);
-        };
-    }
-}
-req.open('GET', '../glossary/glossary.json', true);
-req.send();
+// let req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+// req.onreadystatechange = res => {
+//     if (res.target.readyState == 4 && res.target.status == 200) {
+//         let glossary = JSON.parse(res.target.responseText.replace(
+//             /(\W)`([^`]+)`(\W)/g,
+//             '$1<span class=\\"inline-hljs\\"><pre><code>$2</code></pre></span>$3'
+//         ).replace(/(\W)\*(\w[^*]*?\w|\w{1,2})\*(\W)/g, '$1<i>$2</i>$3'));
+//         pageSearchLibrary = glossary;
+//         pageCompareProp = 'key';
+//         if (document.readyState === 'complete') appendContent(glossary);
+//         else document.onreadystatechange = () => {
+//             if (document.readyState === 'complete') appendContent(glossary);
+//         };
+//     }
+// }
+// req.open('GET', '../glossary/glossary.json', true);
+// req.send();
 
+function glossaryInit() {
+    // Filter
+    const matchFilter = window.location.href.match(/[&?]load=([\w\d]+)([;&]|$)/);
+    const searchFilter = window.location.href.match(/[&?]search=([\w\d]+)([;&]|$)/);
+
+    let filter = {
+        key: matchFilter ? matchFilter[1] : null,
+        search: searchFilter ? searchFilter[1] : null
+    };
+
+    if (filter.search !== null) {
+        const searchBar = document.getElementById("search_docs");
+        searchBar.value = filter.search;
+    }
+
+
+    // Apply code specs
+    const hljsElms = document.querySelectorAll('pre>code');
+    for (let elm of hljsElms) {
+        let meta = elm.innerText.match(/^{\w+:.+?}/);
+        if (meta) {
+            elm.innerText = elm.innerText.slice(meta[0].length);
+            let keys = meta[0].match(/\w+:/g);
+            let vals = meta[0].match(/:[^,}]+/g);
+            let spec = {};
+
+            for (let i = 0; i < keys.length; i++) {
+                spec[keys[i].slice(0, -1)] = vals[i].slice(1);
+            }
+
+            if (spec.hasOwnProperty('lang')) elm.classList.add(spec.lang);
+        }
+    }
+
+    hljs.initHighlighting();
+}
+
+
+/*
 function appendContent(glossary) {
     const docs = document.getElementById('docs');
 
@@ -80,6 +119,7 @@ function appendContent(glossary) {
 
     hljs.initHighlighting();
 }
+*/
 
 function creacopURL(elm, key) {
     const link = `${window.location.href.match(/(.+?)(?:\?|$)/)[1]}?load=${key}`;
@@ -119,6 +159,7 @@ function loadunload(div, startTime, endTime) {
     }, '', startTime);
 }
 
+/*
 function glsParse(elm, used = []) {
 
     const special = {
@@ -188,3 +229,4 @@ function glsParse(elm, used = []) {
     }
     return properties.trim();
 }
+*/

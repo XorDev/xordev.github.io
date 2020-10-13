@@ -58,9 +58,1320 @@
                 </div>
                 <div class="results"></div>
             </div>
-            <div id="docs"></div>
+            <div id="docs"><div id="Attributes" class="type-title"><span>Attributes</span></div><div class="Attributes doc" id="in_Position">
+                    <div class="link" onclick="creacopURL(this, 'in_Position')">Create link</div>
+                    <div class="content">
+                        <div class="name">in_Position</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>attribute vec3 in_Position;</code></pre></span>
+                    </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec3, vertex position
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Vertex position in model space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don"t need the world matrix. Keep this in mind when you"re using your own vertex buffer!
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Output the projection-space vertex position.
+gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Attributes doc" id="in_TextureCoord">
+                    <div class="link" onclick="creacopURL(this, 'in_TextureCoord')">Create link</div>
+                    <div class="content">
+                        <div class="name">in_TextureCoord</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>attribute vec2 in_TextureCoord;</code></pre></span>
+                    </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec2, texture coordinates
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span>) and normalize them yourself.<br><br>Alternative: <span class="inline-hljs"><pre><code>in_Texcoord</code></pre></span>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Pass a varying "v_vTexcoord" to the fragment shader.
+v_vTexcoord = in_Texcoord;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Attributes doc" id="in_Colour">
+                    <div class="link" onclick="creacopURL(this, 'in_Colour')">Create link</div>
+                    <div class="content">
+                        <div class="name">in_Colour</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>attribute vec4 in_Colour;</code></pre></span>
+                    </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, vertex color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the <span class="inline-hljs"><pre><code>draw_set_color</code></pre></span> and <span class="inline-hljs"><pre><code>draw_set_alpha</code></pre></span> and for vertex buffers/primitives, the color you set for each vertex. So "in_Colour" can be useful in many situations!<br><br>Alternative: <span class="inline-hljs"><pre><code>in_Color</code></pre></span>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Pass a varying "v_vColor" to the fragment shader.
+v_vColor = in_Color;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Attributes doc" id="in_Normal">
+                    <div class="link" onclick="creacopURL(this, 'in_Normal')">Create link</div>
+                    <div class="content">
+                        <div class="name">in_Normal</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>attribute vec3 in_Normal;</code></pre></span>
+                    </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec3, vertex normal
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        To do later!
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>To do later!</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div id="Functions" class="type-title"><span>Functions</span></div><div class="Functions doc" id="texture2D">
+                    <div class="link" onclick="creacopURL(this, 'texture2D')">Create link</div>
+                    <div class="content">
+                        <div class="name">texture2D(texture, coordinates, [bias])</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>texture2D(sampler2D, vec2, [float])</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">texture</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        ID of the texture to sample.
+                    </div></li><li><div class="name">coordinates</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        x and y texture coordinates of the pixel to sample.
+                    </div></li><li><div class="name">bias</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Optional mipmap bias.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, texel color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
+                    </div><div class="examples ">
+                            <div class="title">Examples:</div>
+                            <ul><li><pre><code>texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li><li><pre><code>//Using the sampler "uni_diffuse" and 1.0 bias (half resolution with mipmapping).
+texture2D(uni_diffuse, v_vTexcoord, 1.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="texture2DLod">
+                    <div class="link" onclick="creacopURL(this, 'texture2DLod')">Create link</div>
+                    <div class="content">
+                        <div class="name"><strike>texture2DLod</strike>(texture, coordinates, lod)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>texture2DLod(sampler2D, vec2, float)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">texture</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        ID of the texture to sample.
+                    </div></li><li><div class="name">coordinates</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        x and y texture coordinates of the pixel to sample.
+                    </div></li><li><div class="name">lod</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Overwrites mipmap LOD.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, texel color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a "texel".<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Force half resolution with mipmapping.
+texture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="texture2DProj">
+                    <div class="link" onclick="creacopURL(this, 'texture2DProj')">Create link</div>
+                    <div class="content">
+                        <div class="name">texture2DProj(texture, coordinates, [bias])</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>texture2DProj(sampler2D, vec3/vec4, [float])</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">texture</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        ID of the texture to sample.
+                    </div></li><li><div class="name">coordinates</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        x, y and z for projecting texture coordinates.
+                    </div></li><li><div class="name">bias</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Optional mipmap bias.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, texel color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Project a texture using frag coordinates.
+texture2DProj(gm_BaseTexture, gl_FragCoord.xyz);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="texture2DProjLod">
+                    <div class="link" onclick="creacopURL(this, 'texture2DProjLod')">Create link</div>
+                    <div class="content">
+                        <div class="name"><strike>texture2DProjLod</strike>(texture, coordinates, lod)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>texture2DProjLod(sampler2D, vec3/vec4, float)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">texture</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        ID of the texture to sample.
+                    </div></li><li><div class="name">coordinates</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        x, y and z for projecting texture coordinates.
+                    </div></li><li><div class="name">lod</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Overwrites mipmap LOD.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, texel color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Project a texture at half resolution (using mipmapping).
+texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="floor">
+                    <div class="link" onclick="creacopURL(this, 'floor')">Create link</div>
+                    <div class="content">
+                        <div class="name">floor(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>floor(float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, x rounded down
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>floor</code></pre></span> is like in GML, it returns "x" rounded down to the nearest whole number. So <span class="inline-hljs"><pre><code>floor(1.5)</code></pre></span> returns 1.0
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float two = floor(2.5);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="ceil">
+                    <div class="link" onclick="creacopURL(this, 'ceil')">Create link</div>
+                    <div class="content">
+                        <div class="name">ceil(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>ceil(float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, x rounded up
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>ceil</code></pre></span> is like in GML, it returns "x" rounded up to the nearest whole number. So <span class="inline-hljs"><pre><code>ceil(1.5)</code></pre></span> returns 2.0
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float three = ceil(2.5);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="fract">
+                    <div class="link" onclick="creacopURL(this, 'fract')">Create link</div>
+                    <div class="content">
+                        <div class="name">fract(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>fract(float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, fractional part of x
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>fract</code></pre></span> is similar to <span class="inline-hljs"><pre><code>frac</code></pre></span> in GML with the same results for positive <span class="inline-hljs"><pre><code>x</code></pre></span> (not with negatives). This returns just the fractional part of "x", removing the whole number part. Internally, it's computed as <span class="inline-hljs"><pre><code>x - floor(x)</code></pre></span>, so <span class="inline-hljs"><pre><code>fract(3.14)</code></pre></span> returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: <span class="inline-hljs"><pre><code>frac(x) = fract(abs(x)) * sign(x)</code></pre></span>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float half = fract(2.5);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="mod">
+                    <div class="link" onclick="creacopURL(this, 'mod')">Create link</div>
+                    <div class="content">
+                        <div class="name">mod(x, y)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>mod(float/vec, float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li><li><div class="name">y</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The divisor.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, fractional part of x
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>mod</code></pre></span> is similar to the GML modulo operator (also called <span class="inline-hljs"><pre><code>mod</code></pre></span>), giving the same results for positive <span class="inline-hljs"><pre><code>x</code></pre></span> (not with negatives). This returns the remainder of <span class="inline-hljs"><pre><code>x</code></pre></span> divided by <span class="inline-hljs"><pre><code>y</code></pre></span> which is computed as <span class="inline-hljs"><pre><code>x - floor(x/y)*y</code></pre></span>.<br><br><b>Note:</b> the GML operator relates with the shader function like so: <span class="inline-hljs"><pre><code>x mod y = mod(abs(x),y)*sign(x)</code></pre></span>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float two = mod(7.0,5.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="sign">
+                    <div class="link" onclick="creacopURL(this, 'sign')">Create link</div>
+                    <div class="content">
+                        <div class="name">sign(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>sign(float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, sign of x
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>sign</code></pre></span> is like in GML, it returns the sign for each component of <span class="inline-hljs"><pre><code>x</code></pre></span>. So if x is positive, it returns 1.0, if x is negative it returns -1.0 and 0.0 if x equals zero.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float ten = abs(-10.)</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="abs">
+                    <div class="link" onclick="creacopURL(this, 'abs')">Create link</div>
+                    <div class="content">
+                        <div class="name">abs(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>abs(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, x as a positive
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>abs</code></pre></span> is like in GML, it returns "x" as a positive number, so if "x" is negative it returns "-x" which will be a positive number.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float five = abs(-5.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="min">
+                    <div class="link" onclick="creacopURL(this, 'min')">Create link</div>
+                    <div class="content">
+                        <div class="name">min(x, y)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>min(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The first input value.
+                    </div></li><li><div class="name">y</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The second input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec, the lesser of x and y
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>min</code></pre></span> is like in GML (except limited to 2 input arguments), returns the lesser of the two values, so "x" if "x" is less than "y" and otherwise it returns "y"
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float one = min(1.0,4.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="max">
+                    <div class="link" onclick="creacopURL(this, 'max')">Create link</div>
+                    <div class="content">
+                        <div class="name">max(x, y)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>max(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The first input value.
+                    </div></li><li><div class="name">y</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The second input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec, the greater of x and y
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>max</code></pre></span> is like in GML (except limited to 2 input arguments) returns the greater of the two values, so "x" if "x" is greater than "y" and otherwise it returns "y"
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float four = max(1.0,4.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="clamp">
+                    <div class="link" onclick="creacopURL(this, 'clamp')">Create link</div>
+                    <div class="content">
+                        <div class="name">clamp(x, min, max)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>clamp(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li><li><div class="name">min</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The minimum value.
+                    </div></li><li><div class="name">max</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The maximum value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec, x between min and max
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        <span class="inline-hljs"><pre><code>clamp</code></pre></span> is just like in GML
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>float five = abs(-5.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="mix">
+                    <div class="link" onclick="creacopURL(this, 'mix')">Create link</div>
+                    <div class="content">
+                        <div class="name">mix(x1, x2, amt)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>mix(float/vec, float/vec, float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x1</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The first (or source) value.
+                    </div></li><li><div class="name">x2</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The second (or destination) value.
+                    </div></li><li><div class="name">amt</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The amount to intepolate.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, mixture of a and b
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        mix is like the GML <span class="inline-hljs"><pre><code>lerp</code></pre></span>, it linearly interpolates between "x1" and "x2" by the amount "amt". So <span class="inline-hljs"><pre><code>mix(x1,x2,0.0)</code></pre></span> would equal "x1" and <span class="inline-hljs"><pre><code>mix(x1,x2,1.0)</code></pre></span> equals "x2". When "amt" is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: <span class="inline-hljs"><pre><code>x1 + (x2-x1)*amt</code></pre></span> so "x1" and "x2" must have the same number of components however "amt" can be a float or a vector.
+                    </div><div class="examples ">
+                            <div class="title">Examples:</div>
+                            <ul><li><pre><code>//Mix between the source color and destination color, by "factor" (float or vec3)
+vec3 col = mix(src,dst,factor);</pre></code></li><li><pre><code>//Get the source"s red and green channels and the destination"s blue channel.
+vec3 col = mix(src,dst,vec3(0,0,1));</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="step">
+                    <div class="link" onclick="creacopURL(this, 'step')">Create link</div>
+                    <div class="content">
+                        <div class="name">step(edge, x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>step(float/vec, float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">edge</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The edge value for comparing.
+                    </div></li><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, zero or one
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Returns 0.0 when "x" is less than "edge" and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.
+                    </div><div class="examples ">
+                            <div class="title">Examples:</div>
+                            <ul><li><pre><code>//Set the alpha to 1.0 if "color.a" is greater-than or equal-to 0.5:
+color.a = step(0.5,color.a);</pre></code></li><li><pre><code>//Make "color" invisible when the red channel is greater than 0.8
+color *= step(color.r,0.8);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="smoothstep">
+                    <div class="link" onclick="creacopURL(this, 'smoothstep')">Create link</div>
+                    <div class="content">
+                        <div class="name">smoothstep(edge0, edge1, x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>step(float/vec, float/vec, float/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">edge0</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The starting edge.
+                    </div></li><li><div class="name">edge1</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The ending edge.
+                    </div></li><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/vec, zero or one
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="pow">
+                    <div class="link" onclick="creacopURL(this, 'pow')">Create link</div>
+                    <div class="content">
+                        <div class="name">pow(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>pow(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec, e
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="sqrt">
+                    <div class="link" onclick="creacopURL(this, 'sqrt')">Create link</div>
+                    <div class="content">
+                        <div class="name">sqrt(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>sqrt(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec, e
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="inversesqrt">
+                    <div class="link" onclick="creacopURL(this, 'inversesqrt')">Create link</div>
+                    <div class="content">
+                        <div class="name">inversesqrt(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>inversesqrt(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="exp">
+                    <div class="link" onclick="creacopURL(this, 'exp')">Create link</div>
+                    <div class="content">
+                        <div class="name">exp(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>exp(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="exp2">
+                    <div class="link" onclick="creacopURL(this, 'exp2')">Create link</div>
+                    <div class="content">
+                        <div class="name">exp2(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>exp2(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="log">
+                    <div class="link" onclick="creacopURL(this, 'log')">Create link</div>
+                    <div class="content">
+                        <div class="name">log(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>log(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="log2">
+                    <div class="link" onclick="creacopURL(this, 'log2')">Create link</div>
+                    <div class="content">
+                        <div class="name">log2(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>log2(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="length">
+                    <div class="link" onclick="creacopURL(this, 'length')">Create link</div>
+                    <div class="content">
+                        <div class="name">length(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>length(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="distance">
+                    <div class="link" onclick="creacopURL(this, 'distance')">Create link</div>
+                    <div class="content">
+                        <div class="name">distance(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>distance(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="normalize">
+                    <div class="link" onclick="creacopURL(this, 'normalize')">Create link</div>
+                    <div class="content">
+                        <div class="name">normalize(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>normalize(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="dot">
+                    <div class="link" onclick="creacopURL(this, 'dot')">Create link</div>
+                    <div class="content">
+                        <div class="name">dot(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>dot(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="cross">
+                    <div class="link" onclick="creacopURL(this, 'cross')">Create link</div>
+                    <div class="content">
+                        <div class="name">cross(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>cross(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="reflect">
+                    <div class="link" onclick="creacopURL(this, 'reflect')">Create link</div>
+                    <div class="content">
+                        <div class="name">reflect(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>reflect(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="refract">
+                    <div class="link" onclick="creacopURL(this, 'refract')">Create link</div>
+                    <div class="content">
+                        <div class="name">refract(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>refract(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="faceforward">
+                    <div class="link" onclick="creacopURL(this, 'faceforward')">Create link</div>
+                    <div class="content">
+                        <div class="name">faceforward(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>faceforward(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="matrixCompMult">
+                    <div class="link" onclick="creacopURL(this, 'matrixCompMult')">Create link</div>
+                    <div class="content">
+                        <div class="name">matrixCompMult(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>matrixCompMult(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="radians">
+                    <div class="link" onclick="creacopURL(this, 'radians')">Create link</div>
+                    <div class="content">
+                        <div class="name">radians(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>radians(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="degrees">
+                    <div class="link" onclick="creacopURL(this, 'degrees')">Create link</div>
+                    <div class="content">
+                        <div class="name">degrees(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>degrees(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="sin">
+                    <div class="link" onclick="creacopURL(this, 'sin')">Create link</div>
+                    <div class="content">
+                        <div class="name">sin(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>sin(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="cos">
+                    <div class="link" onclick="creacopURL(this, 'cos')">Create link</div>
+                    <div class="content">
+                        <div class="name">cos(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>cos(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="tan">
+                    <div class="link" onclick="creacopURL(this, 'tan')">Create link</div>
+                    <div class="content">
+                        <div class="name">tan(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>tan(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="asin">
+                    <div class="link" onclick="creacopURL(this, 'asin')">Create link</div>
+                    <div class="content">
+                        <div class="name">asin(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>asin(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="acos">
+                    <div class="link" onclick="creacopURL(this, 'acos')">Create link</div>
+                    <div class="content">
+                        <div class="name">acos(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>acos(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="atan">
+                    <div class="link" onclick="creacopURL(this, 'atan')">Create link</div>
+                    <div class="content">
+                        <div class="name">atan(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>atan(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="equal">
+                    <div class="link" onclick="creacopURL(this, 'equal')">Create link</div>
+                    <div class="content">
+                        <div class="name">equal(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>equal(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="notEqual">
+                    <div class="link" onclick="creacopURL(this, 'notEqual')">Create link</div>
+                    <div class="content">
+                        <div class="name">notEqual(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>notEqual(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="lessThan">
+                    <div class="link" onclick="creacopURL(this, 'lessThan')">Create link</div>
+                    <div class="content">
+                        <div class="name">lessThan(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>lessThan(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="lessThanEqual">
+                    <div class="link" onclick="creacopURL(this, 'lessThanEqual')">Create link</div>
+                    <div class="content">
+                        <div class="name">lessThanEqual(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>lessThanEqual(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="greaterThan">
+                    <div class="link" onclick="creacopURL(this, 'greaterThan')">Create link</div>
+                    <div class="content">
+                        <div class="name">greaterThan(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>greaterThan(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="greaterThanEqual">
+                    <div class="link" onclick="creacopURL(this, 'greaterThanEqual')">Create link</div>
+                    <div class="content">
+                        <div class="name">greaterThanEqual(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>greaterThanEqual(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="any">
+                    <div class="link" onclick="creacopURL(this, 'any')">Create link</div>
+                    <div class="content">
+                        <div class="name">any(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>any(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="all">
+                    <div class="link" onclick="creacopURL(this, 'all')">Create link</div>
+                    <div class="content">
+                        <div class="name">all(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>all(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Functions doc" id="not">
+                    <div class="link" onclick="creacopURL(this, 'not')">Create link</div>
+                    <div class="content">
+                        <div class="name">not(x)</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>not(float/int/vec)</code></pre></span>
+                    </div><div class="arguments ">
+                            <div class="title">Arguments:</div>
+                            <ul><li><div class="name">x</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        The input value.
+                    </div></li></ul>
+                        </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        float/int/vec,
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code></pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div id="Built-in Variables" class="type-title"><span>Built-in Variables</span></div><div class="Built-in Variables doc" id="gl_Position">
+                    <div class="link" onclick="creacopURL(this, 'gl_Position')">Create link</div>
+                    <div class="content">
+                        <div class="name">gl_Position</div><div class="desc block">
+                        <div class="title">Description:</div>
+
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Output the projection-space vertex position.
+gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_Matrices">
+                    <div class="link" onclick="creacopURL(this, 'gm_Matrices')">Create link</div>
+                    <div class="content">
+                        <div class="name">gm_Matrices</div><div class="desc block">
+                        <div class="title">Description:</div>
+
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Get the world-space position.
+vec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position,1.)).xyz;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gl_FragColor">
+                    <div class="link" onclick="creacopURL(this, 'gl_FragColor')">Create link</div>
+                    <div class="content">
+                        <div class="name">gl_FragColor</div><div class="desc block">
+                        <div class="title">Description:</div>
+
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Output fragment color.
+gl_FragColor = texture2D(gm_BaseTexture);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_BaseTexture">
+                    <div class="link" onclick="creacopURL(this, 'gm_BaseTexture')">Create link</div>
+                    <div class="content">
+                        <div class="name">gm_BaseTexture</div><div class="desc block">
+                        <div class="title">Description:</div>
+
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Output the projection-space vertex position.
+gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div></div>
             <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
-        <script>initialize();</script>
+        <script>
+            initialize();
+            glossaryInit();
+        </script>
     </body>
 </html>
