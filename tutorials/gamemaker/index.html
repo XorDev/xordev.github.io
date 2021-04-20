@@ -179,16 +179,31 @@ varying vec4 v_vColour;
 //Handle fragments/pixels.
 void main()
 {
-    //Set the output the vertex color times texture color to each pixel.
+    //Set the output the vertex color multiplied by texture color of each pixel.
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
 }</code></pre>
+                    <a href="./#using"><h2 id="using">Using a Shader</h2></a>
+                    <p>
+                        Okay, so now you have a shader, but how do you use it? Well, you just have to set it, draw anything that you want the shader effect to apply to (surfaces, sprites, etc) and then reset it when you're done to resume normal drawing. Here's an example:
+                    </p>
+                    <pre><code>//Begin drawing with the shader effect.
+shader_set(shd_passthrough);
+//Draw code for the shader goes here (e.g. draw_self, draw_surface, etc).
+draw_surface(application_surface,0,0);
+//Disable the shader.
+shader_reset();</code></pre>
+                    <p>
+                        This way you have full control what each shader applies to. Sometimes I need separate shaders for separate objects (e.g. a wind shader only for foilage) and using <code>draw_self</code> with a shader works neatly.
+                        <br>
+                        Shaders also work great with GM's <a target="_blank" href="https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/drawing/surfaces/index.html">surfaces</a> especially for effects that apply across multiple objects or screen effects (e.g. motion blur or bloom).
+                    </p>
                     <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
                         Congrats on creating and examining a shader!
                         For many, matrices and vertex positions look quite complicated, but that's okay!
                         Don't worry too much about the details as the next tutorials will break the process down into bite-sized pieces.
                         <br>
-                        For now, I hope you learned something interesting and are looking forward to creating and modifying your own shaders.
+                        For now, I hope you learned something interesting and are looking forward to writing your own shaders.
                     </p>
                 </div>
               </div>

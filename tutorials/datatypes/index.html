@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>GameMaker</title>
+        <title>Data Types</title>
         <meta name="description" content="Shader tutorials for GameMaker Studio">
         <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
         <meta name="copyright" content="Copyright 2019 GM shaders">
@@ -92,14 +92,14 @@
                         To declare your variables in code you must specify the type before the variable name and shader syntax requires a semi-colon at the end of the declaration:
                     </p>
 <pre><code>//Floats must include a decimal point.
-float a = 15.0;
-//You can declare the variable without setting the value:
+float A = 5.0;
+//You can declare the variable to set later:
 //Integers must exclude a decimal point.
-int b;
+int B;
 //Bools are either true or false.
-bool c = false,
-//"d" is also a bool because of the comma after the "c" definition.
-d = true;
+bool C = false,
+//"D" is also a bool because of the comma after the "C" definition.
+D = true;
 </pre></code>
                     <p>
                         As you can see with the integer case, you can initialize a variable's type without setting a value. This is like local variables in GM (e.g. var i = 0). Also, you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool "d".
@@ -109,9 +109,9 @@ d = true;
                         Sometimes you need to convert from one data type to another and this is called "casting". To cast a value you use the replacement data type as function with the value you want to convert as the argument. Here's a quick example:
                     </p>
 <pre><code class="glsl">//Cast an int to a float.
-float a = float(10);
+float A = float(5);
 //Cast a bool to an int (false = 0, true = 1).
-int b = int(true);
+int B = int(true);
 </pre></code>
                     <a href="./#dimensions"><h2 id="dimensions">Dimensions and components</h2></a>
                     <p>
@@ -122,13 +122,13 @@ int b = int(true);
 <pre><code class="glsl">//1D scalar with a value of 1.0. Scalars don't need constructors.
 float line = 1.0;
 //Construct a 2D integer vector containing 1 and 2 respectively.
-ivec2 square = ivec2(1,2);
+ivec2 square = ivec2(1, 2);
 //You can include floats as components:
 //Construct a 3D vector containing 1.0, 2.0 and 3.0 respectively.
-vec3 cube = vec3(line,2.0,3.0);
+vec3 cube = vec3(line, 2.0, 3.0);
 //You can also include vectors:
 //Construct a 4D vector containing 1.0, 2.0, 3.0 and 4.0 respectively.
-vec4 tess = vec4(cube,4.0);
+vec4 tess = vec4(cube, 4.0);
 </pre></code>
                     <p>
                         You can also do the same with integers by using int, ivec2, ivec3, and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3, and bvec4), but they aren't used as often.
@@ -142,7 +142,7 @@ vec4 tess = vec4(cube,4.0);
                         <strong>Array notation:</strong> works with vectors like arrays in GML. So with a vec4, you can put a pair of square brackets with the component "index" being an integer <span title="The first component's index is 0, second is 1, etc. You can't access a component that hasn't been defined, so an index of 2 on a vec2 will be invalid!">ranging from 0-3</span>. So vector[2] will extract the third component from "vector". It's helpful to understand this before learning "dotted notation".
                         </li>
                         <li>
-                        <strong>Dotted notation: </strong> can be used to access <span title="You can repeat (or ignore) components as you wish and put them in any order. But only up to 4 components!">multiple components</span>  (as a new vector) at the same time. To access a component from a vector you just put a dot directly behind the vector with the component(s) that you want to access. The components can be represented as either "xyzw", "rgba", or "stpq",. These all work the same, but the general guide is that xyzw is used for positions or points in space, rgba is used for red, green, blue and alpha "channels" and <span title="For some reason, stpq is rarely used, but it works just as well!">stpq</span> is meant for texture coordinates. Notice the order of each set. x, r or s will always represent the first component, y, g or t represents the second component, z, b or p, the third and w, a or q the fourth.
+                        <strong>Dotted notation: </strong> can be used to access <span title="You can repeat (or ignore) components as you wish and put them in any order. But only up to 4 components!">multiple components</span>  (as a new vector) at the same time. To access a component from a vector you just put a dot directly behind the vector with the component(s) that you want to access. The components can be represented as either "xyzw", "rgba", or "stpq",. These all work the same, but the general guide is that xyzw is used for positions or points in space, rgba is used for red, green, blue and alpha "channels" and <span title="For some reason, stpq is rarely used, but it works just as well">stpq</span> is meant for texture coordinates. Notice the order of each set. x, r or s will always represent the first component, y, g or t represents the second component, z, b or p, the third and w, a or q the fourth.
                         </li>
                     </ul>
                     <p>
@@ -150,16 +150,16 @@ vec4 tess = vec4(cube,4.0);
                     </p>
 
 <pre><code class="glsl">//Construct a vec4 from ints for example.
-vec4 a = vec4(0,1,2,3);
-//Get the first component of "a", 0.0.
-float b = a.x;
-//Get the second component of "a", 1.0.
-float c = a[1];
-//Reverse the component order of "a", vec4(3,2,1,0).
-vec4 d = a.abgr;
+vec4 A = vec4(0, 1, 2, 3);
+//Get the first component of "A", 0.0.
+float B = A.x;
+//Get the second component of "A", 1.0.
+float C = A[1];
+//Reverse the component order of "A", vec4(3, 2, 1, 0).
+vec4 D = A.abgr;
 //This also works for setting vectors:
-//Set the first two component to the last two components, vec2(2,3).
-a.st = a.pq;
+//Set the first two component to the last two components, vec2(2, 3).
+A.st = A.pq;
 </pre></code>
                     <p>
                         It's important to tell you, you <strong>CANNOT mix components from one set with another.</strong> So you can pick between xyzw, rgba or stpq, but you can't do something like xyrg because this will cause an error.
@@ -265,7 +265,7 @@ precision highp float;
 precision lowp int;
 
 //Set the color at low precision.
-lowp vec3 color = vec3(0.2,0.4,0.8);
+lowp vec3 color = vec3(0.2, 0.4, 0.8);
 </pre></code>
                     <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>

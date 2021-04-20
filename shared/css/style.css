@@ -3,7 +3,7 @@ body {
     --back: #24252d;
     --scroll: #424452;
     --search: #1a1d23;
-    --htxt: #e0ba23;
+    --htxt: #f4ca32;
     --txt: #8b909b;
     --ftxt: #424452;
     --link: #bfbfbf;
@@ -112,7 +112,7 @@ code.inline-hljs {
 .background-image:not(.grid) {
     opacity: 0.1;
     background-image: url("../../shared/images/background.png");
-    filter: contrast(50%);
+
 }
 .background-image.grid {
     opacity: 0.33;

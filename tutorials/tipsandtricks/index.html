@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>GameMaker</title>
+        <title>Tips and tricks</title>
         <meta name="description" content="Shader tutorials for GameMaker Studio">
         <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
         <meta name="copyright" content="Copyright 2019 GM shaders">
@@ -59,23 +59,12 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        At this point, you have all the knowledge you need to start writing your own effects. This tutorial will help you use that knowledge and show you how to improve your code! Let's start with some useful snippets:
-                    </p>
-                    <a href="./#useful"><h2 id="useful">Useful Code and Math</h2></a>
-                    <p>
-                        For many effects
-                        <a href="https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion" target="_blank">brightness</a>
-
-                        <br>
-                        Texture coordinate normalization.
-                        <br>
-                        Hash/noise?
-                        <br>
-                        It's time to talk more about matrices in more depth. <a href="/glossary/?load=dot" target="_blank">dot</a>
+                        At this point, you have general overview of shaders. This tutorial is aimed at teaching some useful trick for optimizing, error checking and some useful code snippets. Feel free to just play around with shaders and come back to this later if you're not ready.
                     </p>
                     <a href="./#optimization"><h2 id="optimization">Optimization</h2></a>
                     <p>
-                        When I was first learning about shaders, it was difficult for me to tell what code was efficient and what would be slow. After all, you can't easily run code on thousands of pixels in GML, but shaders can with ease. At the same time many shaders can struggle with if-statements and for-loops, while GML has no such problem. So that's what I'd like to cover next.
+                        When I was first learning about shaders, it was difficult for me to tell what code was efficient and what would be slow. After all, you can't easily run code on thousands of pixels in GML, but shaders can with ease. At the same time many shaders can struggle with if-statements and for-loops, while GML has no such problem. So that's what I'd like to cover now.
+                    </p>
                     <h3>Tips</h3>
                     <p>
                         So here's a list of things to consider.
@@ -123,15 +112,15 @@
                         <br>
                         The next directive is '#undef', which as you may have guessed, can be used to undefine macros, which can be used to avoid naming conflicts. '#ifdef' and `ifndef` are preprocessor if statements to check if a macro is defined (or not, respectively). Instead of brackets, you use '#endif' to close the statement, and any lines in between will be discarded (during compile) if the condition is false. Some people like to leave optional bits of code in their shader that can be toggled on with a define.
                         <br>
-                        Next is '#if', which can be used for standard conditionals</span> (e.g >, ==, etc). Just make sure the terms in the condition are constant values, macros!
+                        Next is '#if', which can be used for standard conditionals</span> (e.g ==, >, etc). Just make sure the terms in the condition are constant values, macros!
                         <br>
                         And finally, you have '#else' and '#elif' which work how you'd expect, being an else statement and else-if respectively. To recap, here's a quick example:
                     </p>
                     <pre><code class="glsl">#define mode 0 //Try changing this to 0, 1 or 2.
 
-#if mode == 0
+#if (mode == 0)
 color *= vec3(1.0, 0.1, 0.1); //Multiply "color" by a red filter.
-#elif mode == 1
+#elif (mode == 1)
 color *= vec3(0.2, 1.0, 0.1); //Mulitply by a green filter.
 #else
 color = color.rrr; //Use mono-color from red channel.
@@ -141,13 +130,56 @@ color = color.rrr; //Use mono-color from red channel.
                     <p>
                         So that's how you can make your code more customizable without taking runtime performance! You'll thank yourself later for not leaving magic numbers everywhere.
                     </p>
+                    <a href="./#useful"><h2 id="useful">Useful Code and Math</h2></a>
+                    <p>
+                    It's time to talk more about matrices in more depth. <a href="/glossary/?load=dot" target="_blank">dot</a>
+                    </p>
+                    <h3>Colors and brightness</h3>
+                    <p>
+                        For some effects (like sepia-tone or grayscale) you need to compute the brightness of a color. I'll go over the two most common approaches.
+                        <div class="image"><img src="./grayscale.png">
+                            <em>On the left is the original color for reference, the middle is the RGB average and the right is a weighted average.</em>
+                        </div>
+                        <br>
+                        The first approach is to simply compute the average of the red, green, and blue channels:
+                        <pre><code class="glsl">float average = (color.r+color.g+color.b)/3.0;</code></pre>
+                        So if any one channel is brightened, it increases the output brightness, up to a max brightness of 1.0.
+                        <br>
+                        The second approach is to approximate "perceptive" brightness. For example, lime green appears brighter than blue even if they have the same RGB average. So instead of giving red, green, and blue the same weight, we'll give green a higher weight and blue a lower weight:
+                        <pre><code class="glsl">float weighted = dot(color.rgb, vec3(0.299, 0.587, 0.114));</code></pre>
+                        The <a href="/glossary/?load=dot" target="_blank">dot</a> product simply adds up the color's red value times 0.299, green times 0.587, and blue times 0.114 which also adds up to a max value of 1.0. These come from fairly standard <a href="https://en.wikipedia.org/wiki/Luma_(video)#Rec._601_luma_versus_Rec._709_luma_coefficients" target="_blank">luma</a> values. There are more many more sophisticated compute brightness, but this is adequate for most game effects.
+                        <br>
+                    </p>
+                    <h3>Gamma correction</h3>
+                    <p>
+                        One thing you might not know is that 50% brightness (or 0.5 RGB) is not displayed at 50% brightness on your monitor. Instead, it's displayed at around 73% brightness because the output is not linear.
+                        <div class="image"><img src="./gamma.png">
+                            <em>On the top is a linear-gradient, and the bottom is gamma corrected. Notice the top, middle section looks too bright.</em>
+                        </div>
+                        Thankfully, it's easy to compute and to reverse. Just put a color's RGB channels to a power of 2.2 to decode and 0.4545 (or the reciprocal of 2.2) to encode.
+                        <pre><code class="glsl">vec3 encode = pow(color.rgb, vec3(2.2));
+vec3 decode = pow(color.rgb, vec3(0.4545));</code></pre>
+                        <a href="https://en.wikipedia.org/wiki/Gamma_correction#Microsoft_Windows,_Mac,_sRGB_and_TV/video_standard_gammas" target="_blank">gamma</a>
+                        <br>
+                    </p>
+                    <h3>Texture coordinates</h3>
+                    <p>
+                    Texture coordinate normalization.
+                    </p>
+                    <h3>On Noise</h3>
+                    <p>
+                    Hash/noise?
+                    </p>
+
                     <a href="./#errors"><h2 id="errors">Fixing Errors</h2></a>
                     <p>
                         ""
-                        <br>'function'
-                        <br>'variable' -
-                        <br>'constructor'
+                        <br>'function_name' - non-existent, overload
+                        <br>'variable_name' - non-existent
+                        <br>'keyword' - reserved
+                        <br>'constructor' - dimension issues
                         <br>'assign' - type mismatch
+
                     </p>
                     <a href="./#extensions"><h2 id="extensions">Shader Extensions</h2></a>
                     <p>

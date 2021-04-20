@@ -13,7 +13,7 @@ body {
 }
 
 .top-info #title {
-    font-size: 2rem;
+    font-size: 3rem;
     color: var(--htxt);
 }
 
@@ -42,6 +42,7 @@ body {
 
 .article .image {
     align-self: center;
+    text-align: center;
     position: relative;
 }
 

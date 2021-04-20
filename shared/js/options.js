@@ -1,11 +1,11 @@
 
-if (document.cookie.match('theme-white=true')) loadTheme('white');
+if (document.cookie.match('theme-light=true')) loadTheme('light');
 
 window.addEventListener('focus', () => {
     const loadedTheme = document.querySelector('link.theme');
-    let checked = !!document.cookie.match('theme-white=true');
+    let checked = !!document.cookie.match('theme-light=true');
 
-    if (checked && !loadedTheme) loadTheme('white');
+    if (checked && !loadedTheme) loadTheme('light');
     else if (!checked && loadedTheme) loadedTheme.parentElement.removeChild(loadedTheme);
 });
 
@@ -91,8 +91,8 @@ function initialize() {
             const loadedTheme = document.querySelector('link.theme');
             let menuHTML = `
                 <div class="title">Options</div>
-                <div class="option" onclick="changeTheme(this, 'white')">
-                    White theme
+                <div class="option" onclick="changeTheme(this, 'light')">
+                    Light Mode
                     <label class="switch">
                         <input type="checkbox"${loadedTheme ? 'checked' : ''}>
                         <span class="slider"></span>
@@ -168,10 +168,10 @@ function changeTheme(elm, theme) {
     const checked = toggle.checked;
     const loadedTheme = document.querySelector('link.theme');
 
-    setCookie('theme-white', checked);
+    setCookie('theme-light', checked);
 
     if (checked && !loadedTheme) {
-        loadTheme('white');
+        loadTheme('light');
 
     } else if (!checked && loadedTheme) {
         loadedTheme.parentElement.removeChild(loadedTheme);

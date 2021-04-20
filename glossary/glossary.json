@@ -1,32 +1,32 @@
 {
     "Attributes": [{
+        "key": "in_Colour",
+        "def": "in_Colour",
+        "syntax": "attribute vec4 in_Colour;",
+        "returns": "vec4, vertex color and alpha",
+        "desc": "Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most other draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. <br><br>If you're using a custom vertex format that includes multiple colors, just use 'in_Colour0', 'in_Colour1', etc.",
+        "examples":["//Pass a varying 'v_vColor' to the fragment shader.\nv_vColour = in_Colour;"]
+    },{
         "key": "in_Position",
         "def": "in_Position",
         "syntax": "attribute vec3 in_Position;",
         "returns": "vec3, vertex position",
-        "desc": "Vertex position in model space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don\"t need the world matrix. Keep this in mind when you\"re using your own vertex buffer!",
+        "desc": "Vertex position in model-space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don't need the world matrix. Keep this in mind when you're using your own vertex buffer!",
         "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
     },{
         "key": "in_TextureCoord",
         "def": "in_TextureCoord",
         "syntax": "attribute vec2 in_TextureCoord;",
         "returns": "vec2, texture coordinates",
-        "desc": "The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from `sprite_get_uvs`) and normalize them yourself.<br><br>Alternative: `in_Texcoord`",
-        "examples":["//Pass a varying \"v_vTexcoord\" to the fragment shader.\nv_vTexcoord = in_Texcoord;"]
-    },{
-        "key": "in_Colour",
-        "def": "in_Colour",
-        "syntax": "attribute vec4 in_Colour;",
-        "returns": "vec4, vertex color and alpha",
-        "desc": "Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. So \"in_Colour\" can be useful in many situations!<br><br>Alternative: `in_Color`",
-        "examples":["//Pass a varying \"v_vColor\" to the fragment shader.\nv_vColor = in_Color;"]
+        "desc": "The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from `sprite_get_uvs`) and normalize them yourself. <br><br>In GM, you're encouraged to use texture coordinates for any extra attributes (e.g, tangents, bone weights, etc) so any other attribute name will be interpreted as a 'texture coordinate' attribute (e.g in_Tangent, in_Bitangent, etc will work fine).",
+        "examples":["//Pass a varying 'v_vTexcoord' to the fragment shader.\nv_vTexcoord = in_Texcoord;"]
     },{
         "key": "in_Normal",
         "def": "in_Normal",
         "syntax": "attribute vec3 in_Normal;",
         "returns": "vec3, vertex normal",
-        "desc": "To do later!",
-        "examples":["To do later!"]
+        "desc": "Vertex geometry normal. This is only used in some custom vertex formats, with 3D models that need geometry normals (usually for lighting). A normal is a vector perpendicular to the model's surface. Make sure the normal vectors have a length of 1.0.",
+        "examples":["//Compute diffuse lighting using a light direction vector\nfloat diffuse = max(dot(in_Normal, light_dir), 0.0);"]
     }],
     "Functions": [{
         "key": "texture2D",
@@ -44,10 +44,10 @@
             "desc": "Optional mipmap bias."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the \"Separate Texture Page\" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a \"texel\".<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
+        "desc": "Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
         "examples":[
           "texture2D(gm_BaseTexture, v_vTexcoord);",
-          "//Using the sampler \"uni_diffuse\" and 1.0 bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
+          "//Using the sampler 'uni_diffuse' and 1.0 bias (half resolution with mipmapping).\ntexture2D(uni_diffuse, v_vTexcoord, 1.0);"]
     },{
         "key": "texture2DLod",
         "def": "<strike>texture2DLod</strike>(texture, coordinates, lod)",
@@ -64,7 +64,7 @@
             "desc": "Overwrites mipmap LOD."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "<strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the \"Separate Texture Page\" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a \"texel\".<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.",
+        "desc": "<strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.",
         "examples":["//Force half resolution with mipmapping.\ntexture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);"]
     },{
         "key": "texture2DProj",
@@ -82,7 +82,7 @@
             "desc": "Optional mipmap bias."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the \"Separate Texture Page\" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a \"texel\".<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
+        "desc": "texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
         "examples":["//Project a texture using frag coordinates.\ntexture2DProj(gm_BaseTexture, gl_FragCoord.xyz);"]
     },
     {
@@ -101,7 +101,7 @@
             "desc": "Overwrites mipmap LOD."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "<strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the \"Separate Texture Page\" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a \"texel\".<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.",
+        "desc": "<strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.",
         "examples":["//Project a texture at half resolution (using mipmapping).\ntexture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);"]
     },{
         "key": "floor",
@@ -113,7 +113,7 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, x rounded down",
-        "desc": "`floor` is like in GML, it returns \"x\" rounded down to the nearest whole number. So `floor(1.5)` returns 1.0",
+        "desc": "`floor` is like in GML, it returns 'x' rounded down to the nearest whole number. So `floor(1.5)` returns 1.0",
         "examples":["float two = floor(2.5);"]
     },{
         "key": "ceil",
@@ -125,7 +125,7 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, x rounded up",
-        "desc": "`ceil` is like in GML, it returns \"x\" rounded up to the nearest whole number. So `ceil(1.5)` returns 2.0",
+        "desc": "`ceil` is like in GML, it returns 'x' rounded up to the nearest whole number. So `ceil(1.5)` returns 2.0",
         "examples":["float three = ceil(2.5);"]
     },{
         "key": "fract",
@@ -137,7 +137,7 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, fractional part of x",
-        "desc": "`fract` is similar to `frac` in GML with the same results for positive `x` (not with negatives). This returns just the fractional part of \"x\", removing the whole number part. Internally, it's computed as `x - floor(x)`, so `fract(3.14)` returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: `frac(x) = fract(abs(x)) * sign(x)`",
+        "desc": "`fract` is similar to `frac` in GML with the same results for positive `x` (not with negatives). This returns just the fractional part of 'x', removing the whole number part. Internally, it's computed as `x - floor(x)`, so `fract(3.14)` returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: `frac(x) = fract(abs(x)) * sign(x)`",
         "examples":["float half = fract(2.5);"]
     },{
         "key": "mod",
@@ -165,23 +165,23 @@
         }],
         "returns": "float/vec, sign of x",
         "desc": "`sign` is like in GML, it returns the sign for each component of `x`. So if x is positive, it returns 1.0, if x is negative it returns -1.0 and 0.0 if x equals zero.",
-        "examples":["float ten = abs(-10.)"]
+        "examples":["float one = sign(10.)"]
     },{
         "key": "abs",
         "def": "abs(x)",
-        "syntax": "abs(float/int/vec)",
+        "syntax": "abs(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
         "returns": "float/vec, x as a positive",
-        "desc": "`abs` is like in GML, it returns \"x\" as a positive number, so if \"x\" is negative it returns \"-x\" which will be a positive number.",
+        "desc": "`abs` is like in GML, it returns 'x' as a positive number. So if 'x' is negative 'abs' returns '-x' so the result is always positive (or 0).",
         "examples":["float five = abs(-5.0);"]
     },{
         "key": "min",
         "def": "min(x, y)",
-        "syntax": "min(float/int/vec)",
+        "syntax": "min(float/vec, float/vec)",
         "arguments_min": 2,
         "arguments": [{
             "key": "x",
@@ -190,13 +190,13 @@
             "key": "y",
             "desc": "The second input value."
         }],
-        "returns": "float/int/vec, the lesser of x and y",
-        "desc": "`min` is like in GML (except limited to 2 input arguments), returns the lesser of the two values, so \"x\" if \"x\" is less than \"y\" and otherwise it returns \"y\"",
+        "returns": "float/vec, the lesser of x and y",
+        "desc": "`min` is like in GML (except limited to 2 input arguments), returns the lesser of the two values. So it will return 'x' if 'x' is less than 'y' and otherwise it returns 'y'.",
         "examples":["float one = min(1.0,4.0);"]
     },{
         "key": "max",
         "def": "max(x, y)",
-        "syntax": "max(float/int/vec)",
+        "syntax": "max(float/vec, float/vec)",
         "arguments_min": 2,
         "arguments": [{
             "key": "x",
@@ -205,13 +205,13 @@
             "key": "y",
             "desc": "The second input value."
         }],
-        "returns": "float/int/vec, the greater of x and y",
-        "desc": "`max` is like in GML (except limited to 2 input arguments) returns the greater of the two values, so \"x\" if \"x\" is greater than \"y\" and otherwise it returns \"y\"",
+        "returns": "float/vec, the greater of x and y",
+        "desc": "`max` is like in GML (except limited to 2 input arguments), returns the greater of the two values. So it will return 'x' if 'x' is greater than 'y' and otherwise it returns 'y'.",
         "examples":["float four = max(1.0,4.0);"]
     },{
         "key": "clamp",
         "def": "clamp(x, min, max)",
-        "syntax": "clamp(float/int/vec)",
+        "syntax": "clamp(float/vec, float/vec, float/vec)",
         "arguments_min": 3,
         "arguments": [{
             "key": "x",
@@ -223,7 +223,7 @@
             "key": "max",
             "desc": "The maximum value."
         }],
-        "returns": "float/int/vec, x between min and max",
+        "returns": "float/vec, x between min and max",
         "desc": "`clamp` is just like in GML",
         "examples":["float five = abs(-5.0);"]
     },{
@@ -242,10 +242,10 @@
             "desc": "The amount to intepolate."
         }],
         "returns": "float/vec, mixture of a and b",
-        "desc": "mix is like the GML `lerp`, it linearly interpolates between \"x1\" and \"x2\" by the amount \"amt\". So `mix(x1,x2,0.0)` would equal \"x1\" and `mix(x1,x2,1.0)` equals \"x2\". When \"amt\" is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: `x1 + (x2-x1)*amt` so \"x1\" and \"x2\" must have the same number of components however \"amt\" can be a float or a vector.",
+        "desc": "mix is like the GML `lerp`, it linearly interpolates between 'x1' and 'x2' by the amount 'amt'. So `mix(x1,x2,0.0)` would equal 'x1' and `mix(x1,x2,1.0)` equals 'x2'. When 'amt' is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: `x1 + (x2-x1)*amt` so 'x1' and 'x2' must have the same number of components however 'amt' can be a float or a vector.",
         "examples":[
-          "//Mix between the source color and destination color, by \"factor\" (float or vec3)\nvec3 col = mix(src,dst,factor);",
-          "//Get the source\"s red and green channels and the destination\"s blue channel.\nvec3 col = mix(src,dst,vec3(0,0,1));"]
+          "//Mix between the source color and destination color, by 'factor' (float or vec3)\nvec3 col = mix(src, dst, factor);",
+          "//Get the source's red and green channels and the destination's blue channel.\nvec3 col = mix(src, dst, vec3(0,0,1));"]
     },{
         "key": "step",
         "def": "step(edge, x)",
@@ -259,10 +259,9 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, zero or one",
-        "desc": "Returns 0.0 when \"x\" is less than \"edge\" and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.",
+        "desc": "Returns 0.0 when 'x' is less than 'edge' and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.",
         "examples":[
-            "//Set the alpha to 1.0 if \"color.a\" is greater-than or equal-to 0.5:\ncolor.a = step(0.5,color.a);",
-            "//Make \"color\" invisible when the red channel is greater than 0.8\ncolor *= step(color.r,0.8);"]
+            "//Set the alpha to 1.0 if 'color.a' is greater-than or equal-to 0.5:\ncolor.a = step(0.5, color.a);"]
     },{
         "key": "smoothstep",
         "def": "smoothstep(edge0, edge1, x)",
@@ -279,7 +278,7 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, zero or one",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Returns ",
         "examples": []
     },{
         "key": "pow",
@@ -291,7 +290,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, e",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "sqrt",
@@ -303,7 +302,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, e",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "inversesqrt",
@@ -315,7 +314,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "exp",
@@ -327,7 +326,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "exp2",
@@ -339,7 +338,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "log",
@@ -351,7 +350,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "log2",
@@ -363,7 +362,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "length",
@@ -375,7 +374,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "distance",
@@ -387,7 +386,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "normalize",
@@ -399,7 +398,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "dot",
@@ -411,7 +410,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "cross",
@@ -423,7 +422,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "reflect",
@@ -435,7 +434,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "refract",
@@ -447,7 +446,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "faceforward",
@@ -459,7 +458,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "matrixCompMult",
@@ -471,7 +470,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "radians",
@@ -483,7 +482,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "degrees",
@@ -495,7 +494,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "sin",
@@ -507,7 +506,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "cos",
@@ -519,7 +518,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "tan",
@@ -531,7 +530,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "asin",
@@ -543,7 +542,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "acos",
@@ -555,7 +554,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "atan",
@@ -567,7 +566,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "equal",
@@ -579,7 +578,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "notEqual",
@@ -591,7 +590,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "lessThan",
@@ -603,7 +602,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "lessThanEqual",
@@ -615,7 +614,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "greaterThan",
@@ -627,7 +626,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "greaterThanEqual",
@@ -639,7 +638,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "any",
@@ -651,7 +650,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "all",
@@ -663,7 +662,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     },{
         "key": "not",
@@ -675,7 +674,7 @@
             "desc": "The input value."
         }],
         "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target=\"_blank\" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
+        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
         "examples": []
     }],
     "Built-in Variables": [{

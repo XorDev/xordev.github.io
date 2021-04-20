@@ -1,0 +1,14 @@
+body {
+    --dark: #f2f2f0;
+    --back: #e0e0ea;
+    --search: #e0e0e8;
+    --htxt: #dbb116;
+    --txt: #585a65;
+    --ftxt: #b2b4c2;
+    --link: #dbb116;
+    --hov: #ffc800;
+}
+
+.background-image {
+    opacity: 0.1;
+}

@@ -21,7 +21,7 @@
         <meta property="og:description" content="Shader tutorials for GameMaker Studio">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
-        <link rel="stylesheet" href="../shared/highlightjs/styles/gml.css">
+        <link rel="stylesheet" href="../shared/highlightjs/styles/atom-one-dark.css">
         <script src="../shared/highlightjs/highlight.pack.js"></script>
 
         <link rel="icon" href="https://GMshaders.com/shared/images/x.png">
@@ -58,7 +58,25 @@
                 </div>
                 <div class="results"></div>
             </div>
-            <div id="docs"><div id="Attributes" class="type-title"><span>Attributes</span></div><div class="Attributes doc" id="in_Position">
+            <div id="docs"><div id="Attributes" class="type-title"><span>Attributes</span></div><div class="Attributes doc" id="in_Colour">
+                    <div class="link" onclick="creacopURL(this, 'in_Colour')">Create link</div>
+                    <div class="content">
+                        <div class="name">in_Colour</div><div class="syntax ">
+                        <div class="title">Syntax:</div>
+                        <span class="inline-hljs"><pre><code>attribute vec4 in_Colour;</code></pre></span>
+                    </div><div class="returns ">
+                        <div class="title">Returns:</div>
+                        vec4, vertex color and alpha
+                    </div><div class="desc block">
+                        <div class="title">Description:</div>
+                        Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most other draw_* functions it will be the <span class="inline-hljs"><pre><code>draw_set_color</code></pre></span> and <span class="inline-hljs"><pre><code>draw_set_alpha</code></pre></span> and for vertex buffers/primitives, the color you set for each vertex. <br><br>If you're using a custom vertex format that includes multiple colors, just use 'in_Colour0', 'in_Colour1', etc.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Pass a varying 'v_vColor' to the fragment shader.
+v_vColour = in_Colour;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Attributes doc" id="in_Position">
                     <div class="link" onclick="creacopURL(this, 'in_Position')">Create link</div>
                     <div class="content">
                         <div class="name">in_Position</div><div class="syntax ">
@@ -69,7 +87,7 @@
                         vec3, vertex position
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Vertex position in model space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don"t need the world matrix. Keep this in mind when you"re using your own vertex buffer!
+                        Vertex position in model-space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don't need the world matrix. Keep this in mind when you're using your own vertex buffer!
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Output the projection-space vertex position.
@@ -87,29 +105,11 @@ gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);<
                         vec2, texture coordinates
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span>) and normalize them yourself.<br><br>Alternative: <span class="inline-hljs"><pre><code>in_Texcoord</code></pre></span>
+                        The texture coordinates (or uvs) range from 0 to 1 across the texture page. That means that surfaces and sprites that are on their own texture page will have normalized uvs, which can be very useful. However for other sprites you can always pass in the sprite uvs (from <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span>) and normalize them yourself. <br><br>In GM, you're encouraged to use texture coordinates for any extra attributes (e.g, tangents, bone weights, etc) so any other attribute name will be interpreted as a 'texture coordinate' attribute (e.g in_Tangent, in_Bitangent, etc will work fine).
                     </div><div class="examples ">
                             <div class="title">Example:</div>
-                            <ul><li><pre><code>//Pass a varying "v_vTexcoord" to the fragment shader.
+                            <ul><li><pre><code>//Pass a varying 'v_vTexcoord' to the fragment shader.
 v_vTexcoord = in_Texcoord;</pre></code></li></ul>
-                        </div>
-                    </div>
-                </div><div class="Attributes doc" id="in_Colour">
-                    <div class="link" onclick="creacopURL(this, 'in_Colour')">Create link</div>
-                    <div class="content">
-                        <div class="name">in_Colour</div><div class="syntax ">
-                        <div class="title">Syntax:</div>
-                        <span class="inline-hljs"><pre><code>attribute vec4 in_Colour;</code></pre></span>
-                    </div><div class="returns ">
-                        <div class="title">Returns:</div>
-                        vec4, vertex color and alpha
-                    </div><div class="desc block">
-                        <div class="title">Description:</div>
-                        Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most draw_* functions it will be the <span class="inline-hljs"><pre><code>draw_set_color</code></pre></span> and <span class="inline-hljs"><pre><code>draw_set_alpha</code></pre></span> and for vertex buffers/primitives, the color you set for each vertex. So "in_Colour" can be useful in many situations!<br><br>Alternative: <span class="inline-hljs"><pre><code>in_Color</code></pre></span>
-                    </div><div class="examples ">
-                            <div class="title">Example:</div>
-                            <ul><li><pre><code>//Pass a varying "v_vColor" to the fragment shader.
-v_vColor = in_Color;</pre></code></li></ul>
                         </div>
                     </div>
                 </div><div class="Attributes doc" id="in_Normal">
@@ -123,10 +123,11 @@ v_vColor = in_Color;</pre></code></li></ul>
                         vec3, vertex normal
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        To do later!
+                        Vertex geometry normal. This is only used in some custom vertex formats, with 3D models that need geometry normals (usually for lighting). A normal is a vector perpendicular to the model's surface. Make sure the normal vectors have a length of 1.0.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
-                            <ul><li><pre><code>To do later!</pre></code></li></ul>
+                            <ul><li><pre><code>//Compute diffuse lighting using a light direction vector
+float diffuse = max(dot(in_Normal, light_dir), 0.0);</pre></code></li></ul>
                         </div>
                     </div>
                 </div><div id="Functions" class="type-title"><span>Functions</span></div><div class="Functions doc" id="texture2D">
@@ -152,10 +153,10 @@ v_vColor = in_Color;</pre></code></li></ul>
                         vec4, texel color and alpha
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
+                        Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping enabled, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
                     </div><div class="examples ">
                             <div class="title">Examples:</div>
-                            <ul><li><pre><code>texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li><li><pre><code>//Using the sampler "uni_diffuse" and 1.0 bias (half resolution with mipmapping).
+                            <ul><li><pre><code>texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li><li><pre><code>//Using the sampler 'uni_diffuse' and 1.0 bias (half resolution with mipmapping).
 texture2D(uni_diffuse, v_vTexcoord, 1.0);</pre></code></li></ul>
                         </div>
                     </div>
@@ -182,7 +183,7 @@ texture2D(uni_diffuse, v_vTexcoord, 1.0);</pre></code></li></ul>
                         vec4, texel color and alpha
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a "texel".<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.
+                        <strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Force half resolution with mipmapping.
@@ -212,7 +213,7 @@ texture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);</pre></code></li></ul>
                         vec4, texel color and alpha
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
+                        texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Project a texture using frag coordinates.
@@ -242,7 +243,7 @@ texture2DProj(gm_BaseTexture, gl_FragCoord.xyz);</pre></code></li></ul>
                         vec4, texel color and alpha
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the "Separate Texture Page" box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a "texel".<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.
+                        <strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML <span class="inline-hljs"><pre><code>sprite_get_uvs</code></pre></span> to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Project a texture at half resolution (using mipmapping).
@@ -266,7 +267,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         float/vec, x rounded down
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>floor</code></pre></span> is like in GML, it returns "x" rounded down to the nearest whole number. So <span class="inline-hljs"><pre><code>floor(1.5)</code></pre></span> returns 1.0
+                        <span class="inline-hljs"><pre><code>floor</code></pre></span> is like in GML, it returns 'x' rounded down to the nearest whole number. So <span class="inline-hljs"><pre><code>floor(1.5)</code></pre></span> returns 1.0
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float two = floor(2.5);</pre></code></li></ul>
@@ -289,7 +290,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         float/vec, x rounded up
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>ceil</code></pre></span> is like in GML, it returns "x" rounded up to the nearest whole number. So <span class="inline-hljs"><pre><code>ceil(1.5)</code></pre></span> returns 2.0
+                        <span class="inline-hljs"><pre><code>ceil</code></pre></span> is like in GML, it returns 'x' rounded up to the nearest whole number. So <span class="inline-hljs"><pre><code>ceil(1.5)</code></pre></span> returns 2.0
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float three = ceil(2.5);</pre></code></li></ul>
@@ -312,7 +313,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         float/vec, fractional part of x
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>fract</code></pre></span> is similar to <span class="inline-hljs"><pre><code>frac</code></pre></span> in GML with the same results for positive <span class="inline-hljs"><pre><code>x</code></pre></span> (not with negatives). This returns just the fractional part of "x", removing the whole number part. Internally, it's computed as <span class="inline-hljs"><pre><code>x - floor(x)</code></pre></span>, so <span class="inline-hljs"><pre><code>fract(3.14)</code></pre></span> returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: <span class="inline-hljs"><pre><code>frac(x) = fract(abs(x)) * sign(x)</code></pre></span>
+                        <span class="inline-hljs"><pre><code>fract</code></pre></span> is similar to <span class="inline-hljs"><pre><code>frac</code></pre></span> in GML with the same results for positive <span class="inline-hljs"><pre><code>x</code></pre></span> (not with negatives). This returns just the fractional part of 'x', removing the whole number part. Internally, it's computed as <span class="inline-hljs"><pre><code>x - floor(x)</code></pre></span>, so <span class="inline-hljs"><pre><code>fract(3.14)</code></pre></span> returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: <span class="inline-hljs"><pre><code>frac(x) = fract(abs(x)) * sign(x)</code></pre></span>
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float half = fract(2.5);</pre></code></li></ul>
@@ -364,7 +365,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         <span class="inline-hljs"><pre><code>sign</code></pre></span> is like in GML, it returns the sign for each component of <span class="inline-hljs"><pre><code>x</code></pre></span>. So if x is positive, it returns 1.0, if x is negative it returns -1.0 and 0.0 if x equals zero.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
-                            <ul><li><pre><code>float ten = abs(-10.)</pre></code></li></ul>
+                            <ul><li><pre><code>float one = sign(10.)</pre></code></li></ul>
                         </div>
                     </div>
                 </div><div class="Functions doc" id="abs">
@@ -372,7 +373,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">abs(x)</div><div class="syntax ">
                         <div class="title">Syntax:</div>
-                        <span class="inline-hljs"><pre><code>abs(float/int/vec)</code></pre></span>
+                        <span class="inline-hljs"><pre><code>abs(float/vec)</code></pre></span>
                     </div><div class="arguments ">
                             <div class="title">Arguments:</div>
                             <ul><li><div class="name">x</div><div class="desc block">
@@ -384,7 +385,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         float/vec, x as a positive
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>abs</code></pre></span> is like in GML, it returns "x" as a positive number, so if "x" is negative it returns "-x" which will be a positive number.
+                        <span class="inline-hljs"><pre><code>abs</code></pre></span> is like in GML, it returns 'x' as a positive number. So if 'x' is negative 'abs' returns '-x' so the result is always positive (or 0).
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float five = abs(-5.0);</pre></code></li></ul>
@@ -395,7 +396,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">min(x, y)</div><div class="syntax ">
                         <div class="title">Syntax:</div>
-                        <span class="inline-hljs"><pre><code>min(float/int/vec)</code></pre></span>
+                        <span class="inline-hljs"><pre><code>min(float/vec, float/vec)</code></pre></span>
                     </div><div class="arguments ">
                             <div class="title">Arguments:</div>
                             <ul><li><div class="name">x</div><div class="desc block">
@@ -407,10 +408,10 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec, the lesser of x and y
+                        float/vec, the lesser of x and y
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>min</code></pre></span> is like in GML (except limited to 2 input arguments), returns the lesser of the two values, so "x" if "x" is less than "y" and otherwise it returns "y"
+                        <span class="inline-hljs"><pre><code>min</code></pre></span> is like in GML (except limited to 2 input arguments), returns the lesser of the two values. So it will return 'x' if 'x' is less than 'y' and otherwise it returns 'y'.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float one = min(1.0,4.0);</pre></code></li></ul>
@@ -421,7 +422,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">max(x, y)</div><div class="syntax ">
                         <div class="title">Syntax:</div>
-                        <span class="inline-hljs"><pre><code>max(float/int/vec)</code></pre></span>
+                        <span class="inline-hljs"><pre><code>max(float/vec, float/vec)</code></pre></span>
                     </div><div class="arguments ">
                             <div class="title">Arguments:</div>
                             <ul><li><div class="name">x</div><div class="desc block">
@@ -433,10 +434,10 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec, the greater of x and y
+                        float/vec, the greater of x and y
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        <span class="inline-hljs"><pre><code>max</code></pre></span> is like in GML (except limited to 2 input arguments) returns the greater of the two values, so "x" if "x" is greater than "y" and otherwise it returns "y"
+                        <span class="inline-hljs"><pre><code>max</code></pre></span> is like in GML (except limited to 2 input arguments), returns the greater of the two values. So it will return 'x' if 'x' is greater than 'y' and otherwise it returns 'y'.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>float four = max(1.0,4.0);</pre></code></li></ul>
@@ -447,7 +448,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">clamp(x, min, max)</div><div class="syntax ">
                         <div class="title">Syntax:</div>
-                        <span class="inline-hljs"><pre><code>clamp(float/int/vec)</code></pre></span>
+                        <span class="inline-hljs"><pre><code>clamp(float/vec, float/vec, float/vec)</code></pre></span>
                     </div><div class="arguments ">
                             <div class="title">Arguments:</div>
                             <ul><li><div class="name">x</div><div class="desc block">
@@ -462,7 +463,7 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec, x between min and max
+                        float/vec, x between min and max
                     </div><div class="desc block">
                         <div class="title">Description:</div>
                         <span class="inline-hljs"><pre><code>clamp</code></pre></span> is just like in GML
@@ -494,12 +495,12 @@ texture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);</pre></code></li></ul>
                         float/vec, mixture of a and b
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        mix is like the GML <span class="inline-hljs"><pre><code>lerp</code></pre></span>, it linearly interpolates between "x1" and "x2" by the amount "amt". So <span class="inline-hljs"><pre><code>mix(x1,x2,0.0)</code></pre></span> would equal "x1" and <span class="inline-hljs"><pre><code>mix(x1,x2,1.0)</code></pre></span> equals "x2". When "amt" is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: <span class="inline-hljs"><pre><code>x1 + (x2-x1)*amt</code></pre></span> so "x1" and "x2" must have the same number of components however "amt" can be a float or a vector.
+                        mix is like the GML <span class="inline-hljs"><pre><code>lerp</code></pre></span>, it linearly interpolates between 'x1' and 'x2' by the amount 'amt'. So <span class="inline-hljs"><pre><code>mix(x1,x2,0.0)</code></pre></span> would equal 'x1' and <span class="inline-hljs"><pre><code>mix(x1,x2,1.0)</code></pre></span> equals 'x2'. When 'amt' is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: <span class="inline-hljs"><pre><code>x1 + (x2-x1)*amt</code></pre></span> so 'x1' and 'x2' must have the same number of components however 'amt' can be a float or a vector.
                     </div><div class="examples ">
                             <div class="title">Examples:</div>
-                            <ul><li><pre><code>//Mix between the source color and destination color, by "factor" (float or vec3)
-vec3 col = mix(src,dst,factor);</pre></code></li><li><pre><code>//Get the source"s red and green channels and the destination"s blue channel.
-vec3 col = mix(src,dst,vec3(0,0,1));</pre></code></li></ul>
+                            <ul><li><pre><code>//Mix between the source color and destination color, by 'factor' (float or vec3)
+vec3 col = mix(src, dst, factor);</pre></code></li><li><pre><code>//Get the source's red and green channels and the destination's blue channel.
+vec3 col = mix(src, dst, vec3(0,0,1));</pre></code></li></ul>
                         </div>
                     </div>
                 </div><div class="Functions doc" id="step">
@@ -522,12 +523,11 @@ vec3 col = mix(src,dst,vec3(0,0,1));</pre></code></li></ul>
                         float/vec, zero or one
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Returns 0.0 when "x" is less than "edge" and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.
+                        Returns 0.0 when 'x' is less than 'edge' and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.
                     </div><div class="examples ">
-                            <div class="title">Examples:</div>
-                            <ul><li><pre><code>//Set the alpha to 1.0 if "color.a" is greater-than or equal-to 0.5:
-color.a = step(0.5,color.a);</pre></code></li><li><pre><code>//Make "color" invisible when the red channel is greater than 0.8
-color *= step(color.r,0.8);</pre></code></li></ul>
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Set the alpha to 1.0 if 'color.a' is greater-than or equal-to 0.5:
+color.a = step(0.5, color.a);</pre></code></li></ul>
                         </div>
                     </div>
                 </div><div class="Functions doc" id="smoothstep">
@@ -553,7 +553,7 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                         float/vec, zero or one
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Returns 
                     </div>
                     </div>
                 </div><div class="Functions doc" id="pow">
@@ -573,7 +573,7 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                         float/int/vec, e
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="sqrt">
@@ -593,7 +593,7 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                         float/int/vec, e
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="inversesqrt">
@@ -610,10 +610,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="exp">
@@ -630,10 +630,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="exp2">
@@ -650,10 +650,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="log">
@@ -670,10 +670,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="log2">
@@ -690,10 +690,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="length">
@@ -710,10 +710,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="distance">
@@ -730,10 +730,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="normalize">
@@ -750,10 +750,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="dot">
@@ -770,10 +770,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="cross">
@@ -790,10 +790,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="reflect">
@@ -810,10 +810,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="refract">
@@ -830,10 +830,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="faceforward">
@@ -850,10 +850,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="matrixCompMult">
@@ -870,10 +870,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="radians">
@@ -890,10 +890,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="degrees">
@@ -910,10 +910,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="sin">
@@ -930,10 +930,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="cos">
@@ -950,10 +950,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="tan">
@@ -970,10 +970,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="asin">
@@ -990,10 +990,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="acos">
@@ -1010,10 +1010,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="atan">
@@ -1030,10 +1030,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="equal">
@@ -1050,10 +1050,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="notEqual">
@@ -1070,10 +1070,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="lessThan">
@@ -1090,10 +1090,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="lessThanEqual">
@@ -1110,10 +1110,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="greaterThan">
@@ -1130,10 +1130,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="greaterThanEqual">
@@ -1150,10 +1150,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="any">
@@ -1170,10 +1170,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="all">
@@ -1190,10 +1190,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div class="Functions doc" id="not">
@@ -1210,10 +1210,10 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     </div></li></ul>
                         </div><div class="returns ">
                         <div class="title">Returns:</div>
-                        float/int/vec,
+                        float/int/vec, 
                     </div><div class="desc block">
                         <div class="title">Description:</div>
-                        Description not added yet! Refer to the <a target="_blank" href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
+                        Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>
                     </div>
                     </div>
                 </div><div id="Built-in Variables" class="type-title"><span>Built-in Variables</span></div><div class="Built-in Variables doc" id="gl_Position">
@@ -1221,7 +1221,7 @@ color *= step(color.r,0.8);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">gl_Position</div><div class="desc block">
                         <div class="title">Description:</div>
-
+                        
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Output the projection-space vertex position.
@@ -1233,7 +1233,7 @@ gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);<
                     <div class="content">
                         <div class="name">gm_Matrices</div><div class="desc block">
                         <div class="title">Description:</div>
-
+                        
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Get the world-space position.
@@ -1245,7 +1245,7 @@ vec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position,1.)).xyz;</pre></code
                     <div class="content">
                         <div class="name">gl_FragColor</div><div class="desc block">
                         <div class="title">Description:</div>
-
+                        
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Output fragment color.
@@ -1257,7 +1257,7 @@ gl_FragColor = texture2D(gm_BaseTexture);</pre></code></li></ul>
                     <div class="content">
                         <div class="name">gm_BaseTexture</div><div class="desc block">
                         <div class="title">Description:</div>
-
+                        
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Output the projection-space vertex position.
