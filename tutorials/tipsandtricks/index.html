@@ -70,20 +70,29 @@
                         So here's a list of things to consider.
                         <ul>
                             <li>
-                                <strong>Constants:</strong>
-                                uniforms, precision
+                                <strong>Expressions:</strong> If you have to compute a mathematical, for example: <code class="GLSL">float PHI = (sqrt(5.)+1.)/2.;</code> consider pre-calculating the answer instead. In this case, <span title="Since highp floats can hold about 6 digits of precision, a 6-7 digit approximation is perfectly adequate.">approximately 1.618034</span>. Sometimes you need compute a complex expression with changing variables (e.g. sunlight color based on the sun position). If this expression is the same across all pixels, then try calculating this outside the shader and passing it in as a uniform. The CPU is more going to be more accurate anyway!
+                                <br>
+                                Also, stay aware of variable <a href="../../tutorials/datatypes/#precision" target="_blank">precision</a>. This is especially important for mobile devices! Color variables probably don't need to be highp.
                             </li>
                             <li>
-                                <strong>Fragment-vertex:</strong>
-
+                                <strong>Vertex or Fragment:</strong> While we're on the subject of expressions, maybe you can move some of your computation from the fragment shader to the vertex shader. This is generally faster because there are many more pixels/fragments than there are vertices so you may be able to calculate your lighting shader once per vertex rather than per pixel.
+                                <br>
+                                Just remember that varying values will be interpolated across the mesh, so it's <a href="https://blog.theknightsofunity.com/wp-content/uploads/2016/05/pixel-vs-vertex-lighting.png" target="_blank">not always usable</a>.
                             </li>
                             <li>
-                                <strong>Loops:</strong>
-
+                                <strong>Loops:</strong> Modern GPUs can handle a lot loop iterations, but if you're targeting non-desktop platforms (especially mobile) or low-end PCs you should be careful. Things like texture sampling can use a lot of bandwidth so 8 texture samples is a generally safe upper limit on <span title="Modern high-end GPUs can handle 100s of samples. They have a lot internal optimizations">low-end hardware</span>.
+                                <br>
+                                If your loop can be "broken" early, make sure to do that. For example, if I'm looping through a list of lights, I can stop at the last light:
+                                <br>
+                                <code class="GLSL">if (i > light_num) break;</code>
                             </li>
                             <li>
-                                <strong>Branching:</strong>
-
+                                <strong>Branching:</strong> You may have heard that you should always avoid if-statements in shaders. This is not necessary and in many cases if-statements are faster than <span title="For example: if (color.r>0.5) color.r = 1.0;
+Is probably faster than:
+color.r = mix(color.r, 1.0, float(color.r>0.5));
+Most of these alternatives require a lot more instructions!">alternatives</span>!
+                                <br>
+                                The thing is, GPUs are optimized for <span title="Meaning that many pixels are calculated simultaneously (in parallel), rather than in sequence like the CPU.">highly parallel</span> computations. This means that many pixels are computed simultaneously and are running the same code, so if you have a lot of complex operations that apply to specific pixels, it may be run on the entire group and discarding the unused parts.
                             </li>
                             <li>
                                 <strong>Textures and multipass:</strong>
@@ -94,7 +103,6 @@
                                 Swizzle
                             </li>
                         </ul>
-                        <br>
                         Compile time.
                     </p>
                     <h3>Preprocessor</h3>
@@ -152,44 +160,170 @@ color = color.rrr; //Use mono-color from red channel.
                     </p>
                     <h3>Gamma correction</h3>
                     <p>
-                        One thing you might not know is that 50% brightness (or 0.5 RGB) is not displayed at 50% brightness on your monitor. Instead, it's displayed at around 73% brightness because the output is not linear.
+                        One thing you might not know is that 50% brightness (or 0.5 RGB) is not displayed at 50% brightness on your monitor. Instead, it's displayed at around <span title="This gamma-corrected brightness is computed as the input brightness (e.g. 0.5) to the power of the reciprocal of the gamma value (0.4545 or 1/2.2). In other words 0.5^0.4545. More on this below">73% brightness</span> because the output is not linear.
                         <div class="image"><img src="./gamma.png">
                             <em>On the top is a linear-gradient, and the bottom is gamma corrected. Notice the top, middle section looks too bright.</em>
                         </div>
-                        Thankfully, it's easy to compute and to reverse. Just put a color's RGB channels to a power of 2.2 to decode and 0.4545 (or the reciprocal of 2.2) to encode.
-                        <pre><code class="glsl">vec3 encode = pow(color.rgb, vec3(2.2));
-vec3 decode = pow(color.rgb, vec3(0.4545));</code></pre>
-                        <a href="https://en.wikipedia.org/wiki/Gamma_correction#Microsoft_Windows,_Mac,_sRGB_and_TV/video_standard_gammas" target="_blank">gamma</a>
+                        Thankfully, it's easy to compute and to reverse. Just put a color's RGB channels to a power of 2.2 to decode and <span title="Which is approximately 1/2.2 (the reciprocal of 2.2).">0.4545</span> to encode.
+                        <pre><code class="glsl">//Useful on textures because they are already gamma-encoded.
+vec3 decode = pow(color.rgb, vec3(0.4545));
+//Useful with linear gradients or lighting. It should be the last step.
+vec3 encode = pow(color.rgb, vec3(2.2));</code></pre>
+                        If you're probably wondering where the 2.2 comes from, it's the <a href="https://en.wikipedia.org/wiki/Gamma_correction#Microsoft_Windows,_Mac,_sRGB_and_TV/video_standard_gammas" target="_blank">standard gamma</a> for most displays today.
                         <br>
                     </p>
                     <h3>Texture coordinates</h3>
                     <p>
-                    Texture coordinate normalization.
-                    </p>
-                    <h3>On Noise</h3>
-                    <p>
-                    Hash/noise?
-                    </p>
+                        For many effects, you need to work directly with texture coordinates and texture pages can make the more difficult.
+                        For example, say you want write a gradient shader where the sprite's alpha fades to 0 at the bottom.
+                            The easy answer would be to use the texture coordinates because they range from 0 to 1 across the texture page.
+                        <br>
+                        Texture coordinate normalization.
+                        <pre><code class="glsl">uniform vec4 sprite_uvs; //uvs [x, y, w, h]
+//Use sprite_get_uvs() to get the coordinates of the top-left and bottom-right corners:
+//Example: var uvs = sprite_get_uvs(sprite_index, image_index);
+//You can get the texture coordinate range as the difference between them:
+//Example: shader_set_uniform_f(uni_uvs, uvs[0], uvs[1], uvs[2], uvs[3]);
 
+//Map the texture coordinates to the range 0 - 1 ("normalized").
+vec2 texcoord_normalize(vec2 coord)
+{
+    return (coord-sprite_uvs.xy)/sprite_uvs.zw;
+}
+//Map normalized texture coordinates back to the original range.
+vec2 texcoord_unnormalize(vec2 coord)
+{
+    return coord*sprite_uvs.zw+sprite_uvs.xy;
+}</code></pre>
+                    </p>
+                    <h3>Three noise functions</h3>
+                    <p>
+                        So if you skim over shader websites like <a href="https://www.shadertoy.com" target="_blank">ShaderToy</a> you've probably seen various types of noise come up a lot. Noise can be used to make your effect look more natural and chaotic. It's perfect for fog, water, terrain, clouds and much more so it's definitely something to go over. In a future tutorial, I'll go over noise in more detail, but for now I'll go over three basic types to get you started:
+                        <div class="image"><img src="./noise.png">
+                            <em>White noise, value noise and fractal noise respectively.</em>
+                        </div>
+                        So white noise (aka a "hash") can be used for effects like TV static, but it's also the basis for the other two types. A typical hash will look something like this (I added the modulo):
+<pre><code class="glsl">//Typical pseudo-random hash (white noise).
+float hash(vec2 p)
+{
+    p = mod(p, 7.31); //Bring 'p' to a useful range.
+    //Generate a pseudo random number from 'p'.
+    return fract(sin(p.x*12.9898 + p.y*78.233) * 43758.5453);
+}
+</code></pre>
+                        In short, this hash generates a really high-frequency and amplitude sine-wave using "random" numbers that are unlikely to produce visible patterns.
+                        And the 'fract' brings it to the 0-1 range (most useful range) and helps break up the patterns further. The modulo is optional. It produces better results for values > 10, but does add computationally cost. Not necessary on 0 to 1 ranges, like texture coordinates.
+<pre><code class="glsl">//Standard value noise.
+float value_noise(vec2 pos)
+{
+    vec2 cell = floor(pos); //Cell (whole number) coordinates.
+    vec2 sub = pos-cell; //Sub-cell (fractional) coordinates.
+    sub *= sub*(3.-2.*sub); //Cubic interpolation (comment out for linear interpolation).
+    const vec2 off = vec2(0,1); //Offset vector.
+
+    //Sample cell corners and interpolate between them.
+    return mix( mix(hash(cell+off.xx), hash(cell+off.yx), sub.x),
+                mix(hash(cell+off.xy), hash(cell+off.yy), sub.x), sub.y);
+}
+</code></pre>
+                        This function produces smoother white noise. It uses the exact same hash function, but rounded to whole numbers (4 cell corners) and interpolates between them. When you layer multiple "octaves" of value noise you can produce some very natural patterns. This is known as fractal noise:
+<pre><code class="glsl">//Generate 'fractal' noise from multiple value noise octaves.
+float fractal_noise(vec2 pos, int oct, float amp)
+{
+    float noise_sum = 0.; //Noise total.
+    float weight_sum = 0.; //Weight total.
+    float weight = 1.; //Octave weight.
+
+    for(int i = 0; i < oct; i++) //Iterate through octaves
+    {
+        noise_sum += value_noise(pos) * weight; //Add noise octave.
+        weight_sum += weight; //Add octave weight.
+        weight *= amp; //Reduce octave amplitude by multiplier.
+        pos *= mat2(1.6,1.2,-1.2,1.6); //Rotate and scale.
+    }
+    return noise_sum/weight_sum; //Compute average.
+}</code></pre>
+                        This iterates through multiple octaves of value noise at different scales and amplitudes and averages the result. You can control the number of octaves (4-10 is reasonable) and the amplitude multiplier (0.5-1.0 is reasonable). An "amp" value of 1.0 will mean all octaves have the same weight and gives a rougher appearance, while a value 0.5 means each octave is half the intensity of the last, giving a very smooth falloff.
+                        <br>
+                        If you don't understand what's going on in the code, don't worry! I'll go through this in more detail later! Hopefully this is enough to get you experimenting though!
+                    </p>
                     <a href="./#errors"><h2 id="errors">Fixing Errors</h2></a>
                     <p>
-                        ""
-                        <br>'function_name' - non-existent, overload
-                        <br>'variable_name' - non-existent
-                        <br>'keyword' - reserved
-                        <br>'constructor' - dimension issues
-                        <br>'assign' - type mismatch
+                        Error messages... Everyone hates seeing them. What does <code class="XML">Fragment Shader: shd_example at line 3 : ''</code> even mean? Well now let's go over the different error messages and how to interpret them. The first thing to know is that the error line is off by <span title="The vertex shader is the line_number+1 and the fragment shader is the line_number+2. Presumably this is a GameMaker Studio 2, bug but it remains unfixed as of 2021.">one or two</span>. Too be safe, check a couple lines above where the error occured.
+                        <br>
+                        Here's a quick list of the error messages:
+                        <ul>
+                            <li>
+                                <strong>' ':</strong>
+                                This is the generic error whenever the shader compiler doesn't know how to interpret something. It can come from a missing semicolon, an extra comma, etc. If you <span title="For example, vec2(1,2) + vec3(3,4,5) because I'm adding too different data types of different dimensions. Another common error is with '=' when you try to set a variable of one type with a value of a different type.">misuse an operator</span>, the error message will contain that operator.
+                            </li>
+                            <li>
+                                <strong>'assign':</strong>
+                                Assignment errors come from trying to set a variable to a value of the wrong data type. Setting gl_FragColor, which is a vec4, to a vec2 value will surely cause a compile error!
+                            </li>
+                            <li>
+                                <strong>'return':</strong>
+                                Return errors are similar to 'assign' errors. If a function expects to return a float, but returns an int instead, it will cause this error.
+                            </li>
+                            <li>
+                                <strong>'constructor':</strong>
+                                This error means you are setting too few or too many values in your constructor (e.g. vec2(1,2,3,4)).
+                                <br>
+                                Fun fact: you can actually overload a constructor if the last argument is a vector with too many components. The extra components will just get discarded. For example: int(vec2(1,2)) would <span title="Remember int is a one-component constructor (like a float), so it doesn't make sense to pass two components. Turns out GLSL ES doesn't mind and will just use the first component (in this case: 1). Another example: vec2(vec4(1,2,3,4)) would be equivalent to vec2(1,2) because the other components are ignored. Sometimes this technique can be used to keep your code clean and short.">return 1</span>.
+                            </li>
+                            <li>
+                                <strong>'FUNCTION_NAME':</strong>
+                                If the error message contains the name of a function it can mean one of two things: Either it's <span title="Meaning too many, too few or the wrong type of inputs. For example min(x,y) only supports two inputs, so min(x,y,z) will cause this error!">overloaded</span> or it doesn't exist. Double check for typos! It happens to all of us.
+                            </li>
+                            <li>
+                                <strong>'VARIABLE_NAME':</strong>
+                                When an error message contains a variable name that means it wasn't set properly. Make sure you defined it earlier and that it's in the <span title="If you define a variable in the 'main' function, it will only exist in the main function. If you define it in a for-loop or a function, it will be limited to that scope.">correct scope</span>.
+                            </li>
+                            <li>
+                                <strong>'KEYWORD':</strong>
+                                And finally there are a few keywords that you can't use as they are reserved for other versions of GLSL ES.
+                                Things like 'input', 'output' and 'flat' are reserved words that can't be used as variables or functions. You can find a full list of <a href="https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=23" target="_blank">reserved keywords here</a>.
+                            </li>
+                        </ul>
+                        If your drawing with the shader, but nothing is appearing, check the output log for this:
+                        <code class="XML">Draw failed due to invalid input layout</code>
+                        <br>
+                        This means you are trying to use an attribute that has not been defined on the vertex buffer object (example: trying to use texture coordinates on draw_circle). You may have to create separate shaders for different vertex formats.
 
                     </p>
                     <a href="./#extensions"><h2 id="extensions">Shader Extensions</h2></a>
                     <p>
-                        GL_OES_standard_derivatives
-                        <br>
-                        GL_EXT_frag_depth
+                        An underrated feature of GLSL ES is shader extensions. This gives you access to extra features that didn't make it into the full shader release.
+                        <br>You can enable an extension like so:
+                        <pre><code class="GLSL">#extension extension_name : require</code></pre>
+                        This will cause an error if the shader is not supported on your hardware.
+                        There are two working shader extensions in GMS 2 (if you find another, contact me):
+                        <ul>
+                            <li>
+                                <strong>GL_OES_standard_derivatives:</strong>
+                                This adds 3 functions which are native to newer versions of GLSL: dFdx, dFdy and fwidth.
+                                dFdx gives you the x-derivative of value (e.g. dFdx(GL_FragCoord.x) = 1.0). dFdy is the y-derivative and fwidth(a) is equivalent abs(dFdx(a)) + abs(dFdy(a)).
+                            </li>
+                            <li>
+                                <strong>GL_EXT_frag_depth:</strong>
+                                Adds a variable, gl_FragDepthEXT, for setting the depth in the fragment shader. This value is normalized so 0.0 = front and 1.0 = back.
+                                Note: fragDepth is slow on some hardware just like discard.
+                            </li>
+                        </ul>
                     </p>
-                    <a href="./#variables"><h2 id="variables">Interesting variables</h2></a>
+                    <a href="./#variables"><h2 id="variables">Interesting macros</h2></a>
                     <p>
-                        __VERSION__, _YY_GLSLES_, _YY_GLSL_, _YY_HLSL11_, _YY_PSSL_
+                        Finally there are some built-in shader macros which may be useful! When you compile your GLSL ES shader in GameMaker, it may be converted to GLSL, HLSL or PSSL depending on the platform you're compiling for. For Windows, UWP and Xbox One, it will compile to HLSL 11, for Mac or Ubuntu, GLSL, for PlayStation 4, PSSL and GLSL ES for everything else.
+                        <br>
+                        There are four macros for these languages: _YY_GLSLES_, _YY_GLSL_, _YY_HLSL11_, _YY_PSSL_
+                        <br>
+                        So if you want to add extra code for only Windows, you can use the pre-processor to check if '_YY_HLSL11_' is defined.
+                        <br>
+                        You can also check the shader version using '__VERSION__'. As of 2021, this will always be "100" but it may change in the future.
+                    </p>
+                    <a href="./#summary"><h2 id="summary">Summary</h2></a>
+                    <p>
+                        blah blah blah
                     </p>
                 </div>
               </div>
