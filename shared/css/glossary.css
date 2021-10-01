@@ -141,3 +141,10 @@
     color: var(--htxt);
     opacity: 1;
 }
+
+.image img {
+    max-width: 100%;
+    /* TODO: This is a pretty hacky solution for centering images. Fix later */
+    margin-left: 50%;
+    transform: translateX(-50%);
+}

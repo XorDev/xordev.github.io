@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <title>GM Shaders Glossary</title>
         <meta name="description" content="Shader tutorials for GameMaker Studio">
-        <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
-        <meta name="copyright" content="Copyright 2019 GM Shaders">
+        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
+        <meta name="copyright" content="Copyright 2021 GM Shaders">
         <meta name="theme-color" content="#e0ba23">
         <!-- Twitter -->
         <meta name="twitter:site" content="@XorDev">
@@ -53,13 +53,13 @@
             <div class="searchbar">
                 <div class="bar">
                     <input id="search_docs" type="search" placeholder="Search">
-                    <div class="return"><i class="fas fa-undo-alt"></i></div>
+                    <div class="return"><i class="fas fa-times"></i></div>
                     <div class="message"></div>
                 </div>
                 <div class="results"></div>
             </div>
             <div id="docs">{{DOCS}}</div>
-            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2021</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>
             initialize();

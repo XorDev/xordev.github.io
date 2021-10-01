@@ -5,14 +5,16 @@
         "syntax": "attribute vec4 in_Colour;",
         "returns": "vec4, vertex color and alpha",
         "desc": "Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most other draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. <br><br>If you're using a custom vertex format that includes multiple colors, just use 'in_Colour0', 'in_Colour1', etc.",
-        "examples":["//Pass a varying 'v_vColor' to the fragment shader.\nv_vColour = in_Colour;"]
+        "examples":[
+            "//Pass a varying 'v_vColor' to the fragment shader.\nv_vColour = in_Colour;"]
     },{
         "key": "in_Position",
         "def": "in_Position",
         "syntax": "attribute vec3 in_Position;",
         "returns": "vec3, vertex position",
         "desc": "Vertex position in model-space. Most GML draw_* functions (e.g. draw_sprite) build their vertex buffer in world space so that they don't need the world matrix. Keep this in mind when you're using your own vertex buffer!",
-        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
+        "examples":[
+            "//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
     },{
         "key": "in_TextureCoord",
         "def": "in_TextureCoord",
@@ -26,7 +28,8 @@
         "syntax": "attribute vec3 in_Normal;",
         "returns": "vec3, vertex normal",
         "desc": "Vertex geometry normal. This is only used in some custom vertex formats, with 3D models that need geometry normals (usually for lighting). A normal is a vector perpendicular to the model's surface. Make sure the normal vectors have a length of 1.0.",
-        "examples":["//Compute diffuse lighting using a light direction vector\nfloat diffuse = max(dot(in_Normal, light_dir), 0.0);"]
+        "examples":[
+            "//Compute diffuse lighting using a light direction vector\nfloat diffuse = max(dot(in_Normal, light_dir), 0.0);"]
     }],
     "Functions": [{
         "key": "texture2D",
@@ -64,8 +67,9 @@
             "desc": "Overwrites mipmap LOD."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "<strong>Currently not supported in GM!</strong><br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>This works like <a href=/glossary/?load=texture2D>texture2D</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.",
-        "examples":["//Force half resolution with mipmapping.\ntexture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);"]
+        "desc": "Currently not supported in GM!<br><br>Samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1 so they are easier to deal with.<br>It's worth noting that the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping, etc) which is why we call this a 'texel'.<br>This works like  <a href='/glossary/?load=texture2D' target='_blank'>texture2D'</a> except it overwrites the automatic LOD level with the LOD you specify. If mipmapping is disabled, it will output the same result as texture2D would.",
+        "examples":[
+            "//Force half resolution with mipmapping.\ntexture2DLod(gm_BaseTexture, v_vTexcoord, 1.0);"]
     },{
         "key": "texture2DProj",
         "def": "texture2DProj(texture, coordinates, [bias])",
@@ -82,8 +86,9 @@
             "desc": "Optional mipmap bias."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "texture2DProj is like <a href=/glossary/?load=texture2D>texture2D</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
-        "examples":["//Project a texture using frag coordinates.\ntexture2DProj(gm_BaseTexture, gl_FragCoord.xyz);"]
+        "desc": "texture2DProj is like  <a href='/glossary/?load=texture2D' target='_blank'>texture2D'</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, you can add a bias to the LOD level (this does not work with surfaces!). Using a positive bias will reduce the resolution to give it a softer look and a negative bias will make higher resolution if possible.",
+        "examples":[
+            "//Project a texture using frag coordinates.\ntexture2DProj(gm_BaseTexture, gl_FragCoord.xyz);"]
     },
     {
         "key": "texture2DProjLod",
@@ -101,8 +106,9 @@
             "desc": "Overwrites mipmap LOD."
         }],
         "returns": "vec4, texel color and alpha",
-        "desc": "<strong>Currently not supported in GM!</strong><br><br>texture2DProjLod is like <a href=/glossary/?load=texture2DLod>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as <a href=/glossary/?load=texture2DProj>texture2DProj</a> would.",
-        "examples":["//Project a texture at half resolution (using mipmapping).\ntexture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);"]
+        "desc": "Currently not supported in GM!<br><br>texture2DProjLod is like  <a href='/glossary/?load=texture2DLod' target='_blank'>texture2DLod</a> except it computes it's texture coordinates from the x and y coordinates divided by the last component (z component for a vec3 or w for a vec4); Useful in 3D when you need to project a 2D texture onto 3D geometry. Then it samples the texture at the given texture coordinates for color and alpha. Texture coordinates are between 0 to 1 and they represent a pixel position on the sampler's texture page. Each texture (or sprite) has its own set of texture coordinates within the texture page, so sometimes you may need to convert from one set of coordinates to another. You can use the GML `sprite_get_uvs` to get the set of coordinates, which can be passed into the shader via uniforms. Surfaces or sprites with the 'Separate Texture Page' box ticked will always have a range of 0 to 1, so they are easier to deal with.<br>Also, the sampled pixel will be filtered by GM (no interpolation, linear interpolation or mipmapping) which is why we call this a 'texel'.<br>With mipmapping, it overwrites the automatic LOD level with the specific LOD you want. If mipmapping is disabled, it will output the same result as  <a href='/glossary/?load=texture2DProj' target='_blank'>texture2DProj</a> would.",
+        "examples":[
+            "//Project a texture at half resolution (using mipmapping).\ntexture2DProjLod(gm_BaseTexture, gl_FragCoord.xyz, 1.0);"]
     },{
         "key": "floor",
         "def": "floor(x)",
@@ -114,7 +120,8 @@
         }],
         "returns": "float/vec, x rounded down",
         "desc": "`floor` is like in GML, it returns 'x' rounded down to the nearest whole number. So `floor(1.5)` returns 1.0",
-        "examples":["float two = floor(2.5);"]
+        "examples":[
+            "float two = floor(2.5);"]
     },{
         "key": "ceil",
         "def": "ceil(x)",
@@ -126,7 +133,8 @@
         }],
         "returns": "float/vec, x rounded up",
         "desc": "`ceil` is like in GML, it returns 'x' rounded up to the nearest whole number. So `ceil(1.5)` returns 2.0",
-        "examples":["float three = ceil(2.5);"]
+        "examples":[
+            "float three = ceil(2.5);"]
     },{
         "key": "fract",
         "def": "fract(x)",
@@ -137,8 +145,9 @@
             "desc": "The input value."
         }],
         "returns": "float/vec, fractional part of x",
-        "desc": "`fract` is similar to `frac` in GML with the same results for positive `x` (not with negatives). This returns just the fractional part of 'x', removing the whole number part. Internally, it's computed as `x - floor(x)`, so `fract(3.14)` returns 0.14.<br><br><b>Note:</b> the GML function relates with the shader function like so: `frac(x) = fract(abs(x)) * sign(x)`",
-        "examples":["float half = fract(2.5);"]
+        "desc": "`fract` is similar to `frac` in GML with the same results for positive `x` (not with negatives). This returns just the fractional part of 'x', removing the whole number part. Internally, it's computed as `x - floor(x)`, so `fract(3.14)` returns 0.14.<br><br>Note: the GML function relates with the shader function like so: `frac(x) = fract(abs(x)) * sign(x)`",
+        "examples":[
+            "float half = fract(2.5);"]
     },{
         "key": "mod",
         "def": "mod(x, y)",
@@ -152,8 +161,9 @@
             "desc": "The divisor."
         }],
         "returns": "float/vec, fractional part of x",
-        "desc": "`mod` is similar to the GML modulo operator (also called `mod`), giving the same results for positive `x` (not with negatives). This returns the remainder of `x` divided by `y` which is computed as `x - floor(x/y)*y`.<br><br><b>Note:</b> the GML operator relates with the shader function like so: `x mod y = mod(abs(x),y)*sign(x)`",
-        "examples":["float two = mod(7.0,5.0);"]
+        "desc": "`mod` is similar to the GML modulo operator (also called `mod`), giving the same results for positive `x` (not with negatives). This returns the remainder of `x` divided by `y` which is computed as `x - floor(x/y)*y`.<br><br>Note: the GML operator relates with the shader function like so: `x mod y = mod(abs(x),y) * sign(x)`",
+        "examples":[
+            "float two = mod(7.0,5.0);"]
     },{
         "key": "sign",
         "def": "sign(x)",
@@ -165,7 +175,8 @@
         }],
         "returns": "float/vec, sign of x",
         "desc": "`sign` is like in GML, it returns the sign for each component of `x`. So if x is positive, it returns 1.0, if x is negative it returns -1.0 and 0.0 if x equals zero.",
-        "examples":["float one = sign(10.)"]
+        "examples":[
+            "float one = sign(10.);"]
     },{
         "key": "abs",
         "def": "abs(x)",
@@ -177,7 +188,8 @@
         }],
         "returns": "float/vec, x as a positive",
         "desc": "`abs` is like in GML, it returns 'x' as a positive number. So if 'x' is negative 'abs' returns '-x' so the result is always positive (or 0).",
-        "examples":["float five = abs(-5.0);"]
+        "examples":[
+            "float five = abs(-5.0);"]
     },{
         "key": "min",
         "def": "min(x, y)",
@@ -192,7 +204,8 @@
         }],
         "returns": "float/vec, the lesser of x and y",
         "desc": "`min` is like in GML (except limited to 2 input arguments), returns the lesser of the two values. So it will return 'x' if 'x' is less than 'y' and otherwise it returns 'y'.",
-        "examples":["float one = min(1.0,4.0);"]
+        "examples":[
+            "float one = min(1.0, 4.0);"]
     },{
         "key": "max",
         "def": "max(x, y)",
@@ -207,7 +220,8 @@
         }],
         "returns": "float/vec, the greater of x and y",
         "desc": "`max` is like in GML (except limited to 2 input arguments), returns the greater of the two values. So it will return 'x' if 'x' is greater than 'y' and otherwise it returns 'y'.",
-        "examples":["float four = max(1.0,4.0);"]
+        "examples":[
+            "float four = max(1.0, 4.0);"]
     },{
         "key": "clamp",
         "def": "clamp(x, min, max)",
@@ -224,8 +238,9 @@
             "desc": "The maximum value."
         }],
         "returns": "float/vec, x between min and max",
-        "desc": "`clamp` is just like in GML",
-        "examples":["float five = abs(-5.0);"]
+        "desc": "`clamp` is just like in GML, returning 'x' if 'x' is between 'min' and 'max'. If 'x' is less than 'min' it returns 'min' and if 'x' is greater than 'max' it returns 'max', effectively clamp 'x' to the 'min-max' range.",
+        "examples":[
+            "float five = abs(-5.0);"]
     },{
         "key": "mix",
         "def": "mix(x1, x2, amt)",
@@ -244,8 +259,8 @@
         "returns": "float/vec, mixture of a and b",
         "desc": "mix is like the GML `lerp`, it linearly interpolates between 'x1' and 'x2' by the amount 'amt'. So `mix(x1,x2,0.0)` would equal 'x1' and `mix(x1,x2,1.0)` equals 'x2'. When 'amt' is anything between 0 and 1, the result will be somewhere between x1 and x2.<br>Mix is computed as: `x1 + (x2-x1)*amt` so 'x1' and 'x2' must have the same number of components however 'amt' can be a float or a vector.",
         "examples":[
-          "//Mix between the source color and destination color, by 'factor' (float or vec3)\nvec3 col = mix(src, dst, factor);",
-          "//Get the source's red and green channels and the destination's blue channel.\nvec3 col = mix(src, dst, vec3(0,0,1));"]
+            "//Mix between the source color and destination color, by 'factor' (float or vec3)\nvec3 col = mix(src, dst, factor);",
+            "//Get the source's red and green channels and the destination's blue channel.\nvec3 col = mix(src, dst, vec3(0,0,1));"]
     },{
         "key": "step",
         "def": "step(edge, x)",
@@ -261,11 +276,11 @@
         "returns": "float/vec, zero or one",
         "desc": "Returns 0.0 when 'x' is less than 'edge' and 1.0 when it is not. This sometimes can be used as a substitute for an if statement.",
         "examples":[
-            "//Set the alpha to 1.0 if 'color.a' is greater-than or equal-to 0.5:\ncolor.a = step(0.5, color.a);"]
+            "//Set the alpha to 0.0 if 'color.a' is less-than 0.5:\ncolor.a = step(0.5, color.a);"]
     },{
         "key": "smoothstep",
         "def": "smoothstep(edge0, edge1, x)",
-        "syntax": "step(float/vec, float/vec, float/vec)",
+        "syntax": "smoothstep(float/vec, float/vec, float/vec)",
         "arguments_min": 3,
         "arguments": [{
             "key": "edge0",
@@ -277,425 +292,521 @@
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/vec, zero or one",
-        "desc": "Returns ",
-        "examples": []
+        "returns": "float/vec, between zero and one",
+        "desc": "Returns 0.0 if 'x' is equal to 'edge0' and 1.0 if 'x' is equal to 'edge1'. Any value of 'x' in between will be smoothly blended between zero and one, making it quite useful for gradients. <div class='image'><img src='./smoothstep.png'></img></div> If you want to take a value from any range and gaurantee a result between 0 and 1, this is probably what you're looking for. You can then add/multiply as necessary to map it to any other range.<br><br>Note: This gradient is not linear, but rather it tapers off at both ends. If you're curious, here's how it is computed internally:<br>`float range = (x-edge0)/(edge1-edge0); //Map to 0-1 range`<br>`float y = clamp(range, 0.0, 1.0); //Clamp to 0-1`<br>`return 3.0*y*y - 2.0*y*y*y; //Return smooth, cubic value`",
+        "examples": [
+            "//Set the light brightness to 1.0 at the center and fade out to 'radius'\nfloat light = smoothstep(radius, 0.0, dist);",
+            "//Increase the color contrast by using a narrower range.\ncolor = smoothstep(contrast, 1.0-contrast, color);"]
     },{
         "key": "pow",
-        "def": "pow(x)",
-        "syntax": "pow(float/int/vec)",
-        "arguments_min": 1,
+        "def": "pow(x, y)",
+        "syntax": "pow(float/vec, float/vec)",
+        "arguments_min": 2,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The base."
+        },{
+            "key": "y",
+            "desc": "The exponent."
         }],
-        "returns": "float/int/vec, e",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, 'x' to the 'y' power",
+        "desc": "Returns x raised to the y power, so `pow(2.0,3.0) = 2.0*2.0*2.0` or 8. Make sure your arguments have the same number of dimensions. Raising a vec3 to a float power will cause an error! Also make sure 'x' is not a negative number or it may cause artifacts (typically a black screen).",
+        "examples": [
+            "//Adjust for gamma correction.\nvec3 gamma_encode = pow(color.rgb, vec3(2.2));",
+            "//Make a cool blue gradient using different exponents.\nvec3 gradient = pow(uv.yyy, vec3(2.0, 1.0, 0.5))"]
     },{
         "key": "sqrt",
         "def": "sqrt(x)",
-        "syntax": "sqrt(float/int/vec)",
+        "syntax": "sqrt(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, e",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, square root of x",
+        "desc": "Returns the square root of x, just like in GML. Make sure 'x' is not a negative number or it will cause artifacts (typically a black screen).",
+        "examples": [
+            "//Compute sphere heightat the current position, 'pos'.\nfloat sphere_height = sqrt(radius * radius - dot(pos, pos));"]
     },{
         "key": "inversesqrt",
         "def": "inversesqrt(x)",
-        "syntax": "inversesqrt(float/int/vec)",
+        "syntax": "inversesqrt(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, one over the square root of x",
+        "desc": "Returns the reciprocal of the square root of x (`1.0 / sqrt(x)`). Shaders are relatively efficient at computing this so it's better than dividing by sqrt. Make sure 'x' is greater than 0.0 as a value of 0.0 will cause a division-by-zero error.",
+        "examples": [
+            "//Compute a weight value from an inverse square-root.\nfloat weight = inversesqrt(i+1.0);"]
     },{
         "key": "exp",
         "def": "exp(x)",
-        "syntax": "exp(float/int/vec)",
+        "syntax": "exp(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, 'e' to the 'x' power",
+        "desc": "Returns <a href='https://en.wikipedia.org/wiki/E_(mathematical_constant)' target='_blank'>Euler's number, 'e'</a> raised to the 'x' power. e has a value of `2.7182818...`, which is the exponentation standard because of it's <span title='The derivative of e to the x is itself, e to the x! I just thought I should include this for anyone interested. You can read up on exponent derivatives for more information'>unique properties</span>.<br>This is faster to compute than <a href='/glossary/?load=pow' target='_blank'>pow</a> to compute because it deals with a fixed base.<br>It's also the inverse function of <a href='/glossary/?load=log' target='_blank'>log</a>, meaning `log(exp(x)) == x`",
+        "examples": [
+            "//This compute lighting with an exponentially falloff.\nfloat light = exp(-dist * falloff);"]
     },{
         "key": "exp2",
         "def": "exp2(x)",
-        "syntax": "exp2(float/int/vec)",
+        "syntax": "exp2(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, 2 to the 'x' power",
+        "desc": "Returns 2.0 raised to the 'x' power. So `exp2(1.0) = 2.0`, `exp2(2.0) = 4.0` and `exp2(8.0) = 256.0`. <br>This is faster to compute than <a href='/glossary/?load=pow' target='_blank'>pow</a> to compute because it deals with a fixed base.<br>It's also the inverse function of <a href='/glossary/?load=log2' target='_blank'>log2</a>, meaning `log2(exp2(x)) == x`",
+        "examples": ["//This compute lighting with an exponentially falloff.\nfloat light = exp(-dist * falloff);"]
     },{
         "key": "log",
         "def": "log(x)",
-        "syntax": "log(float/int/vec)",
+        "syntax": "log(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, base 'e' log of 'x'",
+        "desc": "Returns the <a href='https://en.wikipedia.org/wiki/Natural_logarithm' target='_blank'>Natural logarithm</a>. In short, this is the inverse function of <a href='/glossary/?load=exp' target='_blank'>exp</a>, meaning `log(exp(x)) == x`.",
+        "examples": [
+            "//Smooth maximum based off iq's smin function: https://iquilezles.org/www/articles/smin/smin.htm\nfloat smax = log(exp(a*k)+exp(b*k))/k;"]
     },{
         "key": "log2",
         "def": "log2(x)",
-        "syntax": "log2(float/int/vec)",
+        "syntax": "log2(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, base 2 log of 'x'",
+        "desc": "Returns the <a href='https://en.wikipedia.org/wiki/Binary_logarithm' target='_blank'>Binary logarithm</a>. In short, this is the inverse function of <a href='/glossary/?load=exp' target='_blank'>exp2</a>, meaning `log2(exp2(x)) == x`.",
+        "examples": [
+            "//Round x up to a power of 2 number (e.g. 2,4,8...)\nfloat powerOf2 = exp2(ceil(log2(x)));"]
     },{
         "key": "length",
         "def": "length(x)",
-        "syntax": "length(float/int/vec)",
+        "syntax": "length(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float, length of vector",
+        "desc": "Returns the length of a vector by calculating it's <a href='https://en.wikipedia.org/wiki/Hypotenuse' target='_blank'>hypotenuse</a>. It works on any number of dimensions with the float variant behaving like `abs(x)`<br>This also can be calculated as `sqrt(dot(x,x))` so be sure to use <a href='/glossary/?load=dot' target='_blank'>dot</a> instead if you need the distance squared.",
+        "examples": [
+            "//Calculate a light's attenuation based the distance to the light\nfloat light = max(1.0 - length(pixel_pos - light_pos) / radius, 0.0);"]
     },{
         "key": "distance",
-        "def": "distance(x)",
-        "syntax": "distance(float/int/vec)",
-        "arguments_min": 1,
+        "def": "distance(a, b)",
+        "syntax": "distance(float/vec, float/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The starting point."
+        },{
+            "key": "b",
+            "desc": "The end point."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float, distance between points",
+        "desc": "Returns the distance between two vectors by calculating it's <a href='https://en.wikipedia.org/wiki/Hypotenuse'>hypotenuse</a>. It works on any number of dimensions with the float variant behaving like `abs(a - b)`<br>This also can be calculated as `sqrt(dot(a - b, a - b))` so be sure to use <a href='/glossary/?load=dot'>dot</a> instead if you need the distance squared.",
+        "examples": [
+            "//Calculate a light's attenuation based the distance to the light\nfloat light = max(1.0 - distance(pixel_pos, light_pos) / radius, 0.0);"]
     },{
         "key": "normalize",
         "def": "normalize(x)",
-        "syntax": "normalize(float/int/vec)",
+        "syntax": "normalize(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, 'x' with a length of 1.0",
+        "desc": "Returns the vector, divided by it's <a href='/glossary/?load=length' target='_blank'>length</a>, giving it a length of 1.0. In the rare event where the vector has a length of 0.0, it will return all zeros.<br>This is often used for lighting, need to know the direction without the magnitude.",
+        "examples": [
+            "//Compute the dot lighting with the light direction\nfloat light_dot = max(dot(normal, normalize(pos - light_pos)), 0.0);"]
     },{
         "key": "dot",
-        "def": "dot(x)",
-        "syntax": "dot(float/int/vec)",
-        "arguments_min": 1,
+        "def": "dot(a, b)",
+        "syntax": "dot(float/vec, float/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first vector."
+        },{
+            "key": "b",
+            "desc": "The second vector."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float, dot product of 'a' and 'b'",
+        "desc": "Returns the sum of the components of `a * b`. So if 'a' and 'b' are vec2s then `dot(a, b) = a.x * b.x + a.y * b.y`.<br>Dot products have many different uses. If you know both vectors are normalized, then the dot product will be 1.0 if they are pointed in the same direction, 0.0 if perpendicular and -1.0 if opposite along with values in between. You can use <a href='/glossary/?load=acos' target='_blank'>acos</a> on the dot product to find the angle between the two vectors.<br>If one vector is normalized, the dot product tells you how far a vector is along that direction.",
+        "examples": [
+            "//Compute the luminance using a weighted average\nfloat grayscale = dot(color.rgb, vec3(0.299, 0.587, 0.114));",
+            "//A gradient between a start and end point\nvec2 direction = end - start;\nfloat gradient = dot(position - start, direction) / dot(direction, direction);",
+            "//Compute the dot lighting with the light direction\nfloat light_dot = max(dot(normal, normalize(pos - light_pos)), 0.0);",
+            "//Compute a pseudo-random hash from 'n'\nfloat hash = fract(sin(dot(n, vec2(4.044,6.536))) * 4101.);"]
     },{
         "key": "cross",
-        "def": "cross(x)",
-        "syntax": "cross(float/int/vec)",
-        "arguments_min": 1,
+        "def": "cross(a, b)",
+        "syntax": "cross(vec3, vec3)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first vector."
+        },{
+            "key": "b",
+            "desc": "The second vector."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "vec3, cross product of 'a' and 'b'",
+        "desc": "Computes the cross product 'a' and 'b' which is always perpendicular to both vectors. If 'a' and 'b' are parallel or opposite or either one is zero, the result will be vec3(0.0). The formula for calculating a cross product is  `cross(a, b) = a.yzx * b.zxy - a.zxy * b.yzx`.",
+        "examples": [
+            "//Compute the side vector from the camera forward and up\nvec3 side = normalize(cross(forward, up));",
+            "//Compute the normal from standard derivatives\nvec3 normal = normalize(cross(dFdx(pos), dFdy(pos)));"]
     },{
         "key": "reflect",
-        "def": "reflect(x)",
-        "syntax": "reflect(float/int/vec)",
-        "arguments_min": 1,
+        "def": "reflect(i, n)",
+        "syntax": "reflect(float/vec, float/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "i",
+            "desc": "The incident vector."
+        },{
+            "key": "n",
+            "desc": "The normal vector."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, reflection of 'i' against 'n'",
+        "desc": "Reflects the incidence ('i') vector off of the normal ('n'). You probably want both vectors normalized, otherwise you'll get a non-normalized result. The formula for calculating this reflection is `i - 2.0 * dot(n, i) * n`.",
+        "examples": [
+            "//Compute the reflection of the viewspace direction and the normal\nvec3 reflection_direction = reflect(normalize(view), normal);"]
     },{
         "key": "refract",
-        "def": "refract(x)",
-        "syntax": "refract(float/int/vec)",
-        "arguments_min": 1,
+        "def": "refract(i, n, r)",
+        "syntax": "refract(float/vec, float/vec, float)",
+        "arguments_min": 3,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "i",
+            "desc": "The incident vector."
+        },{
+            "key": "n",
+            "desc": "The normal vector."
+        },{
+            "key": "r",
+            "desc": "The ratio between refraction indices."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, refraction ray",
+        "desc": "Used to compute the direction of a refracted ray using the angle of incidence ('i'), the normal ('n') and the ratio between the  <a href='https://en.wikipedia.org/wiki/Refraction' target='_blank'>refraction indices</a>. So for example, water has a refractive index of about 1.33 and <span title='It's worth noting that refractive indices do vary with temperature and pressure and are not universal. For example, you'll see refraction in the air around a fire because of the extra heat.>air is 1.0</span> so refracting into water would have a ratio of `1.0 / 1.33` and refracting out would be `1.33 / 1.0`.<br><br>Note: Make sure both vectors are normalized or the forumla won't work correctly. If you're curious about the forumla, here it is:<br>`float k = 1.0 - r * r * (1.0 - dot(n, i) * dot(n, i));`<br>`(k < 0.0) ? i-i : r * i - (r * dot(n, i) + sqrt(k)) * n;`",
+        "examples": [
+            "//Compute the refraction vector into water\nvec3 refraction_direction = refract(normalize(view), normal, 1.0/1.33);"]
     },{
         "key": "faceforward",
-        "def": "faceforward(x)",
-        "syntax": "faceforward(float/int/vec)",
-        "arguments_min": 1,
+        "def": "faceforward(d, i, r)",
+        "syntax": "faceforward(float/vec, float/vec, float/vec)",
+        "arguments_min": 3,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "d",
+            "desc": "The input vector."
+        },{
+            "key": "i",
+            "desc": "The incident vector."
+        },{
+            "key": "r",
+            "desc": "The reference vector."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, 'd' oriented by 'i' and 'r'",
+        "desc": "This flips the value of 'd' depending on if 'i' is facing away from 'r' and does not flip if they're facing the same direction. If I'm being honest, I barely have a use for this.<br><br>Internally, this computed like so:<br>`faceforward(d,i,r) = dot(i, r) < 0.0 ? d : -d;`",
+        "examples": [
+            "//Flip a random kernel if it's facing against the normal\nvec3 hemisphere = faceforward(kernel, kernel, normal)"]
     },{
         "key": "matrixCompMult",
-        "def": "matrixCompMult(x)",
-        "syntax": "matrixCompMult(float/int/vec)",
-        "arguments_min": 1,
+        "def": "matrixCompMult(a, b)",
+        "syntax": "matrixCompMult(mat, mat)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first matrix."
+        },{
+            "key": "b",
+            "desc": "The second matrix."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "mat, component product of 'a' and 'b'",
+        "desc": "This multiplies matrices, 'a' and 'b', component by component and returns the result. So `a[0,0] * b[0,0]`, `a[1,0] * b[1,0]` and so on. Make sure the matrices have the same dimensions or you'll get an error!",
+        "examples": [
+            "//Compute weights as a component product of 'a' and 'b'\nmat4 weights = matrixCompMult(a, b);"]
     },{
         "key": "radians",
         "def": "radians(x)",
-        "syntax": "radians(float/int/vec)",
+        "syntax": "radians(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, convert 'x' to radians",
+        "desc": "Converts 'x' degrees into radians. Degrees range from 0 to 360 and radians range from 0 to <span title='This is pi * 2.0, so it's an irrational number that can be expanded indefinitely. 7 or 8 digits should be sufficient for floats.'>6.2831853</span>. All the Trigonometry functions, like <a href='/glossary/?load=sin' target='_blank'>sin</a> use radians so you may need to use this. <br><br>Internally, this computed like so:<br>`radians(x) = x / 180.0 * 3.1415926;`",
+        "examples": [
+            "//Convert 60 degree to radians\nfloat sixty = radians(60.0);\n//Compute a rotation matrix for this angle\nmat2 rotate = mat2(cos(sixty), sin(sixty), -sin(sixty), cos(sixty));"]
     },{
         "key": "degrees",
         "def": "degrees(x)",
-        "syntax": "degrees(float/int/vec)",
+        "syntax": "degrees(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, convert 'x' to degrees",
+        "desc": "Converts 'x' radians into degrees. Degrees range from 0 to 360 and radians range from 0 to <span title='This is pi * 2.0, so it's an irrational number that can be expanded indefinitely. 7 or 8 digits should be sufficient for floats.'>6.2831853</span>. All the Trigonometry functions, like <a href='/glossary/?load=sin' target='_blank'>sin</a> use radians so you'll probably need to convert back to <a href='/glossary/?load=radians' target='_blank'>radians</a>. <br><br>Internally, this computed like so:<br>`degrees(x) = x / 3.1415926 * 180.0;`",
+        "examples": [
+            "//Convert pi/2 to degrees (about 90)\nfloat ninety = degrees(1.5707963);"]
     },{
         "key": "sin",
         "def": "sin(x)",
-        "syntax": "sin(float/int/vec)",
+        "syntax": "sin(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The input angle (radians)."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, the sine of 'x'",
+        "desc": "Computes the <a href='https://en.wikipedia.org/wiki/Sine' target='_blank'>sine</a> of 'x'. It's mostly used to tell you the y-position of a point along a circle's edge at angle 'x' (in radians). Here's an <a href='https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Sinus_und_Kosinus_am_Einheitskreis_1.svg/1024px-Sinus_und_Kosinus_am_Einheitskreis_1.svg.png' target='_blank'>illustration</a>. It ranges between -1.0 and 1.0 so you can multiply it by the circle's radius to recreate something like 'lengthdir_y' in GML.",
+        "examples": [
+            "//Compute the direction vector from a radian angle\nvec2 direction = vec2(cos(angle), sin(angle));",
+            "//Compute a pseudo-random hash from 'n'\nfloat hash = fract(sin(dot(n, vec2(4.044,6.536))) * 4101.);"]
     },{
         "key": "cos",
         "def": "cos(x)",
-        "syntax": "cos(float/int/vec)",
+        "syntax": "cos(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The input angle (radians)."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, the cosine of 'x'",
+        "desc": "Computes the <a href='https://en.wikipedia.org/wiki/Cosine' target='_blank'>cosine</a> of 'x'. It's mostly used to tell you the x-position of a point along a circle's edge at angle 'x' (in radians). Here's an <a href='https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Sinus_und_Kosinus_am_Einheitskreis_1.svg/1024px-Sinus_und_Kosinus_am_Einheitskreis_1.svg.png' target='_blank'>illustration</a>. It ranges between -1.0 and 1.0 so you can multiply it by the circle's radius to recreate something like 'lengthdir_x' in GML.",
+        "examples": [
+            "//Compute the direction vector from a radian angle\nvec2 direction = vec2(cos(angle), sin(angle));"]
     },{
         "key": "tan",
         "def": "tan(x)",
-        "syntax": "tan(float/int/vec)",
+        "syntax": "tan(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The input angle (radians)."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, the tangent of 'x'",
+        "desc": "Computes the <a href='en.wikipedia.org/wiki/Trigonometric_functions' target='_blank'>tangent</a> of 'x'. It's used to tell you the ratio of y/x-position of a point along a circle's edge at angle 'x' (in radians). In otherwords it's the same as `tan(x) = sin(x) / cos(x)`. It ranges from negative infinity to positive infinity.",
+        "examples": [
+            "//Compute the y/x ratio at 'angle'\nfloat ratio = tan(angle);"]
     },{
         "key": "asin",
         "def": "asin(x)",
-        "syntax": "asin(float/int/vec)",
+        "syntax": "asin(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, arcsin of 'x'",
+        "desc": "Computes the <a href='https://en.wikipedia.org/wiki/Trigonometric_functions#Inverse_functions' target='_blank'>arcsin</a> of 'x'. It's the inverse function of <a href='/glossary/?load=sin' target='_blank'>sin</a> which means that `asin(sin(x)) = x;`. Just make sure that 'x' is -1.0, 1.0 or something in between as all other values are return 0.0.<br>asin(x) will only return a value between <span title='Approximately -1.57079632679 to +1.57079632679.'>-pi/2 and pi/2</span>.",
+        "examples": [
+            "//Compute angle 'a' for y = sin(a)\nfloat angle = asin(y);"]
     },{
         "key": "acos",
         "def": "acos(x)",
-        "syntax": "acos(float/int/vec)",
+        "syntax": "acos(float/vec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
             "desc": "The input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, arccos of 'x'",
+        "desc": "Computes the <a href='https://en.wikipedia.org/wiki/Trigonometric_functions#Inverse_functions' target='_blank'>arccos</a> of 'x'. It's the inverse function of <a href='/glossary/?load=cos' target='_blank'>cos</a> which means that `acos(cos(x)) = x;`. Just make sure that 'x' is -1.0, 1.0 or something in between as all other values are return 0.0.<br>acos(x) will only return a value between <span title='Approximately 0 to +3.14159265358'>0 and pi</span>.",
+        "examples": [
+            "//Compute angle 'a' for x = cos(a)\nfloat angle = acos(x);"]
     },{
         "key": "atan",
-        "def": "atan(x)",
-        "syntax": "atan(float/int/vec)",
+        "def": "atan(y, [x])",
+        "syntax": "atan(float/vec, [float/vec])",
         "arguments_min": 1,
         "arguments": [{
+            "key": "y",
+            "desc": "The ratio of y to x, or just y if using both arguments."
+        },{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The optional x argument."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "float/vec, arctan of 'y'",
+        "desc": "Computes the <a href='https://en.wikipedia.org/wiki/Trigonometric_functions#Inverse_functions' target='_blank'>arctan</a> of 'y'. It's helpful to think of `atan` as the GLSL equivalent of `point_direction` in GML, so it can be used to find the angle between two points (in <a href='/glossary/?load=tan' target='_blank'>radians</a>radians</a>) like so: `atan(y2-y1, x2-x1)`.<br>It's also approximately the inverse function of <a href='/glossary/?load=tan' target='_blank'>tan</a> which means that `atan(tan(y)) = y;`. 'y' can any value between negative infinity and positive infinity.<br>atan(y) will only return a value between <span title='Approximately -1.57079632679 to +1.57079632679.'>-pi/2 and pi/2</span> while atan(y,x) will return a value between <span title='Approximately -3.14159265358 to +3.14159265358.'>-pi and pi</span>.",
+        "examples": [
+            "//Compute angle for the y to x ratio\nfloat angle = atan(y/x);",
+            "//Compute angle between p1 and p2\nfloat angle2 = atan(p2.y-p1.y, p2.x-p1.x);"]
     },{
         "key": "equal",
-        "def": "equal(x)",
-        "syntax": "equal(float/int/vec)",
-        "arguments_min": 1,
+        "def": "equal(a, b)",
+        "syntax": "equal(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' equals 'b'",
+        "desc": "Returns true if 'a' is equal to 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true for each axis that equals 0.0\nbvec3 origin = equal(position, vec3(0.0, 0.0, 0.0));"]
     },{
         "key": "notEqual",
-        "def": "notEqual(x)",
-        "syntax": "notEqual(float/int/vec)",
-        "arguments_min": 1,
+        "def": "notEqual(a, b)",
+        "syntax": "notEqual(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' == 'b'",
+        "desc": "Returns true if 'a' is NOT equal to 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true for each axis that does not equal 0.0\nbvec3 origin = notEqual(position, vec3(0.0, 0.0, 0.0));"]
     },{
         "key": "lessThan",
-        "def": "lessThan(x)",
-        "syntax": "lessThan(float/int/vec)",
-        "arguments_min": 1,
+        "def": "lessThan(a, b)",
+        "syntax": "lessThan(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' < 'b'",
+        "desc": "Returns true if 'a' is less than 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true for each axis that is less than 0.0\nbvec3 negative = lessThan(position, vec3(0.0, 0.0, 0.0));"]
     },{
         "key": "lessThanEqual",
-        "def": "lessThanEqual(x)",
-        "syntax": "lessThanEqual(float/int/vec)",
-        "arguments_min": 1,
+        "def": "lessThanEqual(a, b)",
+        "syntax": "lessThanEqual(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' <= 'b'",
+        "desc": "Returns true if 'a' is less than or equal to 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true if both axis of position are within 10.0 units of 0, 0\nbool box = all(lessThanEqual(abs(position.xy), vec2(10.0)));"]
     },{
         "key": "greaterThan",
-        "def": "greaterThan(x)",
-        "syntax": "greaterThan(float/int/vec)",
-        "arguments_min": 1,
+        "def": "greaterThan(a, b)",
+        "syntax": "greaterThan(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' > 'b'",
+        "desc": "Returns true if 'a' is greater than 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true for each axis that is greater than 0.0\nbvec3 positive = greaterThan(position, vec3(0.0, 0.0, 0.0));"]
     },{
         "key": "greaterThanEqual",
-        "def": "greaterThanEqual(x)",
-        "syntax": "greaterThanEqual(float/int/vec)",
-        "arguments_min": 1,
+        "def": "greaterThanEqual(a, b)",
+        "syntax": "greaterThanEqual(float/int/vec, float/int/vec)",
+        "arguments_min": 2,
         "arguments": [{
-            "key": "x",
-            "desc": "The input value."
+            "key": "a",
+            "desc": "The first input value."
+        },{
+            "key": "b",
+            "desc": "The second input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool/bvec, component-wise 'a' >= 'b'",
+        "desc": "Returns true if 'a' is greater than or equal to 'b'. With vectors it compares each component separately, returning a bvec.",
+        "examples": [
+            "//Returns true if any axis is 10.0 units or more units away from of 0, 0\nbool outside = any(greaterThanEqual(abs(position.xy), vec2(10.0)));"]
     },{
         "key": "any",
         "def": "any(x)",
-        "syntax": "any(float/int/vec)",
+        "syntax": "any(bvec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The boolean input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool, true if any component is true",
+        "desc": "Returns true if at least one component of 'x' is true.<br><br>Does not work on bools. It must be used on boolean vectors.",
+        "examples": [
+            "//Returns true if any axis is 10.0 units or more units away from of 0, 0\nbool outside = any(greaterThanEqual(abs(position.xy), vec2(10.0)));"]
     },{
         "key": "all",
         "def": "all(x)",
-        "syntax": "all(float/int/vec)",
+        "syntax": "all(bvec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The boolean input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bool, true if all components are true",
+        "desc": "Returns true only when all components of 'x' are true.<br><br>Does not work on bools. It must be used on boolean vectors.",
+        "examples": [
+            "//Returns true if both axis of position are within 10.0 units of 0, 0\nbool box = all(lessThanEqual(abs(position.xy), vec2(10.0)));"]
     },{
         "key": "not",
         "def": "not(x)",
-        "syntax": "not(float/int/vec)",
+        "syntax": "not(bvec)",
         "arguments_min": 1,
         "arguments": [{
             "key": "x",
-            "desc": "The input value."
+            "desc": "The boolean input value."
         }],
-        "returns": "float/int/vec, ",
-        "desc": "Description not added yet! Refer to the <a target='_blank' href=https://www.khronos.org/registry/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf#page=69&zoom=100,153,153?>specification list</a>",
-        "examples": []
+        "returns": "bvec, component-wise not operator",
+        "desc": "Returns the inverse of 'x', so true components become false and false becomes true.<br><br>Does not work on bools. It must be used on boolean vectors.",
+        "examples": [
+            "//Another way to do notEqual(a, b) in GLSL ES\nbvec3 not_equal = not(equal(a, b));"]
     }],
     "Built-in Variables": [{
         "key": "gl_Position",
         "def": "gl_Position",
-        "desc": "",
-        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
-    },{
-        "key": "gm_Matrices",
-        "def": "gm_Matrices",
-        "desc": "",
-        "examples":["//Get the world-space position.\nvec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position,1.)).xyz;"]
+        "desc": "This variable is required in the vertex shader to set vertex position. So with this you have direct control of each vertex's position (useful for effects like shockwaves or water). <br>The make sure to set the value in <span title='Typically by using MATRIX_WORLD_VIEW_PROJECTION. Projection space ranges from -1.0 to +1.0 for the x, y and z coordinates. -1 on the z axis is near clipping plane and +1 is the far clipping plane.'>projection-space</span>.<br><br><strong>Note:</strong> This is a vec4. The w-component is used for all the matrix translations. When in doubt, leave it as 1.0!",
+        "examples":[
+            "//Output the projection-space vertex position\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position, 1.0);"]
     },{
         "key": "gl_FragColor",
         "def": "gl_FragColor",
-        "desc": "",
-        "examples":["//Output fragment color.\ngl_FragColor = texture2D(gm_BaseTexture);"]
+        "desc": "This is required in the fragment shader to sets the pixel's color and alpha (RGBA vec4). You should only set this once.",
+        "examples":["//Output solid white\ngl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
+            "//Output the base-texture\ngl_FragColor = texture2D(gm_BaseTexture, v_vTexcoord);"]
+    },{
+        "key": "gm_Matrices",
+        "def": "gm_Matrices",
+        "desc": "gm_Matrices is an array of matrices with five to choose from:<br><ul><li><strong>MATRIX_VIEW:</strong> Used to orient space with the view. So the x-axis is always left/right on the screen, the y-axis is up and down and positive z is forward. This is often used for fog because you can get the distance relative to the camera. It's also used for screenspace effects such SSAO.</li><li><strong>MATRIX_PROJECTION:</strong> This matrix accounts for aspect ratio, Field Of View and the near/far clipping planes</li><li><strong>MATRIX_WORLD:</strong> This is an extra matrix, intended for any transformations you might need, like scaling, rotating and translating.</li><li><strong>MATRIX_WORLD_VIEW:</strong> Combines world matrix transformations with the view position and orientation.</li><li><strong>MATRIX_WORLD_VIEW_PROJECTION:</strong> Combines world matrix transformations with the view position/orientation and projection perspective.</li></ul>",
+        "examples":[
+            "//Get the world-space position\nvec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position, 1.0)).xyz;",
+            "//Output the projection-space vertex position\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position, 1.0);"]
     },{
         "key": "gm_BaseTexture",
         "def": "gm_BaseTexture",
-        "desc": "",
-        "examples":["//Output the projection-space vertex position.\ngl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position,1.);"]
+        "desc": "This is the sampler from whatever you're drawing. For example, if you're drawing a sprite, it will give you the sprite's texture page. It's sometimes useful to put a sprite on a separate texture page. If you need an additional texture, you can always add a uniform sampler2D!",
+        "examples":["//Sample the base-texture\nvec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);"]
     }]
 }

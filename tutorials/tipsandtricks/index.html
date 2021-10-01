@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <title>Tips and tricks</title>
         <meta name="description" content="Shader tutorials for GameMaker Studio">
-        <meta name="keywords" content="Tutorials,GameMaker,GM,Gamedev">
-        <meta name="copyright" content="Copyright 2019 GM shaders">
+        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
+        <meta name="copyright" content="Copyright 2021 GM Shaders">
         <meta name="theme-color" content="#e0ba23">
         <!-- Twitter -->
         <meta name="twitter:site" content="@XorDev">
@@ -80,6 +80,14 @@
                                 Just remember that varying values will be interpolated across the mesh, so it's <a href="https://blog.theknightsofunity.com/wp-content/uploads/2016/05/pixel-vs-vertex-lighting.png" target="_blank">not always usable</a>.
                             </li>
                             <li>
+                                <strong>Vectors:</strong> A small, but easy optimization to implement is using vectors a lot. Instead of doing:
+                                <pre><code class="glsl">float texel_width = 1.0 / resolution.x;
+float texel_height = 1.0 / resolution.y;</code></pre>
+                                Just use a vec2: <code class="glsl">vec2 texel_size = 1.0 / resolution;</code>
+                                <br>
+                                This tends to faster, often making the code more concise and readable. Remember, shaders are very good at computing in parallel, so if you calculate multiple components simultaneously with vectors, do that! Don't be afraid to use swizzling wherever necessary!
+                            </li>
+                            <li>
                                 <strong>Loops:</strong> Modern GPUs can handle a lot loop iterations, but if you're targeting non-desktop platforms (especially mobile) or low-end PCs you should be careful. Things like texture sampling can use a lot of bandwidth so 8 texture samples is a generally safe upper limit on <span title="Modern high-end GPUs can handle 100s of samples. They have a lot internal optimizations">low-end hardware</span>.
                                 <br>
                                 If your loop can be "broken" early, make sure to do that. For example, if I'm looping through a list of lights, I can stop at the last light:
@@ -95,15 +103,13 @@ Most of these alternatives require a lot more instructions!">alternatives</span>
                                 The thing is, GPUs are optimized for <span title="Meaning that many pixels are calculated simultaneously (in parallel), rather than in sequence like the CPU.">highly parallel</span> computations. This means that many pixels are computed simultaneously and are running the same code, so if you have a lot of complex operations that apply to specific pixels, it may be run on the entire group and discarding the unused parts.
                             </li>
                             <li>
-                                <strong>Textures and multipass:</strong>
-
-                            </li>
-                            <li>
-                                <strong>Vector:</strong>
-                                Swizzle
+                                <strong>Textures and multipass:</strong> Sometimes you can pre-calculate complex operations on to a texture and input that to the shader via uniforms. For example, if you have a costly noise function, it <span title="I can't say concretely it will be faster because it depends on several factors. Factors such as code complexity, texture resolution, number of texture samples and target hardware. If you think textures can help, give it a try and see.">might be faster</span> to save it to a sprite instead and pass it to the shader as a uniform.
+                                <br>
+                                In some cases, you may have an effect that would be faster if you do it in multiple passes, drawing the result of one shader to a surface and passing that into the next shader. For example, let's say you have a 9x9 box blur. Doing that in one pass requires 81 samples which is quite slow on older hardware!
+                                Instead you can do a 9x1 blur, drawing that to a surface and then applying a 1x9 blur to finish it off totally only 18 samples (77% fewer)!
                             </li>
                         </ul>
-                        Compile time.
+                        If you notice your shaders are taking minutes to compile, it likely has to do with large loops. Once compiled, subsequent compilations will be faster until you modify the shader again. I like to reduce the loop size while testing my shaders quickly and reset it when I have the desired results. This isn't always possible in every use case though.
                     </p>
                     <h3>Preprocessor</h3>
                     <p>
@@ -127,9 +133,9 @@ Most of these alternatives require a lot more instructions!">alternatives</span>
                     <pre><code class="glsl">#define mode 0 //Try changing this to 0, 1 or 2.
 
 #if (mode == 0)
-color *= vec3(1.0, 0.1, 0.1); //Multiply "color" by a red filter.
+color *= vec3(1.0, 0.0, 0.0); //Multiply "color" by a red filter.
 #elif (mode == 1)
-color *= vec3(0.2, 1.0, 0.1); //Mulitply by a green filter.
+color *= vec3(0.0, 1.0, 0.0); //Mulitply by a green filter.
 #else
 color = color.rrr; //Use mono-color from red channel.
 #endif
@@ -319,17 +325,28 @@ float fractal_noise(vec2 pos, int oct, float amp)
                         <br>
                         So if you want to add extra code for only Windows, you can use the pre-processor to check if '_YY_HLSL11_' is defined.
                         <br>
-                        You can also check the shader version using '__VERSION__'. As of 2021, this will always be "100" but it may change in the future.
+                        You can also check the shader version using '__VERSION__'. As of 2021, this will always be "100" but it could change in the future.
                     </p>
                     <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
-                        blah blah blah
+                        So here's a quick summary of what we covered here: Optimize your code for parallel computation (avoid complicated edge cases). If your variables can be pre-computed or <span title="Generally fragment shader < vertex shader < uniforms < pre-computed constants">computed less often</span>, do that.
+                        <br>
+                        You can use the pre-processor for adjustable shader parameters that don't add any runtime cost. This also is perfect for magic numbers that are referenced all around the shaders.
+                        <br>
+                        RGB color perception is a bit complicated, lime, <code class="GLSL">vec3(0,1,0)</code>, appears brighter than blue, <code class="GLSL">vec3(0,0,1)</code>. Also <code class="GLSL">vec3(0.5,0.5,0.5)</code> is not half as bright as <code class="GLSL">vec3(1,1,1)</code>, but a bit brighter due to how brightness is encoded.
+                        <br>
+                        Error messages point to the wrong shader line (being 2 lines below).
+                        <br>
+                        Finally there are some useful shader extensions and built-in macros to play around with.
+                        <br>
+                        <br>
+                        I hope you learned something interesting, even if you are an intermediate shader programmer. I want this website to be the source I didn't have when I was learning about shaders, so please consider sharing this with others if you found it helpful!
                     </p>
                 </div>
               </div>
             </div>
             <div class="navigate-end"></div>
-            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2021</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>initialize();</script>
     </body>

@@ -137,7 +137,7 @@ a:hover {
     color: var(--hov);
 }
 
-.article span[title] {
+span[title] {
     color: var(--link);
     font-style: italic;
 }
