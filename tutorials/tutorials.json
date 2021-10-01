@@ -4,24 +4,24 @@
     "name": "#1 GameMaker",
     "description": "Setup and use of shaders in GameMaker.",
     "pagename": "gamemaker",
-    "date": 1570133017
+    "date": 1633120661
     },
     {
       "name": "#2 Data types",
       "description": "Introduction to data types and conversion.",
       "pagename": "datatypes",
-      "date": 1570133017
+      "date": 1633120661
     },
     {
       "name": "#3 Functions",
       "description": "An overview of shader functions and logic.",
       "pagename": "functions",
-      "date": 1570133017
+      "date": 1633120661
     },
     {
       "name": "#4 Tips and tricks",
       "description": "All about optimizing and improving shaders.",
       "pagename": "tipsandtricks",
-      "date": 1570133017
+      "date": 1633120661
     }]
 }
