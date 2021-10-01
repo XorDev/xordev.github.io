@@ -71,7 +71,7 @@
                         Shaders are used to produce all kinds of graphical and visual effects for 2D or 3D.
                         They are perfect for enhancing any game's visuals.
                         You can use them for anything from color effects like grayscale, sepia tone to blur effects, to lighting effects like normal maps, shadows
-                        to water reflections/refractions, shockwaves, wind and much more!
+                        to water reflections/refractions, shockwaves, wind, and much more!
                         Let's get started from the very beginning by looking at texture pages in GM.
                     </p>
                     <a href="./#texturepages"><h2 id="texturepages">Texture Pages</h2></a>
@@ -80,20 +80,24 @@
                         First, when you run your game, all textures including, sprites, fonts, are placed on texture pages.
                         In summary, a texture page takes <span title="Removing all empty, transparent space">trimmed-down</span> sprites and fits as many as possible on a single page. You can
                         read more about texture pages <a target="_blank" title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>.
-                        Additionally, you can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" option to put it on its own texture page.
+                        Additionally, you can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" option to put one on its own texture page.
                         That means drawing a sprite is actually just drawing a part of a larger texture page:
-                        <div class="image"><img src="./texture_page.png"></div>
+                        <div class="image"><img src="./texture_page.png">
+                            <em>On the left you can see the texture page, on the right is how it looks in game.</em>
+                        </div>
                     </p>
                     <a href="./#drawing"><h2 id="drawing">Drawing Sprites In GM</h2></a>
                     <p>
                         When you draw a sprite, it is actually drawing two triangles together which form a rectangle (quad).
                         Each vertex carries information such as its position, texture coordinates, and color.
-                        So the vertices positions are in the corners of the sprite.
-                        The texture coordinates are the coordinates on texture page ranging from 0 and 1.
+                        So the vertices' positions are in the corners of the sprite.
+                        The texture coordinates of the whole texture page range from 0 to 1.
                         So <code>0,0</code> is the top-left corner of the texture page and <code>0,1</code> is the bottom-left corner.
                         Typically a sprite's texture coordinates will be somewhere in the middle of the texture page.
                     </p>
-                    <div class="image"><img src="./texcoord.png"></div>
+                    <div class="image"><img src="./texcoord.png">
+                        <em>The whole texture page ranges from 0 to 1, while individual sprites lie within a smaller range.</em>
+                    </div>
                     <p>
                         When you use <code>draw_sprite_ext()</code>, sets the color and alpha of all the vertices in the sprite.
                         If you've used vertex buffers or <code>draw_vertex_*</code> functions you'll probably know that you can change the colors of individual vertices
