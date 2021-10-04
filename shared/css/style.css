@@ -670,6 +670,15 @@ header .logo {
         padding: 0;
     }
 
+    header {
+        width: 100%;
+        padding: 0;
+    }
+
+    .header-buttons .elm {
+        margin: .5rem;
+    }
+
     .top-info #title,
     .top-info .date {
         font-size: 1.4rem !important;
