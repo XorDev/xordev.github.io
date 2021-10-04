@@ -642,8 +642,32 @@ header .logo {
         font-size: 1rem !important;
     }
 
+    #showcase {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    #showcase .content {
+        border: none;
+        margin: .7rem;
+        padding: 1.2rem;
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
+        justify-content: center;
+        background-color: var(--dark);
+    }
+
+    #showcase .date {
+        display: none;
+    }
+
     #showcase .colon {
-        font-size: 1.4rem !important;
+        width: 100%;
+        text-align: center;
+        font-size: 1.4rem;
+        padding: 0;
     }
 
     .top-info #title,
