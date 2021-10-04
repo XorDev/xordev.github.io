@@ -14,6 +14,7 @@ body {
     color: var(--txt);
     font: 1rem/1.5 Arial, Helvetica, sans-serif;
     height: 100%;
+    overflow-x: hidden;
 }
 
 html {
@@ -551,41 +552,7 @@ header .logo {
     text-align: right;
 }
 
-@media (max-width: 550px) {
-    body {
-        font-size: 0.8rem;
-    }
-
-    .article,
-    .header-buttons .elm,
-    header .elm.title {
-        font-size: 1rem !important;
-    }
-
-    #showcase .colon {
-        font-size: 1.4rem !important;
-    }
-
-    .top-info #title,
-    .top-info .date {
-        font-size: 1.4rem !important;
-    }
-
-    #tutorials .grid {
-        grid-template-columns: repeat(auto-fill, 8rem);
-    }
-
-    #tutorials .grid .item img {
-        border-radius: 4px;
-    }
-
-    #tutorials .grid .item span {
-        opacity: 1;
-        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
-    }
-}
-
-@media (max-width: 700px) {
+@media (max-width: 748px) {
     #about .center {
         width: 100%;
         max-width: 100%;
@@ -611,5 +578,90 @@ header .logo {
     #contact .question {
         margin-top: 3rem;
         margin-bottom: 1rem;
+    }
+
+    #tutorials {
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 1rem;
+        width: auto;
+    }
+
+    #tutorials .grid {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    #tutorials .grid .item {
+        background-color: var(--dark);
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        transition: box-shadow .2s;
+    }
+
+    #tutorials .grid .item img {
+        display: inline-block;
+        max-width: 12rem;
+        border-radius: 4px;
+        box-shadow: none !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    #tutorials .grid .item span {
+        display: inline-block;
+        position: static;
+        text-align: left;
+        transform: none;
+        width: auto;
+        margin: 0 2rem;
+        text-shadow: none;
+        opacity: 1;
+    }
+
+    #tutorials .grid .item:hover {
+        box-shadow: 0 3px 14px 0 var(--dark);
+    }
+
+    #tutorials .grid .item:hover span {
+        color: var(--link);
+    }
+}
+
+@media (max-width: 550px) {
+    body {
+        font-size: 0.8rem;
+    }
+
+    .article,
+    .header-buttons .elm,
+    header .elm.title {
+        font-size: 1rem !important;
+    }
+
+    #showcase .colon {
+        font-size: 1.4rem !important;
+    }
+
+    .top-info #title,
+    .top-info .date {
+        font-size: 1.4rem !important;
+    }
+}
+
+@media (max-width: 440px) {
+    #tutorials .grid .item {
+        background-color: transparent;
+        flex-direction: column;
+        box-shadow: none !important;
+        margin-bottom: 1rem;
+    }
+
+    #tutorials .grid .item span {
+        padding: .7rem 0;
+        font-weight: 200;
     }
 }
