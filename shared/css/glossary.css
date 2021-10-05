@@ -33,6 +33,7 @@
     right: 0;
     background-color: var(--search);
     padding: 1rem 2rem;
+    padding-right: 7rem;
 }
 
 #docs .doc>.link {
@@ -43,6 +44,10 @@
 
 #docs .doc>div {
     margin-bottom: 1rem;
+}
+
+#docs .doc img {
+    border-radius: 6px;
 }
 
 #docs .doc .title {
@@ -147,4 +152,53 @@
     /* TODO: This is a pretty hacky solution for centering images. Fix later */
     margin-left: 50%;
     transform: translateX(-50%);
+}
+
+
+@media (max-width: 748px) {
+    #docs {
+        width: 94%;
+    }
+
+    #docs .doc {
+        padding: 1rem;
+    }
+
+    #docs .doc .content > .name {
+        padding: .5rem 1rem;
+        font-size: 1.3rem;
+        padding-right: 6rem;
+    }
+
+    #docs .doc > .link {
+        right: 1rem;
+    }
+
+    #docs .doc .examples ul,
+    #docs .doc .examples ul li {
+        border-left: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #docs .name {
+        font-size: 1.2rem;
+    }
+
+    #docs .doc .arguments ul li {
+        padding-left: 1rem;
+    }
+
+    code.hljs {
+        padding: .2rem .4rem;
+        font-size: 0.9rem;
+    }
+
+    #docs .doc .examples ul pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    }
 }
