@@ -24,7 +24,7 @@ body {
 
 .article {
     font-size: 1.2rem;
-    width: 70%;
+    width: 1000px;
     max-width: 90%;
     padding: 1rem;
     margin: 0 auto;
@@ -85,11 +85,33 @@ body {
         padding: 0 1rem;
     }
 
+    .article ul {
+        padding-left: 1.3rem;
+    }
+
     .navigate-end .middle {
         width: 2rem;
     }
 
     .navigate-end .title {
         font-size: 1.1rem;
+    }
+
+    .article {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .article code.hljs {
+        padding: .2rem .4rem;
+        font-size: 0.9rem;
+    }
+
+    .article pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
     }
 }
