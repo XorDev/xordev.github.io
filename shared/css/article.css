@@ -70,3 +70,26 @@ body {
         border-radius: 0;
     }
 }
+
+@media (max-width: 748px) {
+
+    .navigate-end {
+        margin: 0;
+        width: auto;
+        padding: 2rem 1rem;
+    }
+
+    .article .wrapper {
+        margin: 0;
+        width: auto;
+        padding: 0 1rem;
+    }
+
+    .navigate-end .middle {
+        width: 2rem;
+    }
+
+    .navigate-end .title {
+        font-size: 1.1rem;
+    }
+}
