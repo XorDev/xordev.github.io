@@ -44,9 +44,11 @@ function appendContent(tuts) {
         <div class="date">${tut.date}</div>`;
 
     const grid = document.querySelector('#tutorials .grid');
+    let count = 0;
 
     for (let type in tuts) {
         let typtuts = tuts[type];
+        count += typtuts.length;
         for (let i = 0; i < typtuts.length; i++) {
             let tut = getTutorial(typtuts, i);
 
@@ -60,5 +62,12 @@ function appendContent(tuts) {
 
             grid.appendChild(a);
         }
+    }
+
+    // Handle odd lists
+    if (count % 2 === 1) {
+        let div = document.createElement('div');
+        div.classList.add('invisible');
+        grid.appendChild(div);
     }
 }
