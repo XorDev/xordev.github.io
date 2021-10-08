@@ -633,6 +633,14 @@ header .logo {
     }
 }
 
+.inline-hljs code, code.inline-hljs {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 @media (max-width: 700px) {
     .article,
     .header-buttons .elm,
@@ -686,11 +694,6 @@ header .logo {
     .header-buttons .elm {
         margin: .5rem;
     }
-
-    .top-info #title,
-    .top-info .date {
-        font-size: 1.4rem !important;
-    }
 }
 
 @media (max-width: 440px) {
@@ -718,7 +721,7 @@ header .logo {
 
     #tutorials .grid .item span {
         padding: .3rem 0;
-        font-weight: 200;
+        font-weight: 400;
         font-size: 1rem;
         width: 150px;
         text-align: center;

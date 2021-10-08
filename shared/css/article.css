@@ -10,6 +10,7 @@ body {
     margin: 0 auto;
     max-width: 50rem;
     justify-content: space-between;
+    align-items: center;
 }
 
 .top-info #title {
@@ -55,11 +56,12 @@ body {
 
 .article .title, .article h1, .article h2, .article h3 {
     color: var(--htxt);
-    font-weight: lighter;
+    font-weight: 400;
 }
-.article h3 {
-  list-style-type: disc;
-  list-style-position: inside;
+
+.article h2::before {
+    content: '# ';
+    color: var(--txt);
 }
 
 @media (max-width: 900px) {
@@ -104,7 +106,7 @@ body {
 
     .article code.hljs {
         padding: .2rem .4rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
     .article pre {
@@ -113,5 +115,10 @@ body {
         white-space: -pre-wrap;      /* Opera 4-6 */
         white-space: -o-pre-wrap;    /* Opera 7 */
         word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    }
+
+    .top-info #title,
+    .top-info .date {
+        font-size: 1.4rem !important;
     }
 }
