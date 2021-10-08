@@ -66,9 +66,6 @@ function glossaryInit() {
 function creacopURL(elm, key) {
     const link = `${window.location.href.match(/(.+?)(?:\?|$)/)[1]}?load=${key}`;
 
-    if (elm.innerText === 'Create link')
-        elm.innerText = link;
-
     const input = document.createElement('input');
         input.setAttribute('type', 'text');
         input.setAttribute('value', link);
@@ -83,7 +80,7 @@ function creacopURL(elm, key) {
     let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     let div = document.createElement('div');
         div.setAttribute('class', 'cheese');
-        div.setAttribute('style', `top:${Math.floor(elm.getBoundingClientRect().top + top + 24)}px;left:${Math.floor(elm.getBoundingClientRect().left + 32)}px;`);
+        div.setAttribute('style', `top:${Math.floor(elm.getBoundingClientRect().top + top - 5)}px;left:${Math.floor(elm.getBoundingClientRect().left - 100)}px;`);
         div.innerHTML = `Copied link to clipboard`;
     document.body.append(div);
     loadunload(div, 60, 3000);

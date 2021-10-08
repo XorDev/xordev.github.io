@@ -132,6 +132,10 @@
     display: inline;
 }
 
+#docs .type-title span {
+    background-color: var(--back);
+}
+
 .cheese {
     color: var(--htxt);
     transition: 1s opacity;
@@ -142,7 +146,8 @@
     padding: 0.3rem 0.7rem;
     border-radius: 1rem;
     box-shadow: 0 0px 0 2px var(--dark),
-        0 0px 6px rgba(0, 0, 0, .3);
+        0 0px 6px rgba(0, 0, 0, .6);
+    z-index: 100;
 }
 
 .cheese.load {
