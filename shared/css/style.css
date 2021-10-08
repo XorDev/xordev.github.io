@@ -679,8 +679,8 @@ header .logo {
     }
 
     header {
-        width: 100%;
-        padding: 0;
+        width: auto;
+        padding: 0 1rem;
     }
 
     .header-buttons .elm {
@@ -694,8 +694,12 @@ header .logo {
 }
 
 @media (max-width: 440px) {
-    #tutorials {
+    header {
+        padding: 0;
+    }
 
+    .header-buttons .elm {
+        margin: .3rem;
     }
 
     #tutorials .grid {
