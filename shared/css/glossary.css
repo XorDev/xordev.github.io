@@ -33,6 +33,7 @@
     right: 0;
     background-color: var(--search);
     padding: 1rem 2rem;
+    padding-right: 7rem;
 }
 
 #docs .doc>.link {
@@ -43,6 +44,10 @@
 
 #docs .doc>div {
     margin-bottom: 1rem;
+}
+
+#docs .doc img {
+    border-radius: 6px;
 }
 
 #docs .doc .title {
@@ -127,24 +132,80 @@
     display: inline;
 }
 
+#docs .type-title span {
+    background-color: var(--back);
+}
+
 .cheese {
-    transition: 2s all;
+    color: var(--htxt);
+    transition: 1s opacity;
+    pointer-events: none;
     opacity: 0;
     position: absolute;
     background-color: var(--search);
     padding: 0.3rem 0.7rem;
     border-radius: 1rem;
-    box-shadow: 0 9px 0 6px var(--dark);
+    box-shadow: 0 0px 0 2px var(--dark),
+        0 0px 6px rgba(0, 0, 0, .6);
+    z-index: 100;
 }
 
 .cheese.load {
-    color: var(--htxt);
     opacity: 1;
+    color: var(--htxt);
 }
 
 .image img {
     max-width: 100%;
-    /* TODO: This is a pretty hacky solution for centering images. Fix later */
-    margin-left: 50%;
-    transform: translateX(-50%);
+    margin: .5rem auto;
+    display: block;
+}
+
+
+@media (max-width: 748px) {
+    #docs {
+        width: 94%;
+    }
+
+    #docs .doc {
+        padding: 1rem;
+    }
+
+    #docs .doc .content > .name {
+        padding: .5rem 1rem;
+        font-size: 1.3rem;
+        padding-right: 6rem;
+    }
+
+    #docs .doc > .link {
+        right: 1rem;
+    }
+
+    #docs .doc .examples ul,
+    #docs .doc .examples ul li {
+        border-left: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #docs .name {
+        font-size: 1.2rem;
+    }
+
+    #docs .doc .arguments ul li {
+        padding-left: 1rem;
+    }
+
+    code.hljs {
+        padding: .2rem .4rem;
+        font-size: 0.9rem;
+    }
+
+    #docs .doc .examples ul pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    }
 }

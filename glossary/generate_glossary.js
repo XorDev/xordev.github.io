@@ -30,7 +30,7 @@ function glossaryToString(glossary) {
 
             elms.push(`
                 <div class="${type} doc" id="${elm.key}">
-                    <div class="link" onclick="creacopURL(this, '${elm.key}')">Create link</div>
+                    <div class="link" onclick="creacopURL(this, '${elm.key}')">Copy link</div>
                     <div class="content">
                         ${properties}
                     </div>

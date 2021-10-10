@@ -10,6 +10,7 @@ body {
     margin: 0 auto;
     max-width: 50rem;
     justify-content: space-between;
+    align-items: center;
 }
 
 .top-info #title {
@@ -24,7 +25,7 @@ body {
 
 .article {
     font-size: 1.2rem;
-    width: 70%;
+    width: 1000px;
     max-width: 90%;
     padding: 1rem;
     margin: 0 auto;
@@ -55,11 +56,12 @@ body {
 
 .article .title, .article h1, .article h2, .article h3 {
     color: var(--htxt);
-    font-weight: lighter;
+    font-weight: 400;
 }
-.article h3 {
-  list-style-type: disc;
-  list-style-position: inside;
+
+.article h2::before {
+    content: '# ';
+    color: var(--txt);
 }
 
 @media (max-width: 900px) {
@@ -68,5 +70,55 @@ body {
         width: 100%;
         max-width: 100%;
         border-radius: 0;
+    }
+}
+
+@media (max-width: 748px) {
+
+    .navigate-end {
+        margin: 0;
+        width: auto;
+        padding: 2rem 1rem;
+    }
+
+    .article .wrapper {
+        margin: 0;
+        width: auto;
+        padding: 0 1rem;
+    }
+
+    .article ul {
+        padding-left: 1.3rem;
+    }
+
+    .navigate-end .middle {
+        width: 2rem;
+    }
+
+    .navigate-end .title {
+        font-size: 1.1rem;
+    }
+
+    .article {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .article code.hljs {
+        padding: .2rem .4rem;
+        font-size: 0.8rem;
+    }
+
+    .article pre {
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    }
+
+    .top-info #title,
+    .top-info .date {
+        font-size: 1.4rem !important;
     }
 }
