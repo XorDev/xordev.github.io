@@ -31,15 +31,6 @@
         <script>const root="../";</script>
         <script src="../shared/js/options.js"></script>
         <script src="../shared/js/glossary.js"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3EKBJ8XLE"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-S3EKBJ8XLE');
-        </script>
     </head>
     <body>
         <div class="wrapper">
@@ -1428,7 +1419,7 @@ bvec3 not_equal = not(equal(a, b));</pre></code></li></ul>
                     <div class="content">
                         <div class="name">gl_Position</div><div class="desc block">
                         <div class="title">Description:</div>
-                        This variable is required in the vertex shader to set vertex position. So with this you have direct control of each vertex's position (useful for effects like shockwaves or water). <br>The make sure to set the value in <span title='Typically by using MATRIX_WORLD_VIEW_PROJECTION. Projection space ranges from -1.0 to +1.0 for the x, y and z coordinates. -1 on the z axis is near clipping plane and +1 is the far clipping plane.'>projection-space</span>.<br><br><strong>Note:</strong> this is a vec4. The w-component is used for all the matrix translations. When in doubt, leave it as 1.0!
+                        This variable is required in the vertex shader to set vertex position. So with this you have direct control of each vertex's position (useful for effects like shockwaves or water). <br>The make sure to set the value in <span title='Typically by using MATRIX_WORLD_VIEW_PROJECTION. Projection space ranges from -1.0 to +1.0 for the x, y and z coordinates. -1 on the z axis is near clipping plane and +1 is the far clipping plane.'>projection-space</span>.<br><br><strong>Note:</strong> This is a vec4. The w-component is used for all the matrix translations. When in doubt, leave it as 1.0!
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//Output the projection-space vertex position
@@ -1440,7 +1431,7 @@ gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position, 1.0)
                     <div class="content">
                         <div class="name">gl_FragColor</div><div class="desc block">
                         <div class="title">Description:</div>
-                        This is required in the fragment shader to sets the pixel's color and alpha (RGBA vec4). You should only set this once.
+                        This is a required vec4 in the fragment shader to sets the pixel's output color and alpha. You should only set this once.<br><br>Note: you can use <a href='/glossary/?load=gl_FragData' target='_blank'>gl_FragData</a> instead of gl_FragColor.
                     </div><div class="examples ">
                             <div class="title">Examples:</div>
                             <ul><li><pre><code>//Output solid white
@@ -1448,10 +1439,59 @@ gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);</pre></code></li><li><pre><code>//Outpu
 gl_FragColor = texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li></ul>
                         </div>
                     </div>
+                </div><div class="Built-in Variables doc" id="gl_FragData">
+                    <div class="link" onclick="creacopURL(this, 'gl_FragData')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gl_FragData[]</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 array that can be used in the fragment shader to set the pixel's output color and alpha (as a RGBA vec4) instead of <a href='/glossary/?load=gl_FragColor' target='_blank'>gl_FragColor</a>. This is meant to be used for <span title='Multiple Render Targets, which is where one shader outputs up to 4 results to 4 different surfaces. This is used often in deferred rendering (e.g. normal mapping) systems for faster rendering'>MRTs</span> with <span class="inline-hljs"><pre><code>surface_set_target_ext</code></pre></span> however some platforms only support one output. Check out <a href='/glossary/?load=gl_MaxDrawBuffers' target='_blank'>gl_MaxDrawBuffers</a> for the number of supported render targets.
+                    </div><div class="examples ">
+                            <div class="title">Examples:</div>
+                            <ul><li><pre><code>//Output solid white
+gl_FragData[0] = vec4(1.0, 1.0, 1.0, 1.0);</pre></code></li><li><pre><code>//Output the base-texture
+gl_FragData[0] = texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gl_MaxDrawBuffers">
+                    <div class="link" onclick="creacopURL(this, 'gl_MaxDrawBuffers')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gl_MaxDrawBuffers</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is an int for the number of supported <span title='Multiple Render Targets, which is where one shader outputs up to 4 results to 4 different surfaces. This is used often in deferred rendering (e.g. normal mapping) systems for faster rendering'>MRTs</span> on the current platform (e.g. Windows may support 4, while an Android device supports only 1).
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//If supported, output solid white on the second render target
+if (gl_MaxDrawBuffers>1) gl_FragData[1] = vec4(1.0);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gl_FragCoord">
+                    <div class="link" onclick="creacopURL(this, 'gl_FragCoord')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gl_FragCoord</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a read-only vec4 in the fragment shader that contains the fragment/pixel position in the window (relative to the top-left corner). The z-component will always be 0.0 and the w-component is always 1.0
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Get the current 2D pixel position in the window.
+vec2 pixel = gl_FragCoord.xy;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gl_FrontFacing">
+                    <div class="link" onclick="creacopURL(this, 'gl_FrontFacing')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gl_FrontFacing</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a read-only bool in fragment shader indicating whether or not a triangle is front-facing (true) or back-facing (false).<br><br>Note: If your models are wound clockwise instead of counter-clockwise, you will want to negate the value. This is only useful if you have face culling off so that you can see both sides of a triangle.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Set the front facing triangles to solid white
+if (gl_FrontFacing) gl_FragColor = vec4(1.0);</pre></code></li></ul>
+                        </div>
+                    </div>
                 </div><div class="Built-in Variables doc" id="gm_Matrices">
                     <div class="link" onclick="creacopURL(this, 'gm_Matrices')">Copy link</div>
                     <div class="content">
-                        <div class="name">gm_Matrices</div><div class="desc block">
+                        <div class="name">gm_Matrices[]</div><div class="desc block">
                         <div class="title">Description:</div>
                         gm_Matrices is an array of matrices with five to choose from:<br><ul><li><strong>MATRIX_VIEW:</strong> Used to orient space with the view. So the x-axis is always left/right on the screen, the y-axis is up and down and positive z is forward. This is often used for fog because you can get the distance relative to the camera. It's also used for screenspace effects such SSAO.</li><li><strong>MATRIX_PROJECTION:</strong> This matrix accounts for aspect ratio, Field Of View and the near/far clipping planes</li><li><strong>MATRIX_WORLD:</strong> This is an extra matrix, intended for any transformations you might need, like scaling, rotating and translating.</li><li><strong>MATRIX_WORLD_VIEW:</strong> Combines world matrix transformations with the view position and orientation.</li><li><strong>MATRIX_WORLD_VIEW_PROJECTION:</strong> Combines world matrix transformations with the view position/orientation and projection perspective.</li></ul>
                     </div><div class="examples ">
@@ -1473,8 +1513,164 @@ gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position, 1.0)
 vec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);</pre></code></li></ul>
                         </div>
                     </div>
+                </div><div class="Built-in Variables doc" id="gm_FogStart">
+                    <div class="link" onclick="creacopURL(this, 'gm_FogStart')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_FogStart</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a float for vertex shader containing the fog start distance from <span class="inline-hljs"><pre><code>gpu_set_fog()</code></pre></span>. This can be used with <a href='/glossary/?load=gm_RcpFogRange' target='_blank'>gm_RcpFogRange</a> to compute the fog at the current position.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Calculate the fog amount from the view_space depth
+float fog_factor = (view_pos.z - gm_FogStart) * gm_RcpFogRange;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_RcpFogRange">
+                    <div class="link" onclick="creacopURL(this, 'gm_RcpFogRange')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_RcpFogRange</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a float for vertex shader containing the reciprocal of the fog range value from <span class="inline-hljs"><pre><code>gpu_set_fog()</code></pre></span>, computed as <span class="inline-hljs"><pre><code>1.0 / (fog_end - fog_start)</code></pre></span>. This can be used with <a href='/glossary/?load=gm_FogStart' target='_blank'>gm_FogStart</a> to compute the fog at the current position.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Calculate the fog amount from the view_space depth
+float fog_factor = (view_pos.z - gm_FogStart) * gm_RcpFogRange;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_VS_FogEnabled">
+                    <div class="link" onclick="creacopURL(this, 'gm_VS_FogEnabled')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_VS_FogEnabled</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a bool for vertex shader telling if the <span class="inline-hljs"><pre><code>gpu_set_fog()</code></pre></span> is enabled. There's a separate bool called <a href='/glossary/?load=gm_PS_FogEnabled' target='_blank'>gm_PS_FogEnabled</a> for the fragment shader.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Checking if the fog (vertex) is enabled
+if (gm_VS_FogEnabled)</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_PS_FogEnabled">
+                    <div class="link" onclick="creacopURL(this, 'gm_PS_FogEnabled')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_PS_FogEnabled</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a bool for fragment shader telling if the <span class="inline-hljs"><pre><code>gpu_set_fog()</code></pre></span> is enabled. There's a separate bool called <a href='/glossary/?load=gm_VS_FogEnabled' target='_blank'>gm_VS_FogEnabled</a> for the vertex shader.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Checking if the fog (fragment) is enabled
+if (gm_PS_FogEnabled)</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_FogColour">
+                    <div class="link" onclick="creacopURL(this, 'gm_FogColour')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_FogColour</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 for fragment shader containing the fog color from <span class="inline-hljs"><pre><code>gpu_set_fog()</code></pre></span>. The alpha channel is always 1.0.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Blend from the texture color to the fog color based on 'fog_factor'
+gl_FragColor = mix(tex_color, gm_FogColour, fog_factor);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_LightingEnabled">
+                    <div class="link" onclick="creacopURL(this, 'gm_LightingEnabled')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_LightingEnabled</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a bool for vertex shader to check if GM's lighting system is enabled set with <span class="inline-hljs"><pre><code>draw_set_lighting()</code></pre></span>.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Check if the lighting is enabled before
+if (gm_LightingEnabled)</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_AmbientColour">
+                    <div class="link" onclick="creacopURL(this, 'gm_AmbientColour')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_AmbientColour</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 for vertex shader to containing the ambient light color from <span class="inline-hljs"><pre><code>draw_light_define_ambient()</code></pre></span>. The alpha-component will always be 1.0.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Initialize 'lighting' with the ambient light color
+vec4 lighting = gm_AmbientColour;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_Lights_Direction">
+                    <div class="link" onclick="creacopURL(this, 'gm_Lights_Direction')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_Lights_Direction[]</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 array for vertex shader to containing the light direction vector set from <span class="inline-hljs"><pre><code>draw_light_define_direction()</code></pre></span>. The w-component is 1.0 if the light is enabled and 0.0 if not. xyz components will always be normalized.<br>This array's size is set by a macro called <span class="inline-hljs"><pre><code>MAX_VS_LIGHTS</code></pre></span> which is hardcoded to 8, so you're limited to 8 lights.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Add directional lights to 'lighting'
+lighting += DoDirLight(world_normal, gm_Lights_Direction[i], gm_Lights_Colour[i]);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_Lights_PosRange">
+                    <div class="link" onclick="creacopURL(this, 'gm_Lights_PosRange')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_Lights_PosRange[]</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 array for vertex shader to containing the light position and range set from <span class="inline-hljs"><pre><code>draw_light_define_point()</code></pre></span>. The w-component is the light's range (0.0 if disabled).<br>This array's size is set by a macro called <span class="inline-hljs"><pre><code>MAX_VS_LIGHTS</code></pre></span> which is hardcoded to 8, so you're limited to 8 lights.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Add point lights to 'lighting'
+lighting += DoPointLight(world_pos, world_normal, gm_Lights_PosRange[i], gm_Lights_Colour[i]);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_Lights_Colour">
+                    <div class="link" onclick="creacopURL(this, 'gm_Lights_Colour')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_Lights_Colour[]</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a vec4 array for vertex shader to containing the light color <span class="inline-hljs"><pre><code>draw_light_define_point()</code></pre></span> or <span class="inline-hljs"><pre><code>draw_light_define_direction()</code></pre></span>. The alpha-component will always be 1.0.<br>This array's size is set by a macro called <span class="inline-hljs"><pre><code>MAX_VS_LIGHTS</code></pre></span> which is hardcoded to 8, so you're limited to 8 lights.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//Add point lights to 'lighting'
+lighting += DoPointLight(world_pos, world_normal, gm_Lights_PosRange[i], gm_Lights_Colour[i]);</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_AlphaTestEnabled">
+                    <div class="link" onclick="creacopURL(this, 'gm_AlphaTestEnabled')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_AlphaTestEnabled</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a bool for fragment shader telling if alpha testing from <span class="inline-hljs"><pre><code>gpu_set_alphatestenable()</code></pre></span> is enabled. You can also get the alpha test reference from <a href='/glossary/?load=gm_AlphaRefValue' target='_blank'>gm_AlphaRefValue</a>.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//If alpha testing is enabled, discard alpha values below the reference value
+if (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_AlphaRefValue">
+                    <div class="link" onclick="creacopURL(this, 'gm_AlphaRefValue')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_AlphaRefValue</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a float for fragment shader containing the alpha test reference from <span class="inline-hljs"><pre><code>gpu_set_alphatestref()</code></pre></span>. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//If alpha testing is enabled, discard alpha values below the reference value
+if (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;</pre></code></li></ul>
+                        </div>
+                    </div>
+                </div><div class="Built-in Variables doc" id="gm_AlphaRefValue">
+                    <div class="link" onclick="creacopURL(this, 'gm_AlphaRefValue')">Copy link</div>
+                    <div class="content">
+                        <div class="name">gm_AlphaRefValue</div><div class="desc block">
+                        <div class="title">Description:</div>
+                        This is a float for fragment shader containing the alpha test reference from <span class="inline-hljs"><pre><code>gpu_set_alphatestref()</code></pre></span>. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.
+                    </div><div class="examples ">
+                            <div class="title">Example:</div>
+                            <ul><li><pre><code>//If alpha testing is enabled, discard alpha values below the reference value
+if (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;</pre></code></li></ul>
+                        </div>
+                    </div>
                 </div></div>
-            <footer><div class="left">&copy; GM Shaders 2020 </div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2021</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>
             initialize();

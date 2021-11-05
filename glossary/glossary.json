@@ -793,12 +793,38 @@
     },{
         "key": "gl_FragColor",
         "def": "gl_FragColor",
-        "desc": "This is required in the fragment shader to sets the pixel's color and alpha (RGBA vec4). You should only set this once.",
-        "examples":["//Output solid white\ngl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
+        "desc": "This is a required vec4 in the fragment shader to sets the pixel's output color and alpha. You should only set this once.<br><br>Note: you can use <a href='/glossary/?load=gl_FragData' target='_blank'>gl_FragData</a> instead of gl_FragColor.",
+        "examples":[
+            "//Output solid white\ngl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
             "//Output the base-texture\ngl_FragColor = texture2D(gm_BaseTexture, v_vTexcoord);"]
     },{
+        "key": "gl_FragData",
+        "def": "gl_FragData[]",
+        "desc": "This is a vec4 array that can be used in the fragment shader to set the pixel's output color and alpha (as a RGBA vec4) instead of <a href='/glossary/?load=gl_FragColor' target='_blank'>gl_FragColor</a>. This is meant to be used for <span title='Multiple Render Targets, which is where one shader outputs up to 4 results to 4 different surfaces. This is used often in deferred rendering (e.g. normal mapping) systems for faster rendering'>MRTs</span> with `surface_set_target_ext` however some platforms only support one output. Check out <a href='/glossary/?load=gl_MaxDrawBuffers' target='_blank'>gl_MaxDrawBuffers</a> for the number of supported render targets.",
+        "examples":[
+            "//Output solid white\ngl_FragData[0] = vec4(1.0, 1.0, 1.0, 1.0);",
+            "//Output the base-texture\ngl_FragData[0] = texture2D(gm_BaseTexture, v_vTexcoord);"]
+    },{
+        "key": "gl_MaxDrawBuffers",
+        "def": "gl_MaxDrawBuffers",
+        "desc": "This is an int for the number of supported <span title='Multiple Render Targets, which is where one shader outputs up to 4 results to 4 different surfaces. This is used often in deferred rendering (e.g. normal mapping) systems for faster rendering'>MRTs</span> on the current platform (e.g. Windows may support 4, while an Android device supports only 1).",
+        "examples":[
+            "//If supported, output solid white on the second render target\nif (gl_MaxDrawBuffers>1) gl_FragData[1] = vec4(1.0);"]
+    },{
+        "key": "gl_FragCoord",
+        "def": "gl_FragCoord",
+        "desc": "This is a read-only vec4 in the fragment shader that contains the fragment/pixel position in the window (relative to the top-left corner). The z-component will always be 0.0 and the w-component is always 1.0",
+        "examples":[
+            "//Get the current 2D pixel position in the window.\nvec2 pixel = gl_FragCoord.xy;"]
+    },{
+        "key": "gl_FrontFacing",
+        "def": "gl_FrontFacing",
+        "desc": "This is a read-only bool in fragment shader indicating whether or not a triangle is front-facing (true) or back-facing (false).<br><br>Note: If your models are wound clockwise instead of counter-clockwise, you will want to negate the value. This is only useful if you have face culling off so that you can see both sides of a triangle.",
+        "examples":[
+            "//Set the front facing triangles to solid white\nif (gl_FrontFacing) gl_FragColor = vec4(1.0);"]
+    },{
         "key": "gm_Matrices",
-        "def": "gm_Matrices",
+        "def": "gm_Matrices[]",
         "desc": "gm_Matrices is an array of matrices with five to choose from:<br><ul><li><strong>MATRIX_VIEW:</strong> Used to orient space with the view. So the x-axis is always left/right on the screen, the y-axis is up and down and positive z is forward. This is often used for fog because you can get the distance relative to the camera. It's also used for screenspace effects such SSAO.</li><li><strong>MATRIX_PROJECTION:</strong> This matrix accounts for aspect ratio, Field Of View and the near/far clipping planes</li><li><strong>MATRIX_WORLD:</strong> This is an extra matrix, intended for any transformations you might need, like scaling, rotating and translating.</li><li><strong>MATRIX_WORLD_VIEW:</strong> Combines world matrix transformations with the view position and orientation.</li><li><strong>MATRIX_WORLD_VIEW_PROJECTION:</strong> Combines world matrix transformations with the view position/orientation and projection perspective.</li></ul>",
         "examples":[
             "//Get the world-space position\nvec3 world = (gm_Matrices[MATRIX_WORLD] * vec4(in_Position, 1.0)).xyz;",
@@ -807,6 +833,85 @@
         "key": "gm_BaseTexture",
         "def": "gm_BaseTexture",
         "desc": "This is the sampler from whatever you're drawing. For example, if you're drawing a sprite, it will give you the sprite's texture page. It's sometimes useful to put a sprite on a separate texture page. If you need an additional texture, you can always add a uniform sampler2D!",
-        "examples":["//Sample the base-texture\nvec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);"]
+        "examples":[
+            "//Sample the base-texture\nvec4 tex = texture2D(gm_BaseTexture, v_vTexcoord);"]
+    },{
+        "key": "gm_FogStart",
+        "def": "gm_FogStart",
+        "desc": "This is a float for vertex shader containing the fog start distance from `gpu_set_fog()`. This can be used with <a href='/glossary/?load=gm_RcpFogRange' target='_blank'>gm_RcpFogRange</a> to compute the fog at the current position.",
+        "examples":[
+            "//Calculate the fog amount from the view_space depth\nfloat fog_factor = (view_pos.z - gm_FogStart) * gm_RcpFogRange;"]
+    },{
+        "key": "gm_RcpFogRange",
+        "def": "gm_RcpFogRange",
+        "desc": "This is a float for vertex shader containing the reciprocal of the fog range value from `gpu_set_fog()`, computed as `1.0 / (fog_end - fog_start)`. This can be used with <a href='/glossary/?load=gm_FogStart' target='_blank'>gm_FogStart</a> to compute the fog at the current position.",
+        "examples":[
+            "//Calculate the fog amount from the view_space depth\nfloat fog_factor = (view_pos.z - gm_FogStart) * gm_RcpFogRange;"]
+    },{
+        "key": "gm_VS_FogEnabled",
+        "def": "gm_VS_FogEnabled",
+        "desc": "This is a bool for vertex shader telling if the `gpu_set_fog()` is enabled. There's a separate bool called <a href='/glossary/?load=gm_PS_FogEnabled' target='_blank'>gm_PS_FogEnabled</a> for the fragment shader.",
+        "examples":[
+            "//Checking if the fog (vertex) is enabled\nif (gm_VS_FogEnabled)"]
+    },{
+        "key": "gm_PS_FogEnabled",
+        "def": "gm_PS_FogEnabled",
+        "desc": "This is a bool for fragment shader telling if the `gpu_set_fog()` is enabled. There's a separate bool called <a href='/glossary/?load=gm_VS_FogEnabled' target='_blank'>gm_VS_FogEnabled</a> for the vertex shader.",
+        "examples":[
+            "//Checking if the fog (fragment) is enabled\nif (gm_PS_FogEnabled)"]
+    },{
+        "key": "gm_FogColour",
+        "def": "gm_FogColour",
+        "desc": "This is a vec4 for fragment shader containing the fog color from `gpu_set_fog()`. The alpha channel is always 1.0.",
+        "examples":[
+            "//Blend from the texture color to the fog color based on 'fog_factor'\ngl_FragColor = mix(tex_color, gm_FogColour, fog_factor);"]
+    },{
+        "key": "gm_LightingEnabled",
+        "def": "gm_LightingEnabled",
+        "desc": "This is a bool for vertex shader to check if GM's lighting system is enabled set with `draw_set_lighting()`.",
+        "examples":[
+            "//Check if the lighting is enabled before\nif (gm_LightingEnabled)"]
+    },{
+        "key": "gm_AmbientColour",
+        "def": "gm_AmbientColour",
+        "desc": "This is a vec4 for vertex shader to containing the ambient light color from `draw_light_define_ambient()`. The alpha-component will always be 1.0.",
+        "examples":[
+            "//Initialize 'lighting' with the ambient light color\nvec4 lighting = gm_AmbientColour;"]
+    },{
+        "key": "gm_Lights_Direction",
+        "def": "gm_Lights_Direction[]",
+        "desc": "This is a vec4 array for vertex shader to containing the light direction vector set from `draw_light_define_direction()`. The w-component is 1.0 if the light is enabled and 0.0 if not. xyz components will always be normalized.<br>This array's size is set by a macro called `MAX_VS_LIGHTS` which is hardcoded to 8, so you're limited to 8 lights.",
+        "examples":[
+            "//Add directional lights to 'lighting'\nlighting += DoDirLight(world_normal, gm_Lights_Direction[i], gm_Lights_Colour[i]);"]
+    },{
+        "key": "gm_Lights_PosRange",
+        "def": "gm_Lights_PosRange[]",
+        "desc": "This is a vec4 array for vertex shader to containing the light position and range set from `draw_light_define_point()`. The w-component is the light's range (0.0 if disabled).<br>This array's size is set by a macro called `MAX_VS_LIGHTS` which is hardcoded to 8, so you're limited to 8 lights.",
+        "examples":[
+            "//Add point lights to 'lighting'\nlighting += DoPointLight(world_pos, world_normal, gm_Lights_PosRange[i], gm_Lights_Colour[i]);"]
+    },{
+        "key": "gm_Lights_Colour",
+        "def": "gm_Lights_Colour[]",
+        "desc": "This is a vec4 array for vertex shader to containing the light color `draw_light_define_point()` or `draw_light_define_direction()`. The alpha-component will always be 1.0.<br>This array's size is set by a macro called `MAX_VS_LIGHTS` which is hardcoded to 8, so you're limited to 8 lights.",
+        "examples":[
+            "//Add point lights to 'lighting'\nlighting += DoPointLight(world_pos, world_normal, gm_Lights_PosRange[i], gm_Lights_Colour[i]);"]
+    },{
+        "key": "gm_AlphaTestEnabled",
+        "def": "gm_AlphaTestEnabled",
+        "desc": "This is a bool for fragment shader telling if alpha testing from `gpu_set_alphatestenable()` is enabled. You can also get the alpha test reference from <a href='/glossary/?load=gm_AlphaRefValue' target='_blank'>gm_AlphaRefValue</a>.",
+        "examples":[
+            "//If alpha testing is enabled, discard alpha values below the reference value\nif (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;"]
+    },{
+        "key": "gm_AlphaRefValue",
+        "def": "gm_AlphaRefValue",
+        "desc": "This is a float for fragment shader containing the alpha test reference from `gpu_set_alphatestref()`. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.",
+        "examples":[
+            "//If alpha testing is enabled, discard alpha values below the reference value\nif (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;"]
+    },{
+        "key": "gm_AlphaRefValue",
+        "def": "gm_AlphaRefValue",
+        "desc": "This is a float for fragment shader containing the alpha test reference from `gpu_set_alphatestref()`. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.",
+        "examples":[
+            "//If alpha testing is enabled, discard alpha values below the reference value\nif (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;"]
     }]
 }
