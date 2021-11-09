@@ -155,7 +155,7 @@ color = color.rrr; //Use mono-color from red channel.
                     </p>
                     <a href="./#useful"><h2 id="useful">Useful Code and Math</h2></a>
                     <p>
-                    It's time to talk more about matrices in more depth. First, you need to understand the <a href="/glossary/?load=dot" target="_blank">dot product</a>.
+                        Here are some useful pieces of code that should help you get started!
                     </p>
                     <h3>Colors and brightness</h3>
                     <p>
@@ -171,7 +171,6 @@ color = color.rrr; //Use mono-color from red channel.
                         The second approach is to approximate "perceptive" brightness. For example, lime green appears brighter than blue even if they have the same RGB average. So instead of giving red, green, and blue the same weight, we'll give green a higher weight and blue a lower weight:
                         <pre><code class="glsl">float weighted = dot(color.rgb, vec3(0.299, 0.587, 0.114));</code></pre>
                         The <a href="/glossary/?load=dot" target="_blank">dot</a> product simply adds up the color's red value times 0.299, green times 0.587, and blue times 0.114 which also adds up to a max value of 1.0. These come from fairly standard <a href="https://en.wikipedia.org/wiki/Luma_(video)#Rec._601_luma_versus_Rec._709_luma_coefficients" target="_blank">luma</a> values. There are more many more sophisticated compute brightness, but this is adequate for most game effects.
-                        <br>
                     </p>
                     <h3>Gamma correction</h3>
                     <p>

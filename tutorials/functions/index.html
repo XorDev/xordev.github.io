@@ -141,6 +141,20 @@
                             </li>
                         </ul>
                     </p>
+                    <a href="./#matrices"><h2 id="matrices">Matrices</h2></a>
+                    <p>
+                        Now that you have an overview of the operations and functions, it's much easier to explain matrices. So we know from the <a href="/tutorials/datatypes/#dimensions" target="_blank">last tutorial</a> that mat2 contains 4 (2x2) components and that the order of multiplication matters, but now I can show you why. First, let's consider these two cases:
+                        <pre><code class="glsl">//Remember, a matrix is like an array of vectors rather than a larger vector.
+mat2 matrix = mat2(2, 3, 4, 5); //First row is 2 and 3, second row: 4 and 5.
+
+vec2 A = vec2(0, 1) * matrix; //Computed as vec2(3, 5)
+vec2 B = matrix * vec2(0, 1); //Computed as vec2(4, 5)</code></pre>
+                        To perform a vector-matrix multiplication, you can generalize with this forumla for each component 'i': <pre><code class="glsl">new_vector[i] = vector[0] * matrix[0][i] + ... + vector[n] * matrix[n][i];</code></pre>
+                        So in the example above, we are essentially calculating: <code class="glsl">A = vec2(0*2 + 1*3, 0*4 + 1*5)</code>.
+                        If you swap the order putting the matrix first, then you swap the matrix rows for columns and columns for rows and you get this: <code class="glsl">B = vec2(0*2 + 1*4, 0*3 + 1*5)</code>.<br>To make this a little easier to remember, you can also think of this as a separate <a href="/glossary/?load=dot" target="_blank">dot-product</a> for each component: <code class="glsl">new_vector[i] = dot(vector, matrix[i]);</code>
+                        <br>
+                        Alright, that's enough math for now! Feel free to revisit this if you ever need a refresher!
+                    </p>
                     <a href="./#logic"><h2 id="logic">Logic and loop statements</h2></a>
                     <p>
                         Logic statements are a crucial part of programming languages and GLSL ES is no exception. You're probably already familiar with these so I'll be brief and just clarify the syntax differences. Here is a list of those statements:

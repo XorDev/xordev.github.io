@@ -186,12 +186,12 @@ vec2 y_dot = rotate[1];
 
 //And here are some mat3 examples:
 //Alternatively, you can set all components individually.
-mat3 rotate2 = mat3(.6,.8,.0,-.8,.6,.0,.0,.0,1.);
-//Get the second row, third column component which is 0.
-float y_z = rotate2[1][2];
+mat3 rotate2 = mat3(0.6, 0.8, 0.0, -0.8, 0.6, 0.0, 0.0, 0.0, 1.0);
+//Get the first row, second column component which is 0.8
+float y_z = rotate2[0][1];
 </pre></code>
                     <p>
-                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is non-<a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily equal to vector * matrix">order of multiplication</span>. You can learn more about this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
+                        Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is <a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">non-commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily the same value as vector * matrix">order of multiplication</span>. You can learn more on this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
                     </p>
                     <a href="./#storage"><h2 id="storage">Storage Qualifiers</h2></a>
                     <p>
