@@ -179,15 +179,15 @@ A.st = A.pq;
                         <br>
                         They can be initialized like so:
                     </p>
-<pre><code class="glsl">//Set the first and second rows with vec2s.
+<pre><code class="glsl">//Set the first and second columns with vec2s.
 mat2 rotate = mat2(vec2(0.6,0.8), vec2(-0.8,0.6));
-//Get the vec2 from the second row which is vec2(-0.8,0.6).
+//Get the vec2 from the second column which is vec2(-0.8,0.6).
 vec2 y_dot = rotate[1];
 
 //And here are some mat3 examples:
 //Alternatively, you can set all components individually.
 mat3 rotate2 = mat3(0.6, 0.8, 0.0, -0.8, 0.6, 0.0, 0.0, 0.0, 1.0);
-//Get the first row, second column component which is 0.8
+//Get the first column, second row component which is 0.8
 float y_z = rotate2[0][1];
 </pre></code>
                     <p>
