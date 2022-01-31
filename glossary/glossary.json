@@ -6,7 +6,7 @@
         "returns": "vec4, vertex color and alpha",
         "desc": "Vertex color and alpha. When applied to sprite this will be the image_blend and image_alpha, for most other draw_* functions it will be the `draw_set_color` and `draw_set_alpha` and for vertex buffers/primitives, the color you set for each vertex. <br><br>If you're using a custom vertex format that includes multiple colors, just use 'in_Colour0', 'in_Colour1', etc.",
         "examples":[
-            "//Pass a varying 'v_vColor' to the fragment shader.\nv_vColour = in_Colour;"]
+            "//Pass a varying 'v_vColour' to the fragment shader.\nv_vColour = in_Colour;"]
     },{
         "key": "in_Position",
         "def": "in_Position",
