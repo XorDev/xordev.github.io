@@ -23,5 +23,11 @@
       "description": "All about optimizing and improving shaders.",
       "pagename": "tipsandtricks",
       "date": 1633120661
+    },
+    {
+      "name": "Basic Colors",
+      "description": "An introduction to color effects.",
+      "pagename": "basiccolors",
+      "date": 1633120661
     }]
 }

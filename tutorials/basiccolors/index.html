@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Color Basics</title>
+        <meta name="description" content="Shader tutorials for GameMaker Studio">
+        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
+        <meta name="copyright" content="Copyright 2022 GM Shaders">
+        <meta name="theme-color" content="#e0ba23">
+        <!-- Twitter -->
+        <meta name="twitter:site" content="@XorDev">
+        <meta name="twitter:title" content="GM Shaders">
+        <meta name="twitter:description" content="Shader tutorials for GameMaker Studio">
+        <meta name="twitter:image" content="./thumbnail.png">
+        <meta name="twitter:url" content="/">
+        <!-- Open Graph -->
+        <meta property="og:title" content="GM Shaders">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="/">
+        <meta property="og:image" content="./thumbnail.png">
+        <meta property="og:description" content="Shader tutorials for GameMaker Studio">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
+        <script src="../../shared/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <!-- styles -->
+        <link rel="icon" href="../../shared/images/icon.png">
+        <link rel="stylesheet" href="../../shared/css/style.css">
+        <link rel="stylesheet" href="../../shared/css/article.css">
+        <!-- javascript and fontawesome -->
+        <script>const root = '../../';</script>
+        <script src="../../shared/js/options.js"></script>
+        <script src="../../shared/js/tutorial.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3EKBJ8XLE"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-S3EKBJ8XLE');
+        </script>
+    <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+    <body>
+        <div class="wrapper">
+            <div class="background-image hidden"></div>
+            <header>
+                <div class="header-buttons">
+                    <div class="left">
+                        <a href="../../">
+                            <div class="title elm">GM Shaders</div>
+                        </a>
+                        <a href="../../glossary"><div class="elm">Glossary</div></a>
+                        <a href="../../about"><div class="elm">About</div></a>
+                        <a href="../../contact"><div class="elm">Contact</div></a>
+                    </div>
+                    <div class="right">
+                        <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+            </header>
+            <div class="pagecontent">
+                <div class="top-info">
+                    <a href="./#title"><div id="title">Color basics</div></a>
+                    <div class="date">CURRENT DATE
+                    <div class="author"><a href="https://github.com/bartteunis" target="_blank">Bart</a></div>
+                    </div>
+                </div>
+                <div class="article"><div class="wrapper">
+                    <p>
+                    This tutorial is about the basics of colors in GameMaker Studio's shaders. You will first learn how colors can be defined in GameMaker and the possible ways to pass them to a shader.
+                    Next you will learn about the first basic shaders that modify colors: color inversion, grayscale/saturation and a tone shader, with a sepia tone as a specific example.
+                    </p>
+                    <p>
+                    Up to this point, you may not have written a shader yet. After four tutorials it is time to take the first steps!
+                    If you are looking for a working code example to follow along with this tutorial then feel free to use the <a href="https://github.com/XorDev/GMshadersBase" target="_blank">GMshadersBase</a> project and have a look at the code. You can also make some changes and play around a bit!
+                    </p>
+                    <a href="#colors_in_gms"><h2 id="colors_in_gms">Colors in GameMaker:Studio</h2></a>
+                    GameMaker has extensive documentation on colors under <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/Colour_And_Alpha.htm">Color and Alpha</a> in the manual.
+                    The most common functions to create a color are:
+                    <ul>
+                        <li><code><a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/make_colour_rgb.htm">make_color_rgb(red, green, blue)</code></a> - Create a color from the given red, green and blue components</li>
+                        <li><code><a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/make_colour_hsv.htm">make_color_hsv(hue, saturation, value)</a></code> - Create a color from the given hue, saturation and value components</li>
+                        <li><code><a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/merge_colour.htm">merge_color(color1, color2, amount)</a></code> - Mix colors <code>color1</code> and <code>color2</code> according to <code>amount</code>. An amount of 0.5 is right in the middle.</li>
+                    </ul>
+                    You can also use one of the predefined <span title="You can find the full list of these on the manual page.">color constants</span>, such as <code>c_black</code> and <code>c_white</code>, or define a color by assigning a hexadecimal value. For that you start with a <code>$</code> and then type the hexadecimal value of the blue, green and red component respectively. You can also add the alpha value in front of those. Each of these can go from <code>00</code> to <code>FF</code>, or, in decimal, from <code>0</code> to <code>255</code>. The order of the components is <span title="Beta IDE 470 adds support for CSS colours by typing a # followed by the RGB components in hexadecimal form">ABGR</span>.
+                    <pre><code>// A couple of common colors in hexadecimal
+color = $000000;  // c_black
+color = $FFFFFF;  // c_white
+color = $0000FF;  // c_red
+color = $FF0000;  // c_blue
+color = $00FFFF;  // c_yellow
+</code></pre>
+                    <p>To get the red, green and blue components of a color you can use <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/colour_get_red.htm"><code>color_get_red</code></a>, <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/colour_get_green.htm"><code>color_get_green</code></a> and <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/colour_get_blue.htm"><code>color_get_blue</code></a>.</p>
+                    <a href="#attributes"><h3 id="attributes">Attributes</h3></a>
+                    <p>
+                    Colors can be passed to a shader through vertex attributes. The vertex color is stored in the vertex attribute <code class="glsl">in_Colour</code> by default.<br/>
+                    If you don't draw your own vertex buffer using <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/vertex_submit.htm" target="_blank"><code>vertex_submit</code></a> or when you <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/Primitives_And_Vertex_Formats.htm" target="_blank">draw custom primitives</a> - so you simply use GameMaker's built-in <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Sprites_And_Tiles/Sprites_And_Tiles.htm" target="_blank"><code>draw_sprite</code> and related draw functions</a> - then this attribute contains the value of the instance's <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Asset_Management/Sprites/Sprite_Instance_Variables/image_blend.htm" target="_blank"><code>image_blend</code></a> variable.<br/>
+                    If you draw a custom primitive then <code>in_Colour</code> contains the value that you defined in a call to <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/draw_vertex_colour.htm" target="_blank"><code>draw_vertex_color</code></a> or <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/draw_vertex_texture_colour.htm" target="_blank"><code>draw_vertex_texture_color</code></a> or, when you use the functions that don't specify a color, the value set by <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/draw_set_colour.htm" target="_blank"><code>draw_set_color</code></a>.<br/>
+                    If you submit your own vertex buffer to the GPU then <code>in_Colour</code> contains the color that you assigned to that vertex using <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Primitives/vertex_colour.htm" target="_blank"><code>vertex_color</code></a>.
+                    <p>An important thing to keep in mind when using colors in custom vertex buffers is that a color is stored as four <em>bytes</em> in a buffer, with component values ranging from 0 to 255, but it is turned into a vec4 in the shader, which are four <em>floats</em> in the range 0 to 1.</p>
+                    </p>
+                    <a href="#uniforms"><h3 id="uniforms">Uniforms</h3></a>
+                    <p>As mentioned above, all of the above colors contain the red, green and blue components in a range of 0 to 255. Most of the time when you're using these colors with shaders you don't have to worry about the values being usable in the shader. If you add them as a vertex attribute, you simply pass the color as the argument to the function.
+                    If you draw a primitive you also pass the color as the argument to the function.<br/>
+                    In each of those cases the components' values range from 0 to 255. Once you're inside the shader they will be floats that range from 0 to 1 (colors are either a <code class="glsl">vec3</code> or a <code class="glsl">vec4</code> if the alpha component is included).<br/>
+                    Any 3 or 4 floats that are sent to a shader via a uniform can also be interpreted as a color (+ alpha). But in this case you have to divide the components by 255 yourself, so in the end you'll send the following values for a color: </p>
+<pre><code>// Conversion of a color variable in GameMaker to an array of values
+// that is ready to be sent as a uniform
+var color = c_white;
+var color_uniform_values = [
+    color_get_red(color)/255,
+    color_get_green(color)/255,
+    color_get_blue(color)/255,
+    // alpha    // Alpha is already a value from 0 to 1
+];
+
+// Setting the actual uniform
+shader_set_uniform_f_array(u_colors, color_uniform_values);</code></pre>
+                    <p>It is probably clear that you could do this conversion in the vertex shader or the fragment shader. But that would not be very efficient since the calculation will then be done for every vertex or fragment. It is also simply <i>very</i> convenient to have the values ready for use in the shader!</p>
+                    <p>Okay, so far for the rather dull yet necessary part of how to guarantee to get your colors in a shader correctly.<br/>
+                    It is now time to look at the inside of the shader!</p>
+                    <a href="#passthrough_shader"><h3 id="passthrough_shader">The passthrough shader</h3></a>
+                    <pre><code class="glsl">gl_FragColor = v_color * texture2D( gm_BaseTexture, v_texcoord);</code></pre>
+                    This is how GameMaker normally calculates the pixel color in the fragment shader when you're not using a custom shader or when you're setting the default "passthrough" shader that you get when adding <span title="Without modifying anything, that is.">your own shader</span>. The function call to <code class="glsl">texture2D</code> looks up the actual pixel color on the texture that you're drawing.<br/>
+                    Every component of <code class="glsl">v_color</code> is multiplied by the respective component of <code class="glsl">texture2D</code>. The result of it is assigned to <code class="glsl">gl_FragColor</code>.<br/>
+                    Now that you know this you can see why <code>image_blend</code> <span title="and has to be">is</span> set to white by default to get the original pixel's color. The r, g, and b components of <code class="glsl">v_color</code> all have to be 1 so the final color becomes the color of the pixel on the texture. Interestingly enough this also means that setting the blend color to something else than white will always make the resulting image darker.
+                    <a href="#inverting_colors"><h2 id="inverting_colors">Inverting colors</h2></a>
+                    <p>
+                        One of the more basic things that you can do with colors is invert them. A color is inverted by inverting every component <span title="If you would do the same with this component then all pixels of the image that have an alpha of 1 (fully opaque) would get an alpha of 0 and they would no longer be visible.">except the alpha component.</span>
+                    </p>
+                    <div class="image"><img src="inversion.png">
+                        <em>On the left the view with no shader applied. On the right the view with inverted colors.</em>
+                    </div>
+                    <p>
+                        Inverting a component doesn't mean that you "<span title="meaning multiply by -1, as in 'invert the y axis'">negate</span>" it. As mentioned before component values range from 0 to 1. So you cannot go below 0. What you do here is subtract the component value from 1, so you do one minus component:
+                    </p>
+                        <pre><code class="glsl hljs">//The formula for a single component
+<span class="hljs-type">float</span> new_component_value = 1.0 - component_value;</code></pre>
+                        <pre><code>// How you could write this in GML
+r_invert = 1.0 - color_get_red(color);
+g_invert = 1.0 - color_get_green(color);
+b_invert = 1.0 - color_get_blue(color);
+invert = make_color_rgb(r_invert, g_invert, b_invert);
+</code></pre>
+<pre><code class="glsl hljs"><span class="hljs-comment">// The much shorter way of writing this in a shader</span>
+<span class="hljs-type">vec4</span> invert = vec4(1.0 - color.rgb, 1.0);
+</code></pre>
+                    <p>
+                    <strong>Food For Thought (1)</strong> Which color do you have to invert to end up with a yellow color? Which color do you have to invert to end up with a purple color? Which color doesn't change at all by inverting it? Why is that?
+                    </p>
+                    <a href="#grayscale"><h2 id="grayscale">Grayscale</h2></a>
+                    <p>A second basic effect is grayscale. Here you take a weighted sum of the red, green and blue components and use that result as the value for every component. The weights are adjusted to account for the perception of color that we humans have.</p>
+                    <div class="image"><img src="grayscale.png">
+                        <em>A different part of the avid GameMaker:Studio developer's room shown in grayscale.</em>
+                    </div>
+                    <p>
+                    The formula to get the grayscale value is the following:
+                    </p>
+                    <pre><code class="glsl">float gray = 0.587 * tex.r + 0.299 * tex.g + 0.114 * tex.b;</code></pre>
+                    The above is a bit much to write every time. Luckily there is a mathematical function that happens to do just this: the dot product! If you happen to end up with a formula of the above form then you can always write it in a much shorter way using the <code class="glsl">dot</code> function:
+                    <pre><code class="glsl">float gray = dot(tex, vec4(0.587, 0.299, 0.114, 0));</code></pre>
+                    The factor for alpha is set to 0 to make sure that component doesn't influence the result. Zero times anything you can think of is still zero. Alternatively you can take the dot product of <code class="glsl">tex.rgb</code> and a <code>vec3</code>.<br/>
+                    <p>To get the final pixel color you create a new vector with all components set to the value of <code class="glsl">gray</code>: </p>
+                    <pre><code class="glsl">gl_FragColor = vec4(vec3(gray), 1.0);</code></pre>
+                    <strong>Food For Thought (2)</strong> How can you use the <code class="glsl">dot</code> function to take the (non weighted) average of the rgb components?
+                    <a href="#saturation"><h3 id="saturation">Saturation</h3></a>
+                    <p>
+                    The grayscale value can be used further to create a saturation effect. In this effect the original color is mixed or blended with the new grayscale color depending on the saturation value. As the description may have given away, you can do this in a shader using the <code class="glsl">mix</code> function.
+                    The fragment shader code for a saturation shader looks like this:
+                    <pre><code class="glsl">vec4 tex = v_color * texture2D( gm_BaseTexture, v_texcoord);
+float gray = dot(tex, vec4(0.587, 0.299, 0.114, 0));
+
+vec4 shade = vec4(gray, gray, gray, tex.a);
+gl_FragColor = mix(shade, tex, u_saturation);
+</code></pre>
+                    </p>
+                    <div class="image"><img src="saturation.png">
+                        <em>The same image shown with increasing values for saturation: 0 (grayscale), 0.5 (desaturated), 1 (original color) and 1.5 (oversaturated) </em>
+                    </div>
+                    <p>The reason why this works the way it does becomes more clear if you look at the mathematical formula that <code class="glsl">mix</code> uses. Let's take a detailed look at this for a moment:
+                    <pre><code>new_rgb = shade * (1 - u_saturation) + tex * u_saturation;</code></pre>
+                    Set <code>u_saturation</code> to 0 here and all that's left is <code>shade</code>. Set it to 1 and what's left is <code>tex</code>.<br/>
+                    For values of <code>u_saturation</code> between 0 and 1 the factor <code>(1 - u_saturation)</code> is always greater than 0, so you get an influence of the grayscale value <code>shade</code>.<br/>
+                    Things get really interesting once you set <code>u_saturation</code> to a value greater than 1.
+                    The factor <code>(1 - u_saturation)</code> then becomes negative so you then <i>subtract</i> gray instead. At the same time you increase the influence of the other term: the original color <code>tex</code> becomes more important when <code>u_saturation</code> is greater than 1.</p>
+                    <a href="#tone"><h2 id="tone">Tone Shader</h2></a>
+                    <p>
+                    In a tone shader you do things differently, but only slightly. So far the final fragment color has been a linear mix of the grayscale value and the original pixel color. By applying a new color to the grayscale value, the <em>tone</em>, you end up with a tone shader. You then no longer blend the pixel color between a simple grayscale color and the original one, a tone shader gives you the possibility to blend between the original pixel color and a colorized grayscale image!
+                    The tone is sent to the shader via a new color uniform <code>u_tone</code>.
+                    </p>
+                    <pre><code class="glsl">vec4 tex = v_color * texture2D( gm_BaseTexture, v_texcoord);
+float gray = dot(tex, vec4(0.587, 0.299, 0.114, 0));
+
+vec4 shade = vec4(gray * u_tone.rgb, tex.a);
+gl_FragColor = mix(shade, tex, u_tone.a);
+</code></pre>
+                    <a href="#sepia"><h3 id="sepia">Sepia</h3></a>
+                    <p>This tone might be familiar to you, it gives the typical look of an old photograph.</br>
+                    Sepia is a color that is somewhere between red and brown. Wikipedia defines the color <a href="https://en.wikipedia.org/wiki/Sepia_(color)" target="_blank">sepia</a> as follows:
+                    <blockquote>
+                    <i>Sepia is a reddish-brown color, named after the rich brown pigment derived from the ink sac of the common cuttlefish Sepia.</i>
+                    </blockquote>
+                    If you set the tone color to this color then you get a nice sepia effect! Let's do that for a moment and see what the result is:
+                    </p>
+                    <div class="image"><img src="sepia.png">
+                        <em>The same environment as before, now shaded in a sepia tone.</em>
+                    </div>
+                    <p>
+                    This is one example of a color that you can use to colorize your image but of course any color is possible.<br/>
+                    You may notice that the original pixel color is completely gone here. That is because the alpha component of <code>u_tone</code> is set to 1. You can change that alpha value to start blending between the toned image and the original one to get more possible effects based on this shader.
+                    </p>
+                    <a href="#summary"><h2 id="summary">Summary</h2></a>
+                    <p>
+                        Congratulations! In this tutorial you learned the absolute basics of working with colors!<br/>
+                        You learned in which ways GameMaker supports colors, how you can define them and through which ways you can send the values of those colors to a shader.<br/>
+                        The tutorial then covered the first basic effects that you can achieve with colors: inverted colors, grayscale and saturation and tone, with sepia as a specific example.</br>
+                        <br/>
+                        Hopefully this tutorial has given you the basic knowledge and insights to get your first color shaders working and start playing around with pixels' colors!
+                    </p>
+                    <a href="#answers"><h3 id="answers">Answers</h3></a>
+                    <ol>
+                    <li>
+                    <p>Blue is the color that you have to invert to get yellow, since <code class="glsl">vec3(1.0, 1.0, 1.0) - vec3(0.0, 0.0, 1.0) = (1.0, 1.0, 0.0)</code>.<br/>
+                    A color of 50% gray doesn't change at all since <code class="glsl">vec3(1.0, 1.0, 1.0) - vec3(0.5, 0.5, 0.5) = (0.5, 0.5, 0.5)</code>.</p>
+                    </li>
+                    <li>
+                    <p>The most important here is that you take a color's rgb or set the alpha to 0. Then take the dot product with a vector with all components set to 1/3: <code class="glsl">dot(color.rgb, vec3(1.0/3.0))</code>. This could be generalized by 1/number_of_components_to_be_averaged.</p>
+                    </li>
+                    </ol>
+                </div>
+              </div>
+            </div>
+            <div class="navigate-end"></div>
+            <footer><div class="left">&copy; GM Shaders 2022</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+        </div>
+        <script>initialize();</script>
+    <script type="text/javascript">(function(){window['__CF$cv$params']={r:'6d6e9b4b4f422e56',m:'Tll0Oiie3jNmuVgIyXRMhvOcsd_sJdTNrNp3E5KzqEY-1643754441-0-AU3BsQZqX5EY/qvE/D97AFnVuBf5esVApM9kd/shShJ4kRT5yYBFg5CQU2Mz9hK7mzsAwlGTV3vgsoqsz/utNHgLJ4bVV2nsIF0EmBlXRoduogv5zeWt12O4Y+QvHZee9SwGrsZWhZbJLqubPKY+V+sXh2IkgE17pqU+3/c67IgnPYEr5CavfdUyhhx/rJQytw==',s:[0x10e2f779b8,0xe631c0afd9],}})();</script></body>
+</html>

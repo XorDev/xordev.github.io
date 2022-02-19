@@ -22,6 +22,11 @@ body {
     font-size: 2rem;
     color: var(--txt);
 }
+.top-info .author {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--txt);
+}
 
 .article {
     font-size: 1.2rem;
