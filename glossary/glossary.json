@@ -907,11 +907,5 @@
         "desc": "This is a float for fragment shader containing the alpha test reference from `gpu_set_alphatestref()`. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.",
         "examples":[
             "//If alpha testing is enabled, discard alpha values below the reference value\nif (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;"]
-    },{
-        "key": "gm_AlphaRefValue",
-        "def": "gm_AlphaRefValue",
-        "desc": "This is a float for fragment shader containing the alpha test reference from `gpu_set_alphatestref()`. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.",
-        "examples":[
-            "//If alpha testing is enabled, discard alpha values below the reference value\nif (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;"]
     }]
 }

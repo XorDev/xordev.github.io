@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>GM Shaders Glossary</title>
-        <meta name="description" content="Shader tutorials for GameMaker Studio">
+        <meta name="description" content="Shader tutorials for GameMaker">
         <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
         <meta name="copyright" content="Copyright 2022 GM Shaders">
         <meta name="theme-color" content="#e0ba23">
         <!-- Twitter -->
         <meta name="twitter:site" content="@XorDev">
         <meta name="twitter:title" content="GM Shaders">
-        <meta name="twitter:description" content="Shader tutorials for GameMaker Studio">
+        <meta name="twitter:description" content="Shader tutorials for GameMaker">
         <meta name="twitter:image" content="../../shared/images/icon.png">
         <meta name="twitter:url" content="/">
         <!-- Open Graph -->
@@ -18,7 +18,7 @@
         <meta property="og:type" content="website">
         <meta property="og:url" content="/">
         <meta property="og:image" content="../../shared/images/icon.png">
-        <meta property="og:description" content="Shader tutorials for GameMaker Studio">
+        <meta property="og:description" content="Shader tutorials for GameMaker">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- highlightjs -->
         <link rel="stylesheet" href="../shared/highlightjs/styles/atom-one-dark.css">
@@ -1639,18 +1639,6 @@ lighting += DoPointLight(world_pos, world_normal, gm_Lights_PosRange[i], gm_Ligh
                         <div class="name">gm_AlphaTestEnabled</div><div class="desc block">
                         <div class="title">Description:</div>
                         This is a bool for fragment shader telling if alpha testing from <span class="inline-hljs"><pre><code>gpu_set_alphatestenable()</code></pre></span> is enabled. You can also get the alpha test reference from <a href='/glossary/?load=gm_AlphaRefValue' target='_blank'>gm_AlphaRefValue</a>.
-                    </div><div class="examples ">
-                            <div class="title">Example:</div>
-                            <ul><li><pre><code>//If alpha testing is enabled, discard alpha values below the reference value
-if (gm_AlphaTestEnabled && alpha < gm_AlphaRefValue) discard;</pre></code></li></ul>
-                        </div>
-                    </div>
-                </div><div class="Built-in Variables doc" id="gm_AlphaRefValue">
-                    <div class="link" onclick="creacopURL(this, 'gm_AlphaRefValue')">Copy link</div>
-                    <div class="content">
-                        <div class="name">gm_AlphaRefValue</div><div class="desc block">
-                        <div class="title">Description:</div>
-                        This is a float for fragment shader containing the alpha test reference from <span class="inline-hljs"><pre><code>gpu_set_alphatestref()</code></pre></span>. You can also get the alpha test toggle from <a href='/glossary/?load=gm_AlphaTestEnabled' target='_blank'>gm_AlphaTestEnabled</a>.
                     </div><div class="examples ">
                             <div class="title">Example:</div>
                             <ul><li><pre><code>//If alpha testing is enabled, discard alpha values below the reference value

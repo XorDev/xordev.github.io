@@ -21,13 +21,19 @@
     {
       "name": "#4 Tips and tricks",
       "description": "All about optimizing and improving shaders.",
-      "pagename": "tipsandtricks",
+      "pagename": "tips_and_tricks",
       "date": 1633120661
     },
     {
       "name": "Basic Colors",
       "description": "An introduction to color effects.",
-      "pagename": "basiccolors",
+      "pagename": "basic_colors",
+      "date": 1645385392
+    },
+    {
+      "name": "Colors Extended",
+      "description": "Extra information on color.",
+      "pagename": "colors_extended",
       "date": 1645385392
     }]
 }

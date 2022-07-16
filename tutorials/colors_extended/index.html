@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Colors Extended</title>
+        <meta name="description" content="Extra information on color">
+        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
+        <meta name="copyright" content="Copyright 2022 GM Shaders">
+        <meta name="theme-color" content="#e0ba23">
+        <!-- Twitter -->
+        <meta name="twitter:site" content="@XorDev">
+        <meta name="twitter:title" content="GM Shaders">
+        <meta name="twitter:description" content="Extra information on color">
+        <meta name="twitter:image" content="./thumbnail.png">
+        <meta name="twitter:url" content="/">
+        <!-- Open Graph -->
+        <meta property="og:title" content="GM Shaders">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="/">
+        <meta property="og:image" content="./thumbnail.png">
+        <meta property="og:description" content="Extra information on color">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
+        <script src="../../shared/highlightjs/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <!-- styles -->
+        <link rel="icon" href="../../shared/images/icon.png">
+        <link rel="stylesheet" href="../../shared/css/style.css">
+        <link rel="stylesheet" href="../../shared/css/article.css">
+        <!-- javascript and fontawesome -->
+        <script>const root = '../../';</script>
+        <script src="../../shared/js/options.js"></script>
+        <script src="../../shared/js/tutorial.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3EKBJ8XLE"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-S3EKBJ8XLE');
+        </script>
+    <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+    <body>
+        <div class="wrapper">
+            <div class="background-image hidden"></div>
+            <header>
+                <div class="header-buttons">
+                    <div class="left">
+                        <a href="../../">
+                            <div class="title elm">GM Shaders</div>
+                        </a>
+                        <a href="../../glossary"><div class="elm">Glossary</div></a>
+                        <a href="../../about"><div class="elm">About</div></a>
+                        <a href="../../contact"><div class="elm">Contact</div></a>
+                    </div>
+                    <div class="right">
+                        <div class="elm link" id="options"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+            </header>
+            <div class="pagecontent">
+                <div class="top-info">
+                    <a href="./#title"><div id="title">Colors Extended</div></a>
+                    <div class="date">CURRENT DATE
+                    <div class="author"><a href="https://github.com/bartteunis" target="_blank">Bart</a></div>
+                    </div>
+                </div>
+                <div class="article"><div class="wrapper">
+                    <p>
+                        Today we'll go over brightness, contrast, hue shifting, converting between the RGB and HSV color spaces and LUT color grading.
+                        <br>
+                        <br>
+                        If you are looking for an example project to follow along with this tutorial then feel free to use the <a href="https://github.com/XorDev/GMshadersBase" target="_blank">GM Shaders Base</a> project and have a look at the code. You can also make some changes and play around a bit!
+                    </p>
+                    <a href="#brightness_contrast"><h2 id="brightness_contrast">Brightness and Contrast</h2></a>
+                    <p>
+                        <a href="https://en.wikipedia.org/wiki/Brightness">Brightness</a> and <a href="https://en.wikipedia.org/wiki/Contrast_(vision)">contrast</a> are two basic properties of an image. Brightness refers to the overall "lightness" of an image. Contrast refers to the difference in brightness between the brightest and darkest elements.
+                        <br>
+                        The main code to adjust brightness and contrast is fairly basic:
+                        <pre><code>color.rgb = mix(vec3(0.5), color.rgb + u_brightness - 1.0, u_contrast);
+gl_FragColor = v_color * color;</code></pre>
+                        The color with the brightness value added to all the components is mixed with a grayscale value using the contrast which is finally multiplied by the vertex color. (Notice that the <code>vec3(0.5)</code> means a color of 50% gray, in GameMaker this corresponds to the built-in <code>c_gray</code> <a href="https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Colour_And_Alpha/Colour_And_Alpha.htm">color constant</a>.)<br/>
+                        A value of 1 is subtracted from <code>u_brightness</code>. As a result passing a value of 1 for brightness will give no change.
+                    </p>
+                    <div class = "image">
+                    <img src="brightness.png" alt="" />
+                    <em>
+                        Increasing brightness by .25 at a time going from to left to right.
+                        <br>
+                        The contrast is constant at 1.0.
+                    </em>
+                    </div>
+                    <div class = "image">
+                        <img src="contrast.png" alt="" />
+                        <em>
+                            Increasing contrast by .25 at a time from left to right.
+                            <br>
+                            The brightness is constant at 1.0.
+                        </em>
+                    </div>
+                    <p>
+                        <strong>Food For Thought (1)</strong> If you leave the contrast unchanged (<code>u_contrast</code> is set to 1), which is the highest value for brightness that still makes a visual difference? Why is that?
+                    </p>
+                    <a href="#hsv"><h2 id="hsv">Hue, Saturation and Value</h2></a>
+                    <p>
+                        <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a>, which stands for <i>hue</i>, <i>saturation</i> and <i>value</i>, gives a different way to represent colors.
+                    </p>
+                    <p>
+                        The hue of a color refers to the way that we perceive colors as humans. You can see that in the order of the colors, they (almost) correspond to a <span title="They correspond to those wavelengths of the electromagnetic spectrum - or, frequencies, as the two are directly related as wavelength = speed_of_light / frequency - that are visible to the human eye.">rainbow</span>: <b>red, orange, yellow, green, blue, indigo, violet</b>. (Notice how red, green and blue are still in <i>that</i> order (R, G, B))
+                        <br>
+                        <i>Almost</i>, since the difference between reality and the representation as hue is that hue <i>wraps around</i>. While a rainbow's colors <span title="smaller wavelengths are no longer visible to the human eye">stop at violet</span>, hue is constructed such that it goes back to red; both a hue of 0 and a hue of 1 correspond to pure red.
+                    </p>
+                    <div class="image">
+                        <img src="rainbow.png" alt="" />
+                        <em>
+                            On the left a rainbow drawn by varying the hue from 0 to 1 from the center of the image to the outside.
+                            <br>
+                            On the right the same colors with the values for hue (drawn with a saturation of 0.9 and a value of 1.0).
+                        </em>
+                    </div>
+                    <p>
+                        Saturation and value are the two other components of a color represented as HSV. Saturation is the <i>amount</i> of the color and value is the brightness of the color.
+                    </p>
+                    <a href="#convert_rgb_hsv"><h3 id="convert_rgb_hsv">Converting between RGB and HSV</h3></a>
+                    <p>The relationship between RGB and HSV may not seem intuitive at first but there is an interesting way to visualize it!<br/>
+                    Imagine 3D space for a moment and think of <span title="Which often happen to be displayed in red, green and blue, respectively!">the x, y and z axis</span>. Instead of x, y and z you might as well use R, G and B as the labels for the axes and call it <i>the RGB color space!</i><br/>
+                    In that coordinate system you can display every color that is a combination of some value for R, G and B.<br/>
+                    All those points together form a cube, going from (0,&nbsp;0,&nbsp;0) to (1,&nbsp;1,&nbsp;1): <i>the RGB cube!</i><br/>
+                    <div class="image">
+                        <img src="RGB_cube_general.png" alt="" />
+                        <em>
+                        The RGB cube as seen from primary red. Black is at the origin.<br/>(black to red: x axis, black to green: y axis, black to blue: z axis)
+                        </em>
+                    </div>
+                    <br/>
+                    On that cube the color black is represented by the point at the origin and the color white is represented by the point at the opposite corner of the cube.<br/>
+                    The HSV information is <i>in there somewhere</i>! If you change your point of view and look along the cube's diagonal from white to black you will see the colors appear in the order they make their appearance in the hue!</p>
+                    <div class="image">
+                        <img src="RGB_cube_HSV.png" alt="" />
+                        <em>
+                        The RGB cube seen from a different perspective<br/>
+                        </em>
+                    </div>
+                    <p>
+                    Starting at red and rotating clockwise you once again see the colors <b>red</b>, <b>orange</b>, <b>yellow</b>, <b>green</b>, <b>blue</b>, <b>indigo</b>, <b>violet</b>.<br/>
+                    It can be shown that the hue of any color is equal to the <i>maximum</i> minus the <i>minimum</i> of the RGB channels. This is why the function sorts the RGB channels first.<br/>
+                    The final code to convert from RGB to HSV is written quite compactly and looks like this: </p>
+                    <pre><code>vec3 hsv(vec3 c)
+{
+    //Near-zero epsilon (to avoid division by 0.0)
+    #define E 1e-7
+
+    //Channel shift vector
+    const vec4 S = vec4(0, -1, 2, -3) / 3.0;
+    //Sort green-blue channels (highest to lowest)
+    vec4 P = (c.b&lt;c.g) ? vec4(c.gb, S.rg) : vec4(c.bg, S.wz);
+    //Sort red-green-blue channels (highest to lowest)
+    vec4 Q = (P.r&lt;c.r) ? vec4(c.r, P.gbr) : vec4(P.rga, c.r);
+    //Find the difference between the highest and lowest RGB for saturation
+    float D = Q.x - min(Q.w, Q.y);
+    //Put it all together
+    return vec3(abs(Q.z + (Q.w - Q.y) / (6.0*D+E)), D / (Q.x+E), Q.x);
+}
+</pre></code>
+                    <p>
+                    The code to convert from HSV to RGB is more straightforward. The RGB hue is calculated and then this value is mixed with white to apply the saturation. Finally that result is multiplied by the value.
+                    </p>
+<pre><code>vec3 rgb(float h, float s, float v)
+{
+    //Compute RGB hue
+    vec3 RGB = clamp(abs(mod(h*6.0+vec3(0,4,2), 6.0)-3.0)-1.0, 0.0, 1.0);
+    //Multiply by value and mix for saturation
+    return v * mix(vec3(1), RGB, s);
+}
+</code></pre>
+                    <a href="#hue_shift"><h3 id="hue_shift">Hue shift and saturation in YIQ color space</h3></a>
+                    <p>
+                        Another way to change the hue and saturation is by converting a color represented as RGB to <a href="https://en.wikipedia.org/wiki/YIQ">YIQ</a> and then applying a transform on that vector in YIQ space.
+                        <br>
+                        The Y component contains the black and white information, or the <i>luma</i>, and I and Q contain the color information, or the <i>chrominance</i>.
+                        <br>
+                        An interesting thing about the phase and amplitude of the chrominance contained in the I and Q components is that they correspond approximately to the hue and saturation of a color. So rotating the vector that represents the color in YIQ space corresponds to a hue shift, scaling it corresponds to a change in saturation.
+                        <br>
+                        <br>
+                        <div class="image">
+                            <img src="hue_shift_yiq.png" alt="" />
+                            <br>
+                            <em>A visual representation of a hue shift and saturation scale in YIQ space (Y = 0.5)</em>
+                        </div>
+                        <br>
+                        <br>
+                    The hue shift function first converts the input color in RGB to YIQ, then applies the rotation and scale and finally converts the result back to RGB (conversions between RGB/HSV are written as a matrix multiplication):
+                    </p>
+                    <pre><code>//Compute YIQ colour
+vec3 YIQ = col * RGBtoYIQ;
+//Rotate I and Q chrominance values and scale for saturation
+YIQ.yz *= mat2(cos(ang), -sin(ang), sin(ang), cos(ang)) * sat;
+
+//Convert back to RGB colour space
+return YIQ * YIQtoRGB;</code></pre>
+                    <a href="#LUT"><h2 id="LUT">LUT</h2></a>
+                    <p>
+                        LUT stands for LookUp Table. Lookup tables are used to do color grading, which is a way to adjust the colors of an image as a post-processing effect.
+                        <br>
+                        <br>
+                        The general idea behind a lookup table is that you use a value as an index into a table of values and then return the value that corresponds to that index. Suppose you'd want to code this in GML, then it would look <span title="You can really use any data structure in GM to store the mapping, but this example uses a basic one to show the idea">something like this</span>:
+                    <pre><code>/// A lookup using structs - this one "rotates" the primary colors (R>G>B>R>G>B>...)
+colors = {c_red: c_green, c_green: c_blue, c_blue: c_red};  // The lookup "table"
+
+color = c_red;
+new_color = colors[$color];
+// new_color now holds the value of c_green
+</code></pre>
+                        The LUT shader is an application of this general idea, though it is a bit more complex than the usual array lookup. Let's have a closer look at what happens <i>behind the scenes</i> to retrieve the corresponding color for a given input color!
+                    </p>
+                    <a href="#lut_lookup"><h3 id="lut_lookup">The lookup function</h3></a>
+                    <p>
+                        This function does the actual lookup. It takes in an index and optionally an offset to be added to the index. This index is quite a special one: it is a <span title="here this really means that you have 3 indices on three separate axes">three-dimensional</span> index, with R, G and B making up a dimension each.
+                        The index is a <code>vec3</code> where each of the components ranges between <code class="glsl">0</code> and <code class="glsl">COLOR_NUM-1.0</code>.
+                        <br>
+                        What the index really represents is a combination of three <i>integer</i> values but you store them as <i>floats</i> the entire time and use the built-in functions     <a href="/glossary/?load=floor" target="_blank">floor</a>, <a href="/glossary/?load=clamp" target="_blank">clamp</a>, ... to get the integer representations using the <code>float</code> datatype.
+                        <br>
+                        <br>
+                        Since the index is three-dimensional and the texture image only two-dimensional there needs to be a way to go from three dimensions to two.
+                        <br>
+                        To get an understanding of how that is done, let's first look at the identity LUT image. This is the LUT image that doesn't change any color. Every color is mapped to exactly the same color.
+                    </p>
+                    <div class="image">
+                        <img src="lut_identity.png" alt="" />
+                        <em>The LUT image that gives no change when applied using the LUT shader</em>
+                    </div>
+                    <p>
+                        Here the number of colors per channel (<code>COLOR_NUM</code>) is 64. That means that there are a total of 64 x 64 x 64 = 262144 possible ways of combining the red, green and blue component. That also happens to be the same number as the result of 512 x 512, the image's dimensions. That makes sense: for every possible combination of R, G and B you need exactly one to replace it with.
+                        <br>
+                        So this lookup table can store no less than 262144 colors!
+                        <br>
+                        <br>
+                        If you look at the image you'll notice that it consists of squares (or <i>cells</i>) of 64 x 64 pixels (<code>COLOR_NUM * COLOR_NUM</code>). In each of those, both the red and green component are 0 in the top-left corner and increase to 1: the red one increases from left to right and the green one from top to bottom.
+                        <br>
+                        The blue component however cannot fit into this 2D representation so it needs to be represented in a different way. That is achieved by having a 64 x 64 cell for every possible value of blue, <i>also</i> 64 (<code>COLOR_NUM</code>) values. The 64 cells are layed out in an 8 x 8 grid (<code>vec2 CELL_NUM</code>).
+                        <br>
+                        The blue component of all pixels in the top-left 64 x 64 cell is 0. If you move to the cell to its right, the blue component increases. At the end of the row you jump to the next row, which also increases the blue component.
+                        <br>
+                        So the blue index increases from left to right, then from top to bottom.
+                        <br>
+                        <br>
+                        All this indexing is written very compactly in the function <code>lookup</code>:
+                    </p>
+                    <pre><code>//Rounds the color to the nearest index and clamps it to the correct range
+vec3 index = clamp(ind - off, 0.0, COLOR_NUM-1.0);
+//Converts the 3D index value to 2D LUT coordinates
+vec2 coord = (index.rg / COLOR_NUM + mod(floor(index.b / vec2(1, CELL_NUM.x)), CELL_NUM)) / CELL_NUM;
+
+//Reads the color from the the LUT
+return texture2D(u_LUT, coord).rgb;</code></pre>
+                    <p>
+                        <strong>Food For Thought (2)</strong> Where are black and white located on this LUT image? Why is that?
+                    </p>
+                    <a href="#lut_interpolation"><h3 id="lut_interpolation">LUT interpolation</h3></a>
+                    <p>
+                        The <code>lookup_interpolated</code> function looks up neighboring pixels on the LUT texture and interpolates between them.
+                        <br>
+                        <br>
+                        If you look at the color variable names you might notice that the naming follows a clear pattern: every variable name starts with "col" and then 3 digits for each of the RGB offsets. This is simply for finding the lower and upper bounds of each LUT cell for interpolation.
+                        <br>
+                        <br>
+                        Finally the LUT boundary colors are interpolated using <a href="/glossary/?load=mix" target="_blank">mix</a>. Notice that, thanks to the naming convention of the variables, it is very clear what belongs together and which channel changes: all <code>mix</code> calls that use the red component as the factor see the red offset change, i.e. from <code>col0XX</code> to <code>col1XX</code>. The same is true for the green component (from <code>colX0X</code> to <code>colX1X</code>) and for the blue component (from <code>colXX0</code> to <code>colXX1</code>).
+                    </p>
+                    <a href="#lut_together"><h3 id="lut_together">Bringing it all together</h3></a>
+                    <p>
+                        In the fragment shader's <code>main</code> function the pixel color is mixed with the result of <code>lookup_interpolated</code> and then the vertex color is factored in.
+                        And that is how the LUT shader maps colors to different ones!
+                        <br>
+                        Let's put all of that in practice!
+                        <br>
+                        <br>
+                        Here is a modified LUT with a green tint:
+                        <div class="image">
+                            <img src="lut_adjusted.png" alt="" />
+                        </div>
+                    <p>
+                        And here's how it looks in our little office scene: </p>
+                        <div class="image">
+                            <img src="lut_result.png" alt="" />
+                            <em>The result of applying the new LUT!</em>
+                        </div>
+                    </p>
+                    <a href="#creating_lut"><h3 id="creating_lut">Creating your own LUT images</h3></a>
+                    <p>
+                        Firstly, they are pretty easy to find online (try Google!). This <span title="At a resolution of 512x512 for 64 indices per RGB channel">8x8</span> format is fairly standard, but you can also find some in a <span title="At a resolution of 1024x32 for 32 indices per RGB channel">32x1</span> is also a common format. <span title="Define COLOR_NUM as 32 (because there are 32 colors per channel) and CELL_NUM as vec2(32,1) because there a 32 columns and only 1 row!">With a small adjustment</span> to your macros, you can use those aswell.
+                        <br>
+                        You can also use just about any image editing application such as Photoshop or GIMP. Start with a reference image and make adjustments to it until you're happy with the result, then apply those same changes to the default ("identity") LUT then that new LUT will apply those changes!
+                        <br>
+                        <br>
+                        If you're feeling really adventurous you can start with the default LUT image in GM's Sprite Editor, copy it as a new sub-image and start changing pixels directly! This can be used as a palette swap shader or for any other color adjustments you can think of!
+                    </p>
+                    <a href="#summary"><h2 id="summary">Summary</h2></a>
+                    <p>
+                        Congratulations! We went over a lot today!
+                        <br>
+                        You learned about brightness and contrast adjustments, about the HSV color space and the conversion between RGB and HSV and about adjusting hue and saturation by applying a transform in YIQ space.
+                        <br>
+                        Finally you learned about the inner workings of the LUT shader and learned how to find or generate these LUT images yourself.
+                        <br>
+                        <br>
+                        Hopefully this tutorial has given you the knowledge and insights to start doing more advanced manipulations of colors using GameMaker shaders!
+                    </p>
+                    <a href="#answers"><h3 id="answers">Answers</h3></a>
+                    <ol>
+                    <li>
+                    <p>
+                        <code>color</code> has components that range from <span title="Including 0 and 1">0 to 1</span>, since its value is assigned from <code>texture2D</code>.
+                        <br>
+                        If you keep that in mind, the highest value for brightness that makes a difference is 2. In that case, the second parameter to <code>mix</code> will be <code>color.rgb + 1.0</code>. 1 is the maximum value for a component so no matter the value of R, G or B, the pixel will be fully white anyway. There is no whiter than white.
+                        <br>
+                        Note though that the alpha component may be less than 1. In that case you'll see a color that is not white because the fragment color is alpha blended with a non-white destination color.
+                    </p>
+                    </li>
+                    <li>
+                    <p>
+                        The pixel in the top-left is fully black. The pixel in the bottom-right is fully white. You can easily verify this yourself by opening the LUT sprite in the Sprite Editor and using the color picker to verify the RGB values.
+                    </p>
+                    </li>
+                    </ol>
+                </div>
+              </div>
+            </div>
+            <div class="navigate-end"></div>
+            <footer><div class="left">&copy; GM Shaders 2022</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+        </div>
+        <script>initialize();</script>
+    <script type="text/javascript">(function(){window['__CF$cv$params']={r:'6d6e9b4b4f422e56',m:'Tll0Oiie3jNmuVgIyXRMhvOcsd_sJdTNrNp3E5KzqEY-1643754441-0-AU3BsQZqX5EY/qvE/D97AFnVuBf5esVApM9kd/shShJ4kRT5yYBFg5CQU2Mz9hK7mzsAwlGTV3vgsoqsz/utNHgLJ4bVV2nsIF0EmBlXRoduogv5zeWt12O4Y+QvHZee9SwGrsZWhZbJLqubPKY+V+sXh2IkgE17pqU+3/c67IgnPYEr5CavfdUyhhx/rJQytw==',s:[0x10e2f779b8,0xe631c0afd9],}})();</script></body>
+</html>
