@@ -197,7 +197,7 @@ vec3 encode = pow(color.rgb, vec3(2.2));</code></pre>
 //Use sprite_get_uvs() to get the coordinates of the top-left and bottom-right corners:
 //Example: var uvs = sprite_get_uvs(sprite_index, image_index);
 //You can get the texture coordinate range as the difference between them:
-//Example: shader_set_uniform_f(uni_uvs, uvs[0], uvs[1], uvs[2], uvs[3]);
+//Example: shader_set_uniform_f(uni_uvs, uvs[0], uvs[1], uvs[2]-uvs[0], uvs[3]-uvs[1]);
 
 //Map the texture coordinates to the range 0 - 1 ("normalized").
 vec2 texcoord_normalize(vec2 coord)
