@@ -69,6 +69,21 @@
                 </div>
 
                 <iframe src="https://xordev.substack.com/embed" width="100%" height="320" background="white" frameborder="0" scrolling="no"></iframe>
+
+                <div id="substack-feed-embed"></div>
+                <script>
+                  window.SubstackFeedWidget = {
+                    substackUrl: "xordev.substack.com",
+                    posts: 3,
+                    layout: "right",
+                    colors: {
+                      primary: "#F4CA32",
+                      secondary: "#8B909B",
+                      background: "#24252D",
+                    }
+                  };
+                </script>
+                <script src="https://substackapi.com/embeds/feed.js" async></script>
             </div>
             <footer><div class="left">&copy; GM Shaders 2023</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
