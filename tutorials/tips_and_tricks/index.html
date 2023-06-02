@@ -68,7 +68,7 @@
                 </div>
                 <div class="article"><div class="wrapper">
                     <p>
-                        At this point, you have general overview of shaders. This tutorial is aimed at teaching some useful trick for optimizing, error checking and some useful code snippets. Feel free to just play around with shaders and come back to this later if you're not ready.
+                        At this point, you have general overview of shaders. This tutorial is aimed at teaching some useful tricks for optimizing, error checking and some useful code snippets. Feel free to just play around with shaders and come back to this later if you're not ready.
                     </p>
                     <a href="./#optimization"><h2 id="optimization">Optimization</h2></a>
                     <p>
@@ -79,7 +79,7 @@
                         So here's a list of things to consider.
                         <ul>
                             <li>
-                                <strong>Expressions:</strong> If you have to compute a mathematical, for example: <code class="GLSL">float PHI = (sqrt(5.)+1.)/2.;</code> consider pre-calculating the answer instead. In this case, <span title="Since highp floats can hold about 6 digits of precision, a 6-7 digit approximation is perfectly adequate.">approximately 1.618034</span>. Sometimes you need compute a complex expression with changing variables (e.g. sunlight color based on the sun position). If this expression is the same across all pixels, then try calculating this outside the shader and passing it in as a uniform. The CPU is more going to be more accurate anyway!
+                                <strong>Expressions:</strong> If you have to compute a mathematical, for example: <code class="GLSL">float PHI = (sqrt(5.)+1.)/2.;</code> consider pre-calculating the answer instead. In this case, <span title="Since highp floats can hold about 6 digits of precision, a 6-7 digit approximation is perfectly adequate.">approximately 1.618034</span>. Sometimes you need to compute a complex expression with changing variables (e.g. sunlight color based on the sun position). If this expression is the same across all pixels, then try calculating this outside the shader and passing it in as a uniform. The CPU is more going to be more accurate anyway!
                                 <br>
                                 Also, stay aware of variable <a href="../../tutorials/datatypes/#precision" target="_blank">precision</a>. This is especially important for mobile devices! Color variables probably don't need to be highp.
                             </li>
@@ -94,7 +94,7 @@
 float texel_height = 1.0 / resolution.y;</code></pre>
                                 Just use a vec2: <code class="glsl">vec2 texel_size = 1.0 / resolution;</code>
                                 <br>
-                                This tends to faster, often making the code more concise and readable. Remember, shaders are very good at computing in parallel, so if you calculate multiple components simultaneously with vectors, do that! Don't be afraid to use swizzling wherever necessary!
+                                This tends to be faster, often making the code more concise and readable. Remember, shaders are very good at computing in parallel, so if you calculate multiple components simultaneously with vectors, do that! Don't be afraid to use swizzling wherever necessary!
                             </li>
                             <li>
                                 <strong>Loops:</strong> Modern GPUs can handle a lot loop iterations, but if you're targeting non-desktop platforms (especially mobile) or low-end PCs you should be careful. Things like texture sampling can use a lot of bandwidth so 8 texture samples is a generally safe upper limit on <span title="Modern high-end GPUs can handle 100s of samples. They have a lot internal optimizations">low-end hardware</span>.

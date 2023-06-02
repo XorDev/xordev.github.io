@@ -290,7 +290,7 @@ return texture2D(u_LUT, coord).rgb;</code></pre>
                     </p>
                     <a href="#creating_lut"><h3 id="creating_lut">Creating your own LUT images</h3></a>
                     <p>
-                        Firstly, they are pretty easy to find online (try Google!). This <span title="At a resolution of 512x512 for 64 indices per RGB channel">8x8</span> format is fairly standard, but you can also find some in a <span title="At a resolution of 1024x32 for 32 indices per RGB channel">32x1</span> is also a common format. <span title="Define COLOR_NUM as 32 (because there are 32 colors per channel) and CELL_NUM as vec2(32,1) because there a 32 columns and only 1 row!">With a small adjustment</span> to your macros, you can use those aswell.
+                        Firstly, they are pretty easy to find online (try Google!). This <span title="At a resolution of 512x512 for 64 indices per RGB channel">8x8</span> format is fairly standard, but you can also find some in a <span title="At a resolution of 1024x32 for 32 indices per RGB channel">32x1</span> is also a common format. <span title="Define COLOR_NUM as 32 (because there are 32 colors per channel) and CELL_NUM as vec2(32,1) because there a 32 columns and only 1 row!">With a small adjustment</span> to your macros, you can use those as well.
                         <br>
                         You can also use just about any image editing application such as Photoshop or GIMP. Start with a reference image and make adjustments to it until you're happy with the result, then apply those same changes to the default ("identity") LUT then that new LUT will apply those changes!
                         <br>

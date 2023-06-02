@@ -88,7 +88,7 @@
                         Before we get to the shaders, I want to explain a bit about texture pages (also known as a texture atlas) and how <code>draw_sprite()</code> works in GM.
                         First, when you run your game, all textures including, sprites, fonts, are placed on texture pages.
                         In summary, a texture page takes <span title="Removing all empty, transparent space">trimmed-down</span> sprites and fits as many as possible on a single page. You can
-                        read more about texture pages <a target="_blank" title="YoYo Games docs" href="https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/texture_pages.html">here</a>.
+                        read more about texture pages <a target="_blank" title="YoYo Games docs" href="https://manual.yoyogames.com/#t=Settings%2FTexture_Information%2FTexture_Pages.htm">here</a>.
                         Additionally, you can assign sprites to specific texture pages in the settings or use the "Separate Texture Page" option to put one on its own texture page.
                         That means drawing a sprite is actually just drawing a part of a larger texture page:
                         <div class="image"><img src="./texture_page.png">
@@ -208,7 +208,7 @@ shader_reset();</code></pre>
                     <p>
                         This way you have full control what each shader applies to. Sometimes I need separate shaders for separate objects (e.g. a wind shader only for foilage) and using <code>draw_self</code> with a shader works neatly.
                         <br>
-                        Shaders also work great with GM's <a target="_blank" href="https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/drawing/surfaces/index.html">surfaces</a> especially for effects that apply across multiple objects or screen effects (e.g. motion blur or bloom).
+                        Shaders also work great with GM's <a target="_blank" href="https://manual.yoyogames.com/#t=GameMaker_Language%2FGML_Reference%2FDrawing%2FSurfaces%2FSurfaces.htm">surfaces</a> especially for effects that apply across multiple objects or screen effects (e.g. motion blur or bloom).
                     </p>
                     <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
