@@ -20,32 +20,69 @@
         <meta property="og:image" content="./thumbnail.png">
         <meta property="og:description" content="Variables and datatypes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- highlightjs -->
-        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
-        <script src="../../shared/highlightjs/highlight.pack.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <!-- Preload critical assets -->
+        <link rel="preload" href="../../shared/css/style.css" as="style">
+        <link rel="preload" href="../../shared/css/article.css" as="style">
+        <link rel="preload" href="../../shared/images/background.png" as="image">
+        <link rel="preload" href="../tutorials.json" as="fetch" crossorigin>
         <!-- styles -->
         <link rel="icon" href="../../shared/images/icon.png">
         <link rel="stylesheet" href="../../shared/css/style.css">
         <link rel="stylesheet" href="../../shared/css/article.css">
-        <!-- javascript and fontawesome -->
+        <!-- highlightjs - defer non-critical -->
+        <link rel="stylesheet" href="../../shared/highlightjs/styles/gml.css">
+        <script src="../../shared/highlightjs/highlight.pack.js" defer></script>
+        <!-- javascript - use defer for non-critical JS -->
         <script>const root = '../../';</script>
-        <script src="../../shared/js/options.js"></script>
-        <script src="../../shared/js/tutorial.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script src="../../shared/js/options.js" defer></script>
+        <script src="../../shared/js/tutorial.js" defer></script>
+        <!-- Load FontAwesome asynchronously -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" media="print" onload="this.media='all'">
+        <!-- Google Analytics - load async -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3EKBJ8XLE"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
           gtag('config', 'G-S3EKBJ8XLE');
         </script>
+        <!-- Inline critical CSS -->
+        <style>
+            /* Critical CSS to avoid render blocking */
+            body {
+                --dark: #181a1f;
+                --back: #24252d;
+                background-color: var(--back);
+                margin: 0;
+                padding: 0;
+                color: #8b909b;
+                font: 1rem/1.5 Arial, Helvetica, sans-serif;
+            }
+            .background-image {
+                position: fixed;
+                z-index: -1000;
+                height: 100%;
+                width: 100%;
+                opacity: 0.1;
+            }
+            header {
+                padding: 0 8%;
+                width: 84%;
+                background: linear-gradient(180deg, var(--dark), #00000000);
+            }
+        </style>
+        <!-- Add script to initialize highlight.js after page loads -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+        <!-- Add lazy loading support -->
+        <script src="../../shared/js/lazyload.js" defer></script>
     </head>
     <body>
         <div class="wrapper">
-            <div class="background-image hidden"></div>
+            <div class="background-image hidden" data-bg="../../shared/images/background.png"></div>
             <header>
                 <div class="header-buttons">
                     <div class="left">
@@ -109,7 +146,7 @@ int B;
 bool C = false,
 //"D" is also a bool because of the comma after the "C" definition.
 D = true;
-</pre></code>
+</code></pre>
                     <p>
                         As you can see with the integer case, you can initialize a variable's type without setting a value. This is like local variables in GM (e.g. var i = 0). Also, you can use commas instead of semicolons when defining multiple variables of the same data type. This is shown with bool "D".
                     </p>
@@ -121,7 +158,7 @@ D = true;
 float A = float(5);
 //Cast a bool to an int (false = 0, true = 1).
 int B = int(true);
-</pre></code>
+</code></pre>
                     <a href="./#dimensions"><h2 id="dimensions">Dimensions and components</h2></a>
                     <p>
                         Unlike in GML, some shader variables can contain up to 4 values at once and these values are called "components" of the variable. <span title="Vectors are variables with 2 or more components and scalars only have one component like in GML.">Vectors</span> make it much easier to do math with 2,3 or 4 dimensions. If you want to add two vectors together you can do so with a single operation, like you would with any other variable (which will be very useful later).
@@ -138,7 +175,7 @@ vec3 cube = vec3(line, 2.0, 3.0);
 //You can also include vectors:
 //Construct a 4D vector containing 1.0, 2.0, 3.0 and 4.0 respectively.
 vec4 tess = vec4(cube, 4.0);
-</pre></code>
+</code></pre>
                     <p>
                         You can also do the same with integers by using int, ivec2, ivec3, and ivec4. As you may have guessed, you can do the same with Booleans (bool, bvec2, bvec3, and bvec4), but they aren't used as often.
                     </p>
@@ -169,7 +206,7 @@ vec4 D = A.abgr;
 //This also works for setting vectors:
 //Set the first two component to the last two components, vec2(2, 3).
 A.st = A.pq;
-</pre></code>
+</code></pre>
                     <p>
                         It's important to tell you, you <strong>CANNOT mix components from one set with another.</strong> So you can pick between xyzw, rgba or stpq, but you can't do something like xyrg because this will cause an error.
                     </p>
@@ -189,7 +226,7 @@ vec2 y_dot = rotate[1];
 mat3 rotate2 = mat3(0.6, 0.8, 0.0, -0.8, 0.6, 0.0, 0.0, 0.0, 1.0);
 //Get the first column, second row component which is 0.8
 float y_z = rotate2[0][1];
-</pre></code>
+</code></pre>
                     <p>
                         Matrices can be used to scale, rotate or skew vectors simple by multiplying a vector by a matrix. Matrix multiplication is <a href="https://en.wikipedia.org/wiki/Commutative_property" target="_blank">non-commutative</a>, meaning that the result can be different depending on the <span title="So matrix * vector is not necessarily the same value as vector * matrix">order of multiplication</span>. You can learn more on this in the next tutorial, but for now you just need to know it's used to "transform" vectors.
                     </p>
@@ -222,11 +259,11 @@ float y_z = rotate2[0][1];
 ivec2 array[4];
 //Set the 2 index value as a ivec2.
 array[2] = ivec2(2,4);
-</pre></code>
+</code></pre>
                         <li>
                             <strong>struct:</strong> A structure or group of of the other data types in a single variable. It's a bit like how in GM, objects have many properties like x, y, sprite_index, etc, but with structures, you can use any data types.
                         </li>
-<pre><code  class="glsl">//Initialize structure format.
+<pre><code class="glsl">//Initialize structure format.
 struct sample
 {
     vec2 uv;
@@ -239,7 +276,7 @@ sample pixel = sample(v_vTexcoord,gm_BaseTexture);
 vec2 pix_uv = pixel.uv;
 //Set pixel's texture to "uni_diffuse".
 pixel.tex = uni_diffuse;
-</pre></code>
+</code></pre>
                     </ul>
                     <a href="./#precision"><h2 id="precision">Precision Qualifiers</h2></a>
                     <p>
@@ -276,7 +313,7 @@ precision lowp int;
 
 //Set the color at low precision.
 lowp vec3 color = vec3(0.2, 0.4, 0.8);
-</pre></code>
+</code></pre>
                     <a href="./#summary"><h2 id="summary">Summary</h2></a>
                     <p>
                         Great job! You've learned about all the different data types and what they store. You've learned how to handle multi-dimensional variables (vectors) and their components. You now know how to access shader inputs (attributes, varyings, uniforms) and how to use constants, data groups (arrays and structs) and precision. This lays the framework necessary to understand functions and logic which is covered in the next tutorial. For now, pat yourself on the back and take a break if you need it!
@@ -285,7 +322,7 @@ lowp vec3 color = vec3(0.2, 0.4, 0.8);
               </div>
             </div>
             <div class="navigate-end"></div>
-            <footer><div class="left">&copy; GM Shaders 2024</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+            <footer><div class="left">&copy; GM Shaders 2025</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
         </div>
         <script>initialize();</script>
     </body>
