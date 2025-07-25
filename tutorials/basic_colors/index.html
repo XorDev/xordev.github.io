@@ -176,7 +176,7 @@ invert = make_color_rgb(r_invert, g_invert, b_invert);
                     </p>
                     <pre><code class="glsl">float gray = 0.299 * tex.r + 0.587 * tex.g + 0.114 * tex.b;</code></pre>
                     This can be simplified by using a <a href="/glossary/?load=dot" target="_blank">dot product</a>! (which GPUs are really good at computing). If you happen to end up with a formula of the above form then you can always write it in a much shorter way using the <code class="glsl">dot</code> function:
-                    <pre><code class="glsl">float gray = dot(tex, vec4(0.299, 0.587, 0.114, 0.0));</code></pre>
+                    <pre><code class="glsl">float gray = dot(tex, vec4(0.2126, 0.7152, 0.0722, 0.0));</code></pre>
                     The factor for alpha is set to 0 to make sure that component doesn't influence the result. Zero times anything you can think of is still zero. Alternatively you can take the dot product of <code class="glsl">tex.rgb</code> and a <code>vec3</code>.<br/>
                     <p>
                         To get the final pixel color you create a new vector with all components set to the value of <code class="glsl">gray</code>:
@@ -188,7 +188,7 @@ invert = make_color_rgb(r_invert, g_invert, b_invert);
                         The grayscale value can be used further to create a saturation effect. In this effect the original color is mixed or blended with the new grayscale color depending on the saturation value. As the description may have given away, you can do this in a shader using the <code class="glsl">mix</code> function.
                         The fragment shader code for a saturation shader looks like this:
                     <pre><code class="glsl">vec4 tex = v_color * texture2D( gm_BaseTexture, v_texcoord);
-float gray = dot(tex, vec4(0.299, 0.587, 0.114, 0));
+float gray = dot(tex, vec4(0.2126, 0.7152, 0.0722, 0));
 
 vec4 shade = vec4(gray, gray, gray, tex.a);
 gl_FragColor = mix(shade, tex, u_saturation);
@@ -211,7 +211,7 @@ gl_FragColor = mix(shade, tex, u_saturation);
                         The tone is sent to the shader via a new color uniform <code>u_tone</code>.
                     </p>
                     <pre><code class="glsl">vec4 tex = v_color * texture2D( gm_BaseTexture, v_texcoord);
-float gray = dot(tex, vec4(0.299, 0.587, 0.114, 0));
+float gray = dot(tex, vec4(0.2126, 0.7152, 0.0722, 0));
 
 vec4 shade = vec4(gray * u_tone.rgb, tex.a);
 gl_FragColor = mix(shade, tex, u_tone.a);

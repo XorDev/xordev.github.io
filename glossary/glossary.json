@@ -448,7 +448,7 @@
         "returns": "float, dot product of 'a' and 'b'",
         "desc": "Returns the sum of the components of `a * b`. So if 'a' and 'b' are vec2s then `dot(a, b) = a.x * b.x + a.y * b.y`.<br>Dot products have many different uses. If you know both vectors are normalized, then the dot product will be 1.0 if they are pointed in the same direction, 0.0 if perpendicular and -1.0 if opposite along with values in between. You can use <a href='/glossary/?load=acos' target='_blank'>acos</a> on the dot product to find the angle between the two vectors.<br>If one vector is normalized, the dot product tells you how far a vector is along that direction.",
         "examples": [
-            "//Compute the luminance using a weighted average\nfloat grayscale = dot(color.rgb, vec3(0.299, 0.587, 0.114));",
+            "//Compute the luminance using a weighted average\nfloat grayscale = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));",
             "//A gradient between a start and end point\nvec2 direction = end - start;\nfloat gradient = dot(position - start, direction) / dot(direction, direction);",
             "//Compute the dot lighting with the light direction\nfloat light_dot = max(dot(normal, normalize(pos - light_pos)), 0.0);",
             "//Compute a pseudo-random hash from 'n'\nfloat hash = fract(sin(dot(n, vec2(4.044,6.536))) * 4101.);"]

@@ -832,7 +832,7 @@ float light_dot = max(dot(normal, normalize(pos - light_pos)), 0.0);</pre></code
                     </div><div class="examples ">
                             <div class="title">Examples:</div>
                             <ul><li><pre><code>//Compute the luminance using a weighted average
-float grayscale = dot(color.rgb, vec3(0.299, 0.587, 0.114));</pre></code></li><li><pre><code>//A gradient between a start and end point
+float grayscale = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));</pre></code></li><li><pre><code>//A gradient between a start and end point
 vec2 direction = end - start;
 float gradient = dot(position - start, direction) / dot(direction, direction);</pre></code></li><li><pre><code>//Compute the dot lighting with the light direction
 float light_dot = max(dot(normal, normalize(pos - light_pos)), 0.0);</pre></code></li><li><pre><code>//Compute a pseudo-random hash from 'n'
