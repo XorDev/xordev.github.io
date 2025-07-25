@@ -170,7 +170,7 @@ color = color.rrr; //Use mono-color from red channel.
                         <br>
                         The second approach is to approximate "perceptive" brightness. For example, lime green appears brighter than blue even if they have the same RGB average. So instead of giving red, green, and blue the same weight, we'll give green a higher weight and blue a lower weight:
                         <pre><code class="glsl">float weighted = dot(color.rgb, vec3(0.2126, 0.7152, 0.0722));</code></pre>
-                        The <a href="/glossary/?load=dot" target="_blank">dot</a> product simply adds up the color's red value times 0.299, green times 0.587, and blue times 0.114 which also adds up to a max value of 1.0. These come from fairly standard <a href="https://en.wikipedia.org/wiki/Luma_(video)#Rec._601_luma_versus_Rec._709_luma_coefficients" target="_blank">luma</a> values. There are more many more sophisticated compute brightness, but this is adequate for most game effects.
+                        The <a href="/glossary/?load=dot" target="_blank">dot</a> product simply adds up the color's red value times 0.2126, green times 0.7152, and blue times 0.0722 which also adds up to a max value of 1.0. These come from fairly standard <a href="https://en.wikipedia.org/wiki/Luma_(video)#Rec._601_luma_versus_Rec._709_luma_coefficients" target="_blank">luma</a> values. There are more many more sophisticated compute brightness, but this is adequate for most game effects.
                     </p>
                     <h3>Gamma correction</h3>
                     <p>

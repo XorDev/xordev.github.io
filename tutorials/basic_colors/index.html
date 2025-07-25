@@ -174,7 +174,7 @@ invert = make_color_rgb(r_invert, g_invert, b_invert);
                     <p>
                         The formula to get the grayscale value is the following:
                     </p>
-                    <pre><code class="glsl">float gray = 0.299 * tex.r + 0.587 * tex.g + 0.114 * tex.b;</code></pre>
+                    <pre><code class="glsl">float gray = 0.2126 * tex.r + 0.7152 * tex.g + 0.0722 * tex.b;</code></pre>
                     This can be simplified by using a <a href="/glossary/?load=dot" target="_blank">dot product</a>! (which GPUs are really good at computing). If you happen to end up with a formula of the above form then you can always write it in a much shorter way using the <code class="glsl">dot</code> function:
                     <pre><code class="glsl">float gray = dot(tex, vec4(0.2126, 0.7152, 0.0722, 0.0));</code></pre>
                     The factor for alpha is set to 0 to make sure that component doesn't influence the result. Zero times anything you can think of is still zero. Alternatively you can take the dot product of <code class="glsl">tex.rgb</code> and a <code>vec3</code>.<br/>
