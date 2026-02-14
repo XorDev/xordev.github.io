@@ -1,13 +1,13 @@
 {
-  "shaders":
-  [ {
-    "name": "#1 GameMaker",
-    "description": "Setup and use of shaders in GameMaker.",
-    "pagename": "gamemaker",
-    "date": 1633120661
+  "Getting Started": [
+    {
+      "name": "#1 GameMaker",
+      "description": "Setup and use of shaders in GameMaker.",
+      "pagename": "gamemaker",
+      "date": 1633120661
     },
     {
-      "name": "#2 Data types",
+      "name": "#2 Data Types",
       "description": "Introduction to data types and conversion.",
       "pagename": "datatypes",
       "date": 1633120661
@@ -19,11 +19,106 @@
       "date": 1633120661
     },
     {
-      "name": "#4 Tips and tricks",
+      "name": "#4 Tips & Tricks",
       "description": "All about optimizing and improving shaders.",
       "pagename": "tips_and_tricks",
       "date": 1633120661
     },
+    {
+      "name": "Imagination",
+      "description": "Tips and tricks for thinking more clearly about shaders.",
+      "url": "https://mini.gmshaders.com/p/imagination",
+      "date": 1693612800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/776b0c9b-3017-4180-936b-9665ed917828_1920x1080.png"
+    },
+    {
+      "name": "Limits",
+      "description": "The limits of shaders.",
+      "url": "https://mini.gmshaders.com/p/limits",
+      "date": 1695945600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6bd3fcfd-c100-48df-8f3d-52c9c63bec68_1920x1080.png"
+    },
+    {
+      "name": "Common Formulas",
+      "description": "Common math used in shader programming.",
+      "url": "https://mini.gmshaders.com/p/math1",
+      "date": 1694390400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/4dba2e45-af23-468f-a64a-74bbd888a7ed_1920x1080.jpeg"
+    },
+    {
+      "name": "HLSL",
+      "description": "An alternative shader language and porting between GLSL and HLSL.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-hlsl-1486931",
+      "date": 1669939200,
+      "image": "https://substackcdn.com/image/fetch/$s_!G-vS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F252c5fce-76e5-4c84-bfc4-d2147274b74c_1632x847.png"
+    }
+  ],
+  "Math & Functions": [
+    {
+      "name": "Dot Product",
+      "description": "The vector dot product: what it is and its many uses.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-the-dot-product-1329407",
+      "date": 1662163200,
+      "image": "https://substackcdn.com/image/fetch/$s_!wCwb!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faf2e2dca-58ef-4fad-9edf-9c547dc62ca6_1920x1080.png"
+    },
+    {
+      "name": "Derivatives",
+      "description": "What is dFdx? Investigating shader derivatives.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-derivatives",
+      "date": 1680220800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/fbd1fe1f-7990-4747-b00a-58756c11d818_1280x720.png"
+    },
+    {
+      "name": "Vector Spaces",
+      "description": "Texture space, screen space, world space, and more.",
+      "url": "https://mini.gmshaders.com/p/vector-spaces",
+      "date": 1696636800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/68c4d07e-e9d1-4dbf-a4b7-53933a23ff89_1920x1080.png"
+    },
+    {
+      "name": "The Matrix",
+      "description": "An introduction to matrices and matrix multiplication.",
+      "url": "https://mini.gmshaders.com/p/matrix",
+      "date": 1700265600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/e5c3f3fb-792b-4ee5-ae6b-d925053c89cd_1920x1080.png"
+    },
+    {
+      "name": "Phi",
+      "description": "The mathematical constants for distributions.",
+      "url": "https://mini.gmshaders.com/p/phi",
+      "date": 1700870400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/17d2b363-7c86-4a45-9d24-6da9aa366c06_1920x1080.png"
+    },
+    {
+      "name": "Functions: Tanh",
+      "description": "An introduction to the hyperbolic tangent function.",
+      "url": "https://mini.gmshaders.com/p/func-tanh",
+      "date": 1748649600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/ed1f5981-8201-448a-8429-37e97d5e6bb8_1920x1080.png"
+    },
+    {
+      "name": "Functions: Mix",
+      "description": "An overview of the mix function and some unusual uses.",
+      "url": "https://mini.gmshaders.com/p/func-mix",
+      "date": 1756512000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/c41df3cc-967c-4da2-a171-04fe06c589bd_1920x1080.png"
+    },
+    {
+      "name": "Reading Math Papers",
+      "description": "An overview of mathematics for programmers.",
+      "url": "https://mini.gmshaders.com/p/readingmath",
+      "date": 1744243200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/d92444ce-014d-4b4d-a3a1-072d261723c0_1920x1080.webp"
+    },
+    {
+      "name": "3D Rotation",
+      "description": "How to rotate with Euler Angles and Axis Angles.",
+      "url": "https://mini.gmshaders.com/p/3d-rotation",
+      "date": 1760832000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/73076ba3-fa74-4601-899c-ce27bc898087_1920x1080.webp"
+    }
+  ],
+  "Color & Visual": [
     {
       "name": "Basic Colors",
       "description": "An introduction to color effects.",
@@ -35,5 +130,373 @@
       "description": "Exploring advanced color effects.",
       "pagename": "colors_extended",
       "date": 1657996911
-    }]
+    },
+    {
+      "name": "Blendmodes",
+      "description": "Recreating Photoshop blendmodes with shaders.",
+      "url": "https://mini.gmshaders.com/p/mini-blendmodes",
+      "date": 1676073600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/6183c759-a343-4ab8-bfa8-23b52c1e47fb_1920x1080.jpeg"
+    },
+    {
+      "name": "Dither",
+      "description": "Blending colors without mixing.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-dither",
+      "date": 1690243200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/1bf1e8a0-de30-4abf-82d4-eb2ae8909f62_1920x1080.png"
+    },
+    {
+      "name": "OkLab",
+      "description": "A more natural way to blend colors.",
+      "url": "https://mini.gmshaders.com/p/oklab",
+      "date": 1701475200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/5d2bb83c-1fe1-44a1-ad11-41547dcbcfb5_1920x1080.png"
+    },
+    {
+      "name": "Tonemaps",
+      "description": "How to conquer washed out lights and ugly color banding.",
+      "url": "https://mini.gmshaders.com/p/tonemaps",
+      "date": 1698537600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7efedbd0-5dab-4627-b839-3bbbe369b816_1920x1080.jpeg"
+    },
+    {
+      "name": "Gamma",
+      "description": "How computers handle lighting.",
+      "url": "https://mini.gmshaders.com/p/gamma",
+      "date": 1737676800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/44da34e3-fd03-42f3-a623-569344f4a1f5_1920x1080.jpeg"
+    },
+    {
+      "name": "Creative Code",
+      "description": "Writing code as an artistic expression.",
+      "url": "https://mini.gmshaders.com/p/creative-code",
+      "date": 1662768000,
+      "image": "https://substackcdn.com/image/fetch/$s_!ejo3!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F48de72f0-9617-4c3f-ab37-dbddae43872a_2000x2000.png"
+    },
+    {
+      "name": "Vis Dev",
+      "description": "Doctoring programmer art with visual design techniques.",
+      "url": "https://mini.gmshaders.com/p/visdev",
+      "date": 1725148800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/5667ab6c-2328-42c2-a837-c6b98a14dbaf_1920x1080.png"
+    },
+    {
+      "name": "Design Choices",
+      "description": "Guidelines to visually improve shader art.",
+      "url": "https://mini.gmshaders.com/p/design-choices",
+      "date": 1747612800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/f3b1fef1-d149-43fa-8712-a44913dde55d_1920x1080.png"
+    }
+  ],
+  "Lighting & Shadows": [
+    {
+      "name": "Lights",
+      "description": "The basics of light blending and attenuation.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-lights",
+      "date": 1673654400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/2e9bae14-75e1-4e8a-94a5-5088b714cf06_3840x2160.jpeg"
+    },
+    {
+      "name": "Shading",
+      "description": "Diffuse lighting, bump mapping and normals.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-shading",
+      "date": 1674691200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/41a2a0f6-71ed-4198-a0ab-4428db33dc04_3840x2160.jpeg"
+    },
+    {
+      "name": "Normal Maps",
+      "description": "Introduction to normal mapping.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-normal-maps",
+      "date": 1675468800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7ced7814-14f8-4704-b3aa-1937cc713894_1280x720.png"
+    },
+    {
+      "name": "Shadowmaps",
+      "description": "An introduction to 3D shadows.",
+      "url": "https://mini.gmshaders.com/p/shadowmaps",
+      "date": 1711152000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/4fb5e473-91fd-4adc-8b47-bb77cd4fc713_1920x1080.png"
+    },
+    {
+      "name": "Volume Shadows",
+      "description": "Volumetric fog and shadows in GameMaker (Guest: Oakleaff).",
+      "url": "https://mini.gmshaders.com/p/volume-shadows",
+      "date": 1712275200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/fc504c21-7437-4290-afd3-e6c90ab0426e_1920x1080.png"
+    },
+    {
+      "name": "Global Illumination",
+      "description": "Exploring 2D Global Illumination (Guest: yaazarai).",
+      "url": "https://mini.gmshaders.com/p/yaazarai-gi",
+      "date": 1701993600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/8212e354-ac58-44a3-8cfe-a7e041317317_1920x1080.png"
+    },
+    {
+      "name": "Radiance Cascades",
+      "description": "Introduction to Radiance Cascades (Guest: yaazarai).",
+      "url": "https://mini.gmshaders.com/p/radiance-cascades",
+      "date": 1712966400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/146bf52d-b164-4cb6-8ce0-e2ee3acc207a_1920x1080.png"
+    },
+    {
+      "name": "Radiance Cascades 2",
+      "description": "Optimizations and code deep dive (Guest: yaazarai).",
+      "url": "https://mini.gmshaders.com/p/radiance-cascades2",
+      "date": 1720828800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/d6716851-3604-4361-a6a2-270344209ec8_1920x1080.png"
+    }
+  ],
+  "Noise & Procedural": [
+    {
+      "name": "Noise",
+      "description": "Common noise functions for effects like smoke, water, and fire.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-noise-1437243",
+      "date": 1667520000,
+      "image": "https://substackcdn.com/image/fetch/$s_!QXNR!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa10f1cf7-1904-4208-9313-9a250fccf168_1920x1080.png"
+    },
+    {
+      "name": "Noise 2",
+      "description": "Worley, Voronoi, and fractal noise algorithms.",
+      "url": "https://mini.gmshaders.com/p/noise2",
+      "date": 1668124800,
+      "image": "https://substackcdn.com/image/fetch/$s_!Dbtt!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75238f70-ffe7-4013-add5-409fb5d5194e_1920x1080.png"
+    },
+    {
+      "name": "Noise 3",
+      "description": "Simplex noise, tileable noise and performance optimization.",
+      "url": "https://mini.gmshaders.com/p/noise3",
+      "date": 1705104000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/7b2b7fce-db56-400c-9f59-1e4b2c6bb647_1920x1080.jpeg"
+    },
+    {
+      "name": "Fractal Texturing",
+      "description": "Preserving texture detail at any scale.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-fractal-texturing-1408552",
+      "date": 1665792000,
+      "image": "https://substackcdn.com/image/fetch/$s_!cIZQ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0bb59100-9dcf-463f-b8db-c1036d41da00_1920x1080.png"
+    },
+    {
+      "name": "Turbulence",
+      "description": "Approximating fluid dynamics and flames efficiently.",
+      "url": "https://mini.gmshaders.com/p/turbulence",
+      "date": 1742169600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/865ec5f2-382f-4deb-9803-c4b3fc01c32c_1920x1080.png"
+    },
+    {
+      "name": "Efficient Chaos",
+      "description": "Techniques for fast pseudo-randomness in pixel shaders.",
+      "url": "https://mini.gmshaders.com/p/chaos",
+      "date": 1752105600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/b7bfc0c2-cb64-4fe9-96df-ddc15700aec3_1920x1080.png"
+    },
+    {
+      "name": "Dot Noise",
+      "description": "A cheap alternative to 3D simplex noise.",
+      "url": "https://mini.gmshaders.com/p/dot-noise",
+      "date": 1757030400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/9c03c2b2-2f0c-4b2b-9920-532f0c7ab807_1920x1080.png"
+    }
+  ],
+  "3D & Raymarching": [
+    {
+      "name": "MandelBots",
+      "description": "A technical overview of a raymarched, fractal game.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-mandelbots",
+      "date": 1689379200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/c1d7316e-c646-4711-a152-acee67e4ecb9_1920x1080.jpeg"
+    },
+    {
+      "name": "SDF Tricks",
+      "description": "Cool things you can do with Signed Distance Functions.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-sdf-tricks",
+      "date": 1683244800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/48d28782-f181-4a9f-9bf1-d05a6a93ba99_1920x1080.jpeg"
+    },
+    {
+      "name": "JFA",
+      "description": "Using the Jump Flooding Algorithm for a distance field.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-jfa",
+      "date": 1684454400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/2db7d8c5-37f4-434d-b2a8-607ce141bfd0_1280x720.jpeg"
+    },
+    {
+      "name": "Signed Distance Fields",
+      "description": "How SDFs work in shaders and how to write your own.",
+      "url": "https://mini.gmshaders.com/p/sdf",
+      "date": 1739923200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/af97e04d-f47e-4ea6-bd3c-e5a7969b2fcc_1920x1080.png"
+    },
+    {
+      "name": "Voxels",
+      "description": "How voxel raytracing works.",
+      "url": "https://mini.gmshaders.com/p/voxels",
+      "date": 1717200000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/54957315-bb35-4a9f-bd23-c984365694e9_1920x1080.png"
+    },
+    {
+      "name": "Voxels 2",
+      "description": "Creating editable voxel maps with 2D textures.",
+      "url": "https://mini.gmshaders.com/p/voxels2",
+      "date": 1724544000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/b23ebbad-8ba6-437b-af15-0f3ee8c5a040_1920x1080.png"
+    },
+    {
+      "name": "Volumetric Raymarching",
+      "description": "Rendering clouds, fire, smoke, light rays and more.",
+      "url": "https://mini.gmshaders.com/p/volumetric",
+      "date": 1755907200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/390147d6-d1d7-4c07-92be-2c23e9013b1a_1920x1080.webp"
+    },
+    {
+      "name": "3D Graphics in GM",
+      "description": "Creating advanced 3D graphics in GameMaker (Guest: Gaming Engineer).",
+      "url": "https://mini.gmshaders.com/p/gaming-engineer",
+      "date": 1692316800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/3a690ac3-0a41-4b5c-9a4f-17407662b8fb_1899x1080.png"
+    },
+    {
+      "name": "3D Particles",
+      "description": "Using shader_enable_corner_id() for 3D particles (Guest: Bart).",
+      "url": "https://mini.gmshaders.com/p/guest-bart",
+      "date": 1693094400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/ef226a15-430b-4566-9a5b-1733f77ec0cc_1920x1080.png"
+    }
+  ],
+  "Post Processing": [
+    {
+      "name": "Bloom",
+      "description": "How to do a rich bloom effect.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-bloom",
+      "date": 1682640000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/af2d65df-a0fd-42d2-bad5-3974c7edbc48_1920x1080.jpeg"
+    },
+    {
+      "name": "FXAA",
+      "description": "All about Fast Approximate Anti-Aliasing.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-fxaa",
+      "date": 1682121600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/39c26127-5173-48bc-b658-493a8348a5d9_1920x1080.jpeg"
+    },
+    {
+      "name": "Chromatic Aberration",
+      "description": "Exploring 5 different color shifting effects for games.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-chromatic-aberration",
+      "date": 1686441600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/16904a5d-6c24-4688-a113-4e42f88713d7_1920x1080.png"
+    },
+    {
+      "name": "CRT",
+      "description": "Breaking down the Cathode-Ray Tube effect.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-crt",
+      "date": 1691366400,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/db4d9a0c-16fa-4a6c-b6de-3dacc30a0988_1920x1080.png"
+    },
+    {
+      "name": "Mipmaps",
+      "description": "How to downsample textures for quality and performance.",
+      "url": "https://mini.gmshaders.com/p/mipmaps",
+      "date": 1705708800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/880381a2-174b-48d4-ae18-a777d7f0e57b_1920x1080.png"
+    },
+    {
+      "name": "Blur Philosophy",
+      "description": "How to write a better blur shader.",
+      "url": "https://mini.gmshaders.com/p/blur-philosophy",
+      "date": 1708128000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/d773f3e3-3c51-4c3e-8c08-f34d1582b695_1920x1080.png"
+    },
+    {
+      "name": "Blur Philosophy 2",
+      "description": "Improving blur with interpolation, downscaling and more.",
+      "url": "https://mini.gmshaders.com/p/blur2",
+      "date": 1709337600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/845620b9-4ff8-47f5-ac9f-eaa8872fa670_1920x1080.png"
+    },
+    {
+      "name": "Anti-Aliasing",
+      "description": "How to filter your shaders.",
+      "url": "https://mini.gmshaders.com/p/antialiasing",
+      "date": 1736553600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/c64ed775-52a6-41e0-9585-7d7938367c38_1920x1080.png"
+    },
+    {
+      "name": "MRT",
+      "description": "Output to multiple surfaces simultaneously (Multiple Render Targets).",
+      "url": "https://mini.gmshaders.com/p/mrt",
+      "date": 1704499200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/40b6dcdb-7340-4111-88cd-aed43897f0b3_1920x1080.jpeg"
+    }
+  ],
+  "Techniques & Code": [
+    {
+      "name": "Recursive Shaders",
+      "description": "Shaders applied to the same surface over and over.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-recursive-shaders-1308459",
+      "date": 1660867200,
+      "image": "https://substackcdn.com/image/fetch/$s_!6h2U!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd795b638-8b88-4894-9e65-f3194548746e_1920x1080.png"
+    },
+    {
+      "name": "Code Golfing",
+      "description": "The art of writing minimal shader code.",
+      "url": "https://mini.gmshaders.com/p/code-golfing",
+      "date": 1661472000,
+      "image": "https://substackcdn.com/image/fetch/$s_!W8QK!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F75f9fa64-d55c-454b-b21b-3cbb6e01888b_1920x1080.jpeg"
+    },
+    {
+      "name": "Optimization",
+      "description": "General tricks for writing more efficient shader code.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-optimization-1497479",
+      "date": 1670630400,
+      "image": "https://substackcdn.com/image/fetch/$s_!xvZu!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F65a3ae32-ffb0-43e2-a52d-b4373da9084d_1920x1080.png"
+    },
+    {
+      "name": "Twigl",
+      "description": "Porting tweet shaders to GameMaker.",
+      "url": "https://mini.gmshaders.com/p/gm-shaders-mini-twigl",
+      "date": 1673049600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/957df64f-e30f-4c67-ab9e-3a5c12035fb6_3060x1248.png"
+    },
+    {
+      "name": "WebGPU",
+      "description": "The new web standard for accelerated graphics and compute.",
+      "url": "https://mini.gmshaders.com/p/webgpu",
+      "date": 1707523200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/4701c4b6-f5ad-4fa8-9255-938b32faeddb_1920x1080.png"
+    },
+    {
+      "name": "Vertex Shaders",
+      "description": "An introduction to vertex shaders: when and how to use them.",
+      "url": "https://mini.gmshaders.com/p/vertex",
+      "date": 1717891200,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/f42931ca-6a91-4e5c-bb60-a970614488de_1920x1080.png"
+    },
+    {
+      "name": "Combining Shaders",
+      "description": "How and when to combine shaders into a single pass.",
+      "url": "https://mini.gmshaders.com/p/combiningshaders",
+      "date": 1745020800,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/3ade70fb-26d6-4096-9aa7-d58d6f716500_1920x1080.webp"
+    },
+    {
+      "name": "Common Mistakes",
+      "description": "Avoiding the most common problems in graphics programming.",
+      "url": "https://mini.gmshaders.com/p/mistakes",
+      "date": 1745625600,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/fa005426-1a58-445a-a908-065cd5e3ce1a_1920x1080.webp"
+    },
+    {
+      "name": "Modeling the World",
+      "description": "Crafting tiny, expressive shaders in 280 characters.",
+      "url": "https://mini.gmshaders.com/p/modeling-the-world",
+      "date": 1750636800,
+      "image": "https://substackcdn.com/image/fetch/$s_!-utU!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a755880-28b6-46a2-9c9c-8c86921d9c8d_1200x900.jpeg"
+    },
+    {
+      "name": "Decoding: Phosphor",
+      "description": "Creating glowing, fluid particles in just 258 characters.",
+      "url": "https://mini.gmshaders.com/p/decoding-phosphor",
+      "date": 1753488000,
+      "image": "https://substack-post-media.s3.amazonaws.com/public/images/c44e0b6d-de45-4dc9-99a2-f13fea1f41bf_1920x1080.png"
+    }
+  ]
 }

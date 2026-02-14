@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <title>GM Shaders</title>
-        <meta name="description" content="Shader tutorials for GameMaker">
-        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev">
-        <meta name="copyright" content="Copyright 2024 GM Shaders">
-        <meta name="theme-color" content="#e0ba23">
-        <!-- Twitter -->
+        <meta name="description" content="Shader tutorials for GameMaker by Xor">
+        <meta name="keywords" content="Tutorials,Shaders,GameMaker,GM,Gamedev,Graphics,Programming">
+        <meta name="copyright" content="Copyright 2026 GM Shaders">
+        <meta name="theme-color" content="#f4ca32">
+        <!-- Twitter/X -->
         <meta name="twitter:site" content="@XorDev">
         <meta name="twitter:title" content="GM Shaders">
-        <meta name="twitter:description" content="Shader tutorials for GameMaker">
-        <meta name="twitter:image" content="../../shared/images/icon.png">
-        <meta name="twitter:url" content="https://GMshaders.com">
+        <meta name="twitter:description" content="Shader tutorials for GameMaker by Xor">
+        <meta name="twitter:image" content="./shared/images/icon.png">
+        <meta name="twitter:url" content="https://gmshaders.com">
         <!-- Open Graph -->
         <meta property="og:title" content="GM Shaders">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://GMshaders.com/">
-        <meta property="og:image" content="../../shared/images/icon.png">
-        <meta property="og:description" content="Shader tutorials for GameMaker">
+        <meta property="og:url" content="https://gmshaders.com/">
+        <meta property="og:image" content="./shared/images/icon.png">
+        <meta property="og:description" content="Shader tutorials for GameMaker by Xor">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Miscellaneous -->
-        <link rel="icon" href="../../shared/images/icon.png">
-        <link rel="stylesheet" href="./shared/css/style.css">
-        <script src="./shared/js/home.js"></script>
+        <!-- Styles -->
+        <link rel="icon" href="./shared/images/icon.png">
+        <link rel="stylesheet" href="./shared/css/style.css?v=3">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+        <!-- Scripts -->
+        <script src="./shared/js/home.js?v=3"></script>
         <script>const root = './';</script>
-        <script src="./shared/js/options.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.css" integrity="sha384-YUkLDKfIHKKPXyTxOqW7iOjFJSl8vAO0X3DgGqpRKHu6R4VKlAGZNr6PIQgTUZYQ" crossorigin="anonymous">
+        <script src="./shared/js/options.js?v=2"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3EKBJ8XLE"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
           gtag('config', 'G-S3EKBJ8XLE');
         </script>
     </head>
@@ -55,37 +55,44 @@
                     </div>
                 </div>
             </header>
-            <div class="searchbar" style="margin-bottom:3rem">
-                <div class="bar">
-                    <input id="search_docs" type="search" placeholder="Search">
+
+            <section class="hero">
+                <h1>GM Shaders</h1>
+                <p>Shader tutorials for professional game developers and software engineers</p>
+                <div class="searchbar">
+                    <div class="bar">
+                        <input id="search_docs" type="search" placeholder="Search tutorials...">
+                    </div>
+                    <div class="results"></div>
                 </div>
-                <div class="results"></div>
-            </div>
-            <div id="showcase" class="latest"></div>
+            </section>
+
+            <div id="showcase"></div>
+
             <div id="tutorials">
-                <div class="grid">
+                <div class="tutorials-header">
+                    <div class="section-title">Tutorials</div>
+                    <div id="category-tabs"></div>
                 </div>
-                <div class="inspector">
-                </div>
-
-                <iframe src="https://mini.gmshaders.com/embed" width="100%" height="320" background="white" frameborder="0" scrolling="no"></iframe>
-
-                <div id="substack-feed-embed"></div>
-                <script>
-                  window.SubstackFeedWidget = {
-                    substackUrl: "mini.gmshaders.com",
-                    posts: 3,
-                    layout: "right",
-                    colors: {
-                      primary: "#F4CA32",
-                      secondary: "#8B909B",
-                      background: "#24252D",
-                    }
-                  };
-                </script>
-                <script src="https://substackapi.com/embeds/feed.js" async></script>
+                <div id="tutorials-content"></div>
             </div>
-            <footer><div class="left">&copy; GM Shaders 2025</div><div class="right"> Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div></footer>
+
+            <div class="newsletter-section">
+                <div class="newsletter-inner">
+                    <div class="newsletter-text">
+                        <div class="section-title">Mini GM Shaders</div>
+                        <p>Get regular shader tutorials, breakdowns, and creative coding tips delivered to your inbox.</p>
+                    </div>
+                    <a href="https://mini.gmshaders.com/" target="_blank" class="newsletter-btn">
+                        <i class="fas fa-envelope"></i> Subscribe
+                    </a>
+                </div>
+            </div>
+
+            <footer>
+                <div class="left">&copy; GM Shaders 2026</div>
+                <div class="right">Website developed by <a target="_blank" href="https://TonyStr.net">TonyStr</a></div>
+            </footer>
         </div>
         <script>initialize();</script>
     </body>
